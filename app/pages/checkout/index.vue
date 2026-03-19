@@ -1,6 +1,6 @@
 <template>
   <div>
-    catalog
+    checkout
   </div>
 </template>
 

@@ -1,6 +1,6 @@
 <template>
   <div>
-    catalog
+    content page
   </div>
 </template>
 
