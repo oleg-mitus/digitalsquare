@@ -1,0 +1,43 @@
+@use 'colors';
+@use 'mixins';
+
+/* A common starting point in modern projects */
+*,
+*::before,
+*::after {
+  box-sizing: border-box; /* Ensures consistent box model */
+}
+
+/* Optional: remove default margin/padding for consistency */
+/* and optimize for smooth scrolling */
+html,
+body {
+  margin: 0;
+  padding: 0;
+  scroll-behavior: smooth;
+  font-family: 'Roboto';
+}
+
+/* Make media elements responsive and prevent layout shifts */
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* Inherit fonts for form elements */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+/* Remove default button styling for a clean slate */
+button {
+  all: unset;
+  cursor: pointer;
+}
