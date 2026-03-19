@@ -3,22 +3,17 @@
     <div class="container">
       <div class="footer-grid">
         <div class="footer-col">
-          <h4>О магазине</h4>
-          <p>Лучшие товары по доступным ценам с доставкой по всей стране.</p>
+          
         </div>
         <div class="footer-col">
-          <h4>Помощь</h4>
-          <NuxtLink to="/checkout">Оплата и доставка</NuxtLink>
-          <NuxtLink to="/reviews">Обратная связь</NuxtLink>
+          
         </div>
         <div class="footer-col">
-          <h4>Контакты</h4>
-          <p>8 (800) 555-35-35</p>
-          <p>info@example.com</p>
+          
         </div>
       </div>
       <div class="footer-bottom">
-        &copy; {{ new Date().getFullYear() }} Nuxt4 Shop. Все права защищены.
+        
       </div>
     </div>
   </footer>

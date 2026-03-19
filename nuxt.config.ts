@@ -1,11 +1,9 @@
-import { join } from 'path';
-
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
   css: ['~/assets/scss/main.scss'],
-  modules: ['@nuxtjs/google-fonts', '@nuxtjs/svg-sprite'],
+  modules: ['@nuxtjs/google-fonts'],
   vite: {
     css: {
       preprocessorOptions: {
@@ -21,8 +19,4 @@ export default defineNuxtConfig({
     },
     display: 'swap',
   },
-  svgSprite: {
-		input: '~/src/assets/sprite/svg',
-		output: '~/src/assets/sprite/gen'
-	},
 });
