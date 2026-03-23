@@ -28,9 +28,7 @@
             совместимые, доставка по России за 1–2 дня.
           </div>
           <div class="home__hero-content_button">
-            <NuxtLink to="/catalog" class="ui-button ui-button-yellow"
-              >Перейти каталог</NuxtLink
-            >
+            <UiButton href="/catalog">Перейти каталог</UiButton>
           </div>
         </div>
       </div>

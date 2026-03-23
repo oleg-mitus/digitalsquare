@@ -6,11 +6,11 @@ const toggleMenu = () => (isMenuOpen.value = !isMenuOpen.value);
 const closeMenu = () => (isMenuOpen.value = false);
 
 const navLinks = [
-  { name: 'Главная', path: '/' },
-  { name: 'Каталог', path: '/catalog' },
-  { name: 'Отзывы', path: '/reviews' },
-  { name: 'Новости', path: '/news' },
-  { name: 'Статьи', path: '/articles' },
+  { name: "Главная", path: "/" },
+  { name: "Каталог", path: "/catalog" },
+  { name: "Отзывы", path: "/reviews" },
+  { name: "Новости", path: "/news" },
+  { name: "Статьи", path: "/articles" },
 ];
 </script>
 
@@ -50,13 +50,30 @@ const navLinks = [
           <NuxtLink to="/">
             <img src="~/assets/images/logo.png" alt="logo" />
           </NuxtLink>
-          <NuxtLink to="/" class="header__bottom-catalog" @click="closeMenu">
-            <SvgIcon name="phone" width="24px" height="24px" />
-            <span>Каталог</span>
-          </NuxtLink>
+          <UiButton icon="my-icon:icon-catalog" variant="secondary"
+            >Каталог</UiButton
+          >
         </div>
-
-        
+        <div class="header__bottom-right">
+          <div class="header__bottom-search"></div>
+          <div class="header__bottom-nav">
+            <div class="header__bottom-links">
+              <div class="header__bottom-link"></div>
+              <div class="header__bottom-links">
+                <NuxtLink to="/my-order">Мой заказ</NuxtLink>
+              </div>
+            </div>
+            <div class="header__bottom-icons">
+              <div class="header__bottom-icon"></div>
+              <div class="header__bottom-icon">
+                
+              </div>
+            </div>
+          </div>
+          <div class="header__bottom-profile">
+            <HeaderProfile />
+          </div>
+        </div>
       </div>
     </div>
   </header>
@@ -64,7 +81,7 @@ const navLinks = [
 
 <style lang="scss" scoped>
 $headerTopHeight: 43px;
-$headerBottomHeight: 90px;
+$headerBottomHeight: 92px;
 
 .header {
   position: sticky;
@@ -76,6 +93,8 @@ $headerBottomHeight: 90px;
 
   &__top {
     background-color: $primaryColor;
+    height: $headerTopHeight;
+    display: flex;
     &-content {
       display: flex;
       justify-content: space-between;
@@ -120,12 +139,20 @@ $headerBottomHeight: 90px;
       padding: 10px 20px;
       gap: 10px;
     }
+    &-right {
+      display: flex;
+      justify-content: flex-end;
+      flex: 1;
+      gap: 30px;
+    }
   }
 
   &__nav {
     list-style: none;
     display: flex;
     gap: 30px;
+    margin: 0;
+    padding: 0;
     &-item a {
       color: #fff;
       text-decoration: none;
