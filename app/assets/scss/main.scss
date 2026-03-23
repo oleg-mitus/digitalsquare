@@ -1,5 +1,7 @@
 @use 'colors';
 @use 'mixins';
+@use 'components/catalog';
+@use 'components/home';
 
 /* A common starting point in modern projects */
 *,
@@ -40,4 +42,8 @@ select {
 button {
   all: unset;
   cursor: pointer;
+}
+
+.main {
+  background-color: #f3f3f3;
 }

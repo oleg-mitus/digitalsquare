@@ -1,0 +1,29 @@
+.catalog {
+  &__wrapper {
+    width: 100%;
+    padding: 0 40px;
+  }
+  &__top {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+    &-title {
+      color: #2f2f2f;
+      h3 {
+        font-weight: 500;
+        font-size: 45px;
+        line-height: 1;
+      }
+    }
+    &-more {
+      a {
+        color: #fec93b;
+      }
+    }
+  }
+  &__grid {
+    display: grid;
+    gap: 20px;
+    grid-template-columns: repeat(4, 1fr);
+  }
+}

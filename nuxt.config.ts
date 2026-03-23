@@ -4,6 +4,7 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   css: ["~/assets/scss/main.scss"],
   modules: ["@nuxtjs/google-fonts", "@nuxt/icon"],
+  modules: ['@nuxtjs/google-fonts', '@nuxt/image'],
   vite: {
     css: {
       preprocessorOptions: {
