@@ -1,8 +1,9 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  compatibilityDate: '2025-07-15',
+  compatibilityDate: "2025-07-15",
   devtools: { enabled: true },
-  css: ['~/assets/scss/main.scss'],
+  css: ["~/assets/scss/main.scss"],
+  modules: ["@nuxtjs/google-fonts", "@nuxt/icon"],
   modules: ['@nuxtjs/google-fonts', '@nuxt/image'],
   vite: {
     css: {
@@ -15,8 +16,21 @@ export default defineNuxtConfig({
   },
   googleFonts: {
     families: {
-      Roboto: '200..700',
+      Roboto: "200..700",
     },
-    display: 'swap',
+    display: "swap",
+  },
+  icon: {
+    provider: "server",
+    customCollections: [
+      {
+        prefix: "my-icon",
+        dir: "./app/assets/icons/",
+        recursive: true,
+      },
+    ],
+    clientBundle: {
+      includeCustomCollections: true, // This option is key
+    },
   },
 });
