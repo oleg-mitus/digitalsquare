@@ -1,13 +1,127 @@
 <template>
-  <div>
-    home
+  <div class="home">
+    <div class="home__hero">
+      <div class="home__hero-back">
+        <video
+          playsinline
+          loop
+          muted
+          autoplay
+          poster="/video/poster.webp"
+          preload="metadata"
+        >
+          <source
+            src="/video/video.webm"
+            type="video/webm"
+          />
+          <source
+            src="/video/video.mp4"
+            type="video/mp4"
+          />
+        </video>
+      </div>
+      <div class="home__hero-front">
+        <div class="home__hero-content">
+          <div class="home__hero-content_title">Картриджи для принтеров</div>
+          <div class="home__hero-content_desc">
+            Картриджи для любой модели принтера — оригинал и проверенные
+            совместимые, доставка по России за 1–2 дня.
+          </div>
+          <div class="home__hero-content_button">
+            <NuxtLink to="/catalog" class="ui-button ui-button-yellow"
+              >Перейти каталог</NuxtLink
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="home__blocks">
+      <div class="home__block">
+        <div class="container">
+          <div class="home__blocks-top">
+            <div class="home__blocks-title">
+              <h3>Вы недавно смотрели</h3>
+            </div>
+            <div class="home__blocks-more">
+              <NuxtLink to="/catalog">Смотреть все </NuxtLink>
+            </div>
+          </div>
+          <div class="catalog__grid">
+            <CatalogProduct v-for="i in 8" :key="i" />
+          </div>
+        </div>
+      </div>
+      <div class="catalog">
+        <div class="catalog__wrapper">
+          <div class="home__blocks-top">
+            <div class="home__blocks-title">
+              <h3>Лучшие предложения</h3>
+            </div>
+            <div class="home__blocks-more">
+              <NuxtLink to="/catalog">Смотреть все </NuxtLink>
+            </div>
+          </div>
+          <div class="catalog__grid">
+            <CatalogProduct v-for="i in 8" :key="i" />
+          </div>
+        </div>
+      </div>
+      <div class="catalog">
+        <div class="catalog__wrapper">
+          <div class="catalog__top">
+            <div class="catalog__top-title">
+              <h3>Специально для вас</h3>
+            </div>
+            <div class="catalog__top-more">
+              <NuxtLink to="/catalog">Смотреть все </NuxtLink>
+            </div>
+          </div>
+          <div class="catalog__grid">
+            <CatalogProduct v-for="i in 8" :key="i" />
+          </div>
+        </div>
+      </div>
+      <div class="catalog">
+        <div class="catalog__wrapper">
+          <div class="home__blocks-top">
+            <div class="home__blocks-title">
+              <h3>Лучшие новинки</h3>
+            </div>
+            <div class="home__blocks-more">
+              <NuxtLink to="/catalog">Смотреть все </NuxtLink>
+            </div>
+          </div>
+          <div class="catalog__grid">
+            <CatalogProduct v-for="i in 8" :key="i" />
+          </div>
+        </div>
+      </div>
+      <div class="home__block">
+        <div class="home__blocks-top">
+          <div class="home__blocks-title">
+            <h3>Полезные статьи</h3>
+          </div>
+          <div class="home__blocks-more">
+            <NuxtLink to="/catalog">Смотреть все </NuxtLink>
+          </div>
+        </div>
+        <div class="articles__grid"></div>
+      </div>
+      <div class="home__block">
+        <div class="home__blocks-top">
+          <div class="home__blocks-title">
+            <h3>Новости</h3>
+          </div>
+          <div class="home__blocks-more">
+            <NuxtLink to="/catalog">Смотреть все </NuxtLink>
+          </div>
+        </div>
+        <div class="news__grid"></div>
+      </div>
+    </div>
   </div>
 </template>
 
-<script lang="ts" setup>
+<script lang="ts" setup></script>
 
-</script>
-
-<style>
-
-</style>
+<style></style>
