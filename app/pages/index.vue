@@ -10,14 +10,8 @@
           poster="/video/poster.webp"
           preload="metadata"
         >
-          <source
-            src="/video/video.webm"
-            type="video/webm"
-          />
-          <source
-            src="/video/video.mp4"
-            type="video/mp4"
-          />
+          <source src="/video/video.webm" type="video/webm" />
+          <source src="/video/video.mp4" type="video/mp4" />
         </video>
       </div>
       <div class="home__hero-front">
@@ -28,9 +22,7 @@
             совместимые, доставка по России за 1–2 дня.
           </div>
           <div class="home__hero-content_button">
-            <NuxtLink to="/catalog" class="ui-button ui-button-yellow"
-              >Перейти каталог</NuxtLink
-            >
+            <UiButton href="/catalog">Перейти каталог</UiButton>
           </div>
         </div>
       </div>
@@ -43,52 +35,7 @@
               <h3>Вы недавно смотрели</h3>
             </div>
             <div class="home__blocks-more">
-              <NuxtLink to="/catalog">Смотреть все </NuxtLink>
-            </div>
-          </div>
-          <div class="catalog__grid">
-            <CatalogProduct v-for="i in 8" :key="i" />
-          </div>
-        </div>
-      </div>
-      <div class="catalog">
-        <div class="catalog__wrapper">
-          <div class="home__blocks-top">
-            <div class="home__blocks-title">
-              <h3>Лучшие предложения</h3>
-            </div>
-            <div class="home__blocks-more">
-              <NuxtLink to="/catalog">Смотреть все </NuxtLink>
-            </div>
-          </div>
-          <div class="catalog__grid">
-            <CatalogProduct v-for="i in 8" :key="i" />
-          </div>
-        </div>
-      </div>
-      <div class="catalog">
-        <div class="catalog__wrapper">
-          <div class="catalog__top">
-            <div class="catalog__top-title">
-              <h3>Специально для вас</h3>
-            </div>
-            <div class="catalog__top-more">
-              <NuxtLink to="/catalog">Смотреть все </NuxtLink>
-            </div>
-          </div>
-          <div class="catalog__grid">
-            <CatalogProduct v-for="i in 8" :key="i" />
-          </div>
-        </div>
-      </div>
-      <div class="catalog">
-        <div class="catalog__wrapper">
-          <div class="home__blocks-top">
-            <div class="home__blocks-title">
-              <h3>Лучшие новинки</h3>
-            </div>
-            <div class="home__blocks-more">
-              <NuxtLink to="/catalog">Смотреть все </NuxtLink>
+              <NuxtLink to="/catalog">История просмотров</NuxtLink>
             </div>
           </div>
           <div class="catalog__grid">
@@ -97,26 +44,32 @@
         </div>
       </div>
       <div class="home__block">
-        <div class="home__blocks-top">
-          <div class="home__blocks-title">
-            <h3>Полезные статьи</h3>
+        <div class="container">
+          <div class="home__blocks-top">
+            <div class="home__blocks-title">
+              <h3>Полезные статьи</h3>
+            </div>
+            <div class="home__blocks-more">
+              <NuxtLink to="/catalog">Смотреть все </NuxtLink>
+            </div>
           </div>
-          <div class="home__blocks-more">
-            <NuxtLink to="/catalog">Смотреть все </NuxtLink>
+          <div class="articles-grid">
+            <ArticlesItem v-for="i in 3" :key="i" />
           </div>
         </div>
-        <div class="articles__grid"></div>
       </div>
       <div class="home__block">
-        <div class="home__blocks-top">
-          <div class="home__blocks-title">
-            <h3>Новости</h3>
+        <div class="container">
+          <div class="home__blocks-top">
+            <div class="home__blocks-title">
+              <h3>Новости</h3>
+            </div>
+            <div class="home__blocks-more">
+              <NuxtLink to="/catalog">Смотреть все </NuxtLink>
+            </div>
           </div>
-          <div class="home__blocks-more">
-            <NuxtLink to="/catalog">Смотреть все </NuxtLink>
-          </div>
+          <div class="news__grid"></div>
         </div>
-        <div class="news__grid"></div>
       </div>
     </div>
   </div>

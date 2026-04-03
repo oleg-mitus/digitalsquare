@@ -1,19 +1,3 @@
-<script setup>
-const isMenuOpen = ref(false);
-const toggleMenu = () => (isMenuOpen.value = !isMenuOpen.value);
-
-// Закрываем меню при переходе по ссылке
-const closeMenu = () => (isMenuOpen.value = false);
-
-const navLinks = [
-  { name: 'Главная', path: '/' },
-  { name: 'Каталог', path: '/catalog' },
-  { name: 'Отзывы', path: '/reviews' },
-  { name: 'Новости', path: '/news' },
-  { name: 'Статьи', path: '/articles' },
-];
-</script>
-
 <template>
   <header class="header">
     <div class="header__top">
@@ -27,7 +11,7 @@ const navLinks = [
               <NuxtLink to="/about">Оплата и доставка</NuxtLink>
             </li>
             <li class="header__nav-item">
-              <NuxtLink to="/about">Новости</NuxtLink>
+              <NuxtLink to="/news">Новости</NuxtLink>
             </li>
             <li class="header__nav-item">
               <NuxtLink to="/contacts">Контакты</NuxtLink>
@@ -50,13 +34,39 @@ const navLinks = [
           <NuxtLink to="/">
             <img src="~/assets/images/logo.png" alt="logo" />
           </NuxtLink>
-          <NuxtLink to="/" class="header__bottom-catalog" @click="closeMenu">
-            <SvgIcon name="phone" width="24px" height="24px" />
-            <span>Каталог</span>
-          </NuxtLink>
+          <UiButton icon="my-icon:icon-catalog" variant="secondary"
+            >Каталог</UiButton
+          >
         </div>
-
-        
+        <div class="header__bottom-right">
+          <div class="header__bottom-search">
+            <HeaderSearch />
+          </div>
+          <div class="header__bottom-nav">
+            <div class="header__bottom-links">
+              <div class="header__bottom-link">
+                <NuxtLink to="/my-order">Сервис</NuxtLink>
+              </div>
+              <div class="header__bottom-link">
+                <NuxtLink to="/my-order">Мой заказ</NuxtLink>
+              </div>
+            </div>
+            <div class="header__bottom-icons">
+              <div class="header__bottom-icon">
+                <HeaderServices />
+              </div>
+              <div class="header__bottom-icon">
+                <NuxtLink to="/cart" class="h-cart h-icon">
+                  <Icon name="my-icon:icon-cart" class="h-cart__icon" />
+                  <span class="h-cart__num">1</span>
+                </NuxtLink>
+              </div>
+            </div>
+          </div>
+          <div class="header__bottom-profile">
+            <HeaderProfile />
+          </div>
+        </div>
       </div>
     </div>
   </header>
@@ -64,7 +74,7 @@ const navLinks = [
 
 <style lang="scss" scoped>
 $headerTopHeight: 43px;
-$headerBottomHeight: 90px;
+$headerBottomHeight: 92px;
 
 .header {
   position: sticky;
@@ -76,6 +86,8 @@ $headerBottomHeight: 90px;
 
   &__top {
     background-color: $primaryColor;
+    height: $headerTopHeight;
+    display: flex;
     &-content {
       display: flex;
       justify-content: space-between;
@@ -105,6 +117,7 @@ $headerBottomHeight: 90px;
       display: flex;
       align-items: center;
       justify-content: space-between;
+      gap: 30px;
     }
     &-left {
       display: flex;
@@ -120,12 +133,58 @@ $headerBottomHeight: 90px;
       padding: 10px 20px;
       gap: 10px;
     }
+    &-right {
+      display: flex;
+      justify-content: flex-end;
+      flex: 1;
+      gap: 30px;
+    }
+    &-nav {
+      display: flex;
+      gap: 30px;
+      align-items: center;
+    }
+    &-links {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+    }
+    &-link {
+      a {
+        font-size: 16px;
+        line-height: 1;
+        border-radius: 6px;
+        height: 40px;
+        text-decoration: none;
+        color: #2f2f2f;
+        display: flex;
+        align-items: center;
+        padding: 0 12px;
+        &:hover {
+          background-color: #ffd461;
+        }
+      }
+    }
+    &-icons {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+    &-search {
+      flex: 1;
+      max-width: 500px;
+      input {
+        width: 100%;
+      }
+    }
   }
 
   &__nav {
     list-style: none;
     display: flex;
     gap: 30px;
+    margin: 0;
+    padding: 0;
     &-item a {
       color: #fff;
       text-decoration: none;
@@ -173,6 +232,37 @@ $headerBottomHeight: 90px;
       border: none;
       font-size: 24px;
     }
+  }
+}
+
+.h-icon {
+  width: 40px;
+  height: 40px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  cursor: pointer;
+  &:hover {
+    background-color: #ffd461;
+  }
+  .iconify {
+    width: 26px;
+    height: 26px;
+  }
+}
+
+.h-cart {
+  &__num {
+    position: absolute;
+    font-size: 14px;
+    top: 4px;
+    right: 4px;
+    font-weight: 300;
+    background-color: #ffffff;
+    border-radius: 50%;
+    padding: 0 4px;
   }
 }
 </style>
