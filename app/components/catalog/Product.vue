@@ -40,6 +40,9 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
+  @media (max-width: 1023px) {
+    gap: 12px;
+  }
   &__label {
     position: absolute;
     z-index: 1;
@@ -58,6 +61,9 @@
     width: 100%;
     padding: 0 20px;
     aspect-ratio: 1.43;
+    @media (max-width: 1023px) {
+      padding: 0;
+    }
     img {
       width: 100%;
       height: 100%;
@@ -78,24 +84,36 @@
       font-size: 24px;
       font-weight: 500;
       line-height: 1;
+      @media (max-width: 1023px) {
+        font-size: 20px;
+      }
     }
     &-old {
       font-size: 18px;
       font-weight: 400;
       line-height: 1.2;
       text-decoration: line-through;
+      @media (max-width: 1023px) {
+        font-size: 14px;
+      }
     }
     &-discount {
       font-size: 16px;
       font-weight: 400;
       line-height: 1.2;
-      color: #2FA201;
+      color: #2fa201;
+      @media (max-width: 1023px) {
+        font-size: 14px;
+      }
     }
   }
   &__title {
     font-size: 18px;
     line-height: 1.4;
     max-width: 300px;
+    @media (max-width: 1023px) {
+      font-size: 14px;
+    }
   }
   &__nums {
     display: flex;
@@ -104,6 +122,9 @@
       display: flex;
       gap: 6px;
       align-items: center;
+      @media (max-width: 1023px) {
+        font-size: 14px;
+      }
       .iconify {
         width: 20px;
         height: 20px;

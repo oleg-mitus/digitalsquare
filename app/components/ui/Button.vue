@@ -18,7 +18,7 @@
 const props = defineProps({
   variant: {
     type: String,
-    default: "primary",
+    default: 'primary',
   },
   icon: {
     type: String,
@@ -26,7 +26,7 @@ const props = defineProps({
   },
   type: {
     type: String,
-    default: "button",
+    default: 'button',
   },
   href: {
     type: String,
@@ -38,9 +38,9 @@ const props = defineProps({
   },
 });
 
-defineEmits(["click"]);
+defineEmits(['click']);
 
-const tag = computed(() => (props.href ? "a" : "button"));
+const tag = computed(() => (props.href ? 'a' : 'button'));
 </script>
 
 <style scoped lang="scss">
@@ -56,6 +56,10 @@ const tag = computed(() => (props.href ? "a" : "button"));
   align-items: center;
   height: 50px;
   justify-content: center;
+  @media (max-width: 1023px) {
+    font-size: 14px;
+    height: 44px;
+  }
   .iconify {
     width: 24px;
     height: 24px;
