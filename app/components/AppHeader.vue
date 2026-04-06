@@ -45,7 +45,7 @@
           <div class="header__bottom-nav">
             <div class="header__bottom-links">
               <div class="header__bottom-link">
-                <NuxtLink to="/my-order">Сервис</NuxtLink>
+                <HeaderServices />
               </div>
               <div class="header__bottom-link">
                 <NuxtLink to="/my-order">Мой заказ</NuxtLink>
@@ -53,7 +53,7 @@
             </div>
             <div class="header__bottom-icons">
               <div class="header__bottom-icon">
-                <HeaderServices />
+                <HeaderCallback />
               </div>
               <div class="header__bottom-icon">
                 <NuxtLink to="/cart" class="h-cart h-icon">

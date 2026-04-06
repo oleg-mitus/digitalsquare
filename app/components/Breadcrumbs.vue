@@ -42,7 +42,7 @@ const isLast = (index: number): boolean => {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .breadcrumb {
   display: flex;
   flex-wrap: wrap;
@@ -50,24 +50,31 @@ const isLast = (index: number): boolean => {
   margin: 0;
   list-style: none;
   background: transparent;
+  gap: 6px;
 }
 
 .breadcrumb-item {
   display: flex;
   align-items: center;
+  gap: 6px;
+  a {
+    color: rgba(#2f2f2f, 0.5);
+    text-decoration: none;
+    &:hover {
+      color: #2f2f2f;
+    }
+  }
 }
 
 .breadcrumb-separator {
   content: '';
   width: 4px;
   height: 4px;
-  background-color: #6c757d;
+  background-color: #2f2f2f;
   border-radius: 50%;
-  margin: 0 0.75rem;
 }
 
 .breadcrumb-item.active span {
-  color: #6c757d;
-  font-weight: 500;
+  color: #2f2f2f;
 }
 </style>

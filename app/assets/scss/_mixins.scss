@@ -6,8 +6,8 @@ $primaryColor: #272727;
 
 @mixin respond-to($breakpoint) {
   @if $breakpoint == "tablet" {
-    @media (min-width: #{$tablet}) { @content; }
+    @media (max-width: #{$tablet}) { @content; }
   } @else if $breakpoint == "desktop" {
-    @media (min-width: #{$desktop}) { @content; }
+    @media (max-width: #{$desktop}) { @content; }
   }
 }
