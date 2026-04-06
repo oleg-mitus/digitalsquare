@@ -56,6 +56,8 @@ const tag = computed(() => (props.href ? 'a' : 'button'));
   align-items: center;
   height: 50px;
   justify-content: center;
+  outline: none;
+  transition: all 0.3s ease-in-out;
   @media (max-width: 1023px) {
     font-size: 14px;
     height: 44px;
@@ -67,10 +69,23 @@ const tag = computed(() => (props.href ? 'a' : 'button'));
   &--primary {
     background: #fec93b;
     color: #2f2f2f;
+    &:hover {
+      background-color: #ffd461;
+    }
   }
   &--secondary {
     background: #272727;
     color: #ffffff;
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+  &--transparent {
+    background: transparent;
+    color: #2f2f2f;
+    &:hover {
+      background-color: #f5f7fa;
+    }
   }
   &--block {
     width: 100%;
