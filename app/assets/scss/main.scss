@@ -1,8 +1,8 @@
-@use 'colors';
-@use 'mixins';
-@use 'grids';
-@use 'components/catalog';
-@use 'components/home';
+@use "colors";
+@use "mixins";
+@use "grids";
+@use "components/catalog";
+@use "components/home";
 
 /* A common starting point in modern projects */
 *,
@@ -18,8 +18,8 @@ body {
   margin: 0;
   padding: 0;
   scroll-behavior: smooth;
-  font-family: 'Roboto';
-  color: #2F2F2F;
+  font-family: "Roboto";
+  color: #2f2f2f;
 }
 
 /* Make media elements responsive and prevent layout shifts */
@@ -70,5 +70,19 @@ button {
   .iconify {
     width: 26px;
     height: 26px;
+  }
+}
+
+.ui-input {
+  height: 44px;
+  padding: 10px;
+  background-color: $greyColor;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  color: $blackColor;
+  &::placeholder {
+    color: rgba(47, 47, 47, 0.5);
+    opacity: 1; /* Required for Firefox */
   }
 }

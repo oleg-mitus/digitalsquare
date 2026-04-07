@@ -3,6 +3,9 @@ $tablet: 768px;
 $desktop: 1024px;
 
 $primaryColor: #272727;
+$blackColor: #2f2f2f;
+$greyColor: #F5F7FA;
+$redColor: #C23000;
 
 @mixin respond-to($breakpoint) {
   @if $breakpoint == "tablet" {
