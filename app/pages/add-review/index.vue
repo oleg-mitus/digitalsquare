@@ -13,6 +13,9 @@
         ]"
       />
     </div>
+    <div class="p-content__wrapper">
+
+    </div>
   </div>
 </template>
 
