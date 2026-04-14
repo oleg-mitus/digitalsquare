@@ -27,7 +27,7 @@
       </div>
     </div>
     <div class="product__action">
-      <UiButton block>Доставка завтра</UiButton>
+      <UiButton block icon="my-icon:icon-cart">Доставка завтра</UiButton>
     </div>
   </div>
 </template>
