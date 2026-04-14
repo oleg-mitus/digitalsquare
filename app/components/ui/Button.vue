@@ -4,13 +4,18 @@
     :href="href"
     :type="type"
     class="ui-button"
-    :class="[`ui-button--${variant}`, { 'ui-button--block': block }]"
+    :class="[
+      `ui-button--${variant}`,
+      { 'ui-button--block': block },
+      { 'ui-button--icon': iconOnly },
+      `ui-button--${size}`,
+    ]"
     @click="$emit('click', $event)"
   >
     <template v-if="icon">
-      <Icon :name="icon" />
+      <Icon :name="icon" size="24px" />
     </template>
-    <slot>Кнопка</slot>
+    <slot v-if="!iconOnly" />
   </component>
 </template>
 
@@ -18,7 +23,11 @@
 const props = defineProps({
   variant: {
     type: String,
-    default: 'primary',
+    default: "primary",
+  },
+  size: {
+    type: String,
+    default: "md",
   },
   icon: {
     type: String,
@@ -26,11 +35,15 @@ const props = defineProps({
   },
   type: {
     type: String,
-    default: 'button',
+    default: "button",
   },
   href: {
     type: String,
     default: null,
+  },
+  iconOnly: {
+    type: Boolean,
+    default: false,
   },
   block: {
     type: Boolean,
@@ -38,9 +51,9 @@ const props = defineProps({
   },
 });
 
-defineEmits(['click']);
+defineEmits(["click"]);
 
-const tag = computed(() => (props.href ? 'a' : 'button'));
+const tag = computed(() => (props.href ? "a" : "button"));
 </script>
 
 <style scoped lang="scss">
@@ -86,6 +99,29 @@ const tag = computed(() => (props.href ? 'a' : 'button'));
     &:hover {
       background-color: #f5f7fa;
     }
+  }
+  &--grey {
+    background: $greyColor;
+    color: $greyText;
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+  &--red {
+    background: #fff4f6;
+    color: #f1117e;
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+  &--icon {
+    width: 44px;
+    height: 44px;
+    padding: 10px;
+  }
+  &--sm {
+    height: 44px;
+    padding: 10px;
   }
   &--block {
     width: 100%;

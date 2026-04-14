@@ -73,8 +73,6 @@
 </template>
 
 <style lang="scss" scoped>
-$headerTopHeight: 43px;
-$headerBottomHeight: 92px;
 
 .header {
   position: sticky;

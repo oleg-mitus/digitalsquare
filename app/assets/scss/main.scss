@@ -4,15 +4,12 @@
 @use "components/catalog";
 @use "components/home";
 
-/* A common starting point in modern projects */
 *,
 *::before,
 *::after {
-  box-sizing: border-box; /* Ensures consistent box model */
+  box-sizing: border-box;
 }
 
-/* Optional: remove default margin/padding for consistency */
-/* and optimize for smooth scrolling */
 html,
 body {
   margin: 0;
@@ -22,7 +19,6 @@ body {
   color: #2f2f2f;
 }
 
-/* Make media elements responsive and prevent layout shifts */
 img,
 picture,
 video,
@@ -32,7 +28,6 @@ svg {
   max-width: 100%;
 }
 
-/* Inherit fonts for form elements */
 input,
 button,
 textarea,
@@ -40,7 +35,6 @@ select {
   font: inherit;
 }
 
-/* Remove default button styling for a clean slate */
 button {
   all: unset;
   cursor: pointer;
@@ -83,6 +77,54 @@ button {
   color: $blackColor;
   &::placeholder {
     color: rgba(47, 47, 47, 0.5);
-    opacity: 1; /* Required for Firefox */
+    opacity: 1;
   }
+}
+
+.text-bold {
+  font-weight: 500;
+}
+
+.text-lg {
+  font-size: 20px;
+}
+
+.text-grey {
+  color: $greyText;
+}
+
+.text-red {
+  color: $redText;
+}
+
+.text-green {
+  color: $greenText;
+}
+
+.text-blue {
+  color: $blueText;
+}
+
+.page {
+  &__title {
+    margin: 30px 0;
+    h1 {
+      margin: 0;
+      font-size: 45px;
+      font-weight: 500;
+    }
+    &--desc {
+      display: flex;
+      gap: 10px;
+      span {
+        font-size: 18px;
+        color: rgba($blackColor, 0.5);
+        line-height: 150%;
+      }
+    }
+  }
+}
+
+.catalog-products {
+  margin-bottom: 40px;
 }
