@@ -31,7 +31,7 @@
     <div class="header__bottom">
       <div class="header__bottom-content container">
         <div class="header__bottom-left">
-          <NuxtLink to="/">
+          <NuxtLink to="/" class="header-logo">
             <img src="~/assets/images/logo.png" alt="logo" />
           </NuxtLink>
           <UiButton icon="my-icon:icon-catalog" variant="secondary"
@@ -66,6 +66,7 @@
           <div class="header__bottom-profile">
             <HeaderProfile />
           </div>
+          <div class="header__bottom-city">г. Санкт-Петербург<Icon name="my-icon:icon-caret" size="6px" /></div>
         </div>
       </div>
     </div>
@@ -73,13 +74,15 @@
 </template>
 
 <style lang="scss" scoped>
-
 .header {
   position: sticky;
   top: 0;
   z-index: 100;
-  @media (max-width: 1024px) {
-    display: none;
+
+  &-logo {
+    @media (max-width: 1024px) {
+      width: 95px;
+    }
   }
 
   &__top {
@@ -102,6 +105,10 @@
         color: #ffffff;
       }
     }
+
+    @media (max-width: 1024px) {
+      display: none;
+    }
   }
 
   &__bottom {
@@ -111,6 +118,10 @@
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     display: flex;
+    @media (max-width: 1024px) {
+      border-radius: 0;
+      height: 56px;
+    }
     &-content {
       display: flex;
       align-items: center;
@@ -121,6 +132,11 @@
       display: flex;
       gap: 40px;
       align-items: center;
+      .ui-button {
+        @media (max-width: 1024px) {
+          display: none;
+        }
+      }
     }
     &-catalog {
       display: flex;
@@ -130,6 +146,9 @@
       color: #ffffff;
       padding: 10px 20px;
       gap: 10px;
+      @media (max-width: 1024px) {
+        display: none;
+      }
     }
     &-right {
       display: flex;
@@ -141,6 +160,9 @@
       display: flex;
       gap: 30px;
       align-items: center;
+      @media (max-width: 1024px) {
+        display: none;
+      }
     }
     &-links {
       display: flex;
@@ -174,6 +196,28 @@
       input {
         width: 100%;
       }
+
+      @media (max-width: 1024px) {
+        display: none;
+      }
+    }
+    &-profile {
+      @media (max-width: 1024px) {
+        display: none;
+      }
+    }
+    &-city {
+      font-size: 14px;
+      color: #2f2f2f;
+      align-items: center;
+      gap: 4px;
+      display: none;
+      @media (max-width: 1024px) {
+        display: flex;
+      }
+      .iconify {
+        transform: rotate(-90deg);
+      }
     }
   }
 
@@ -197,6 +241,9 @@
     max-width: 1600px;
     margin: 0 auto;
     width: 100%;
+    @media (max-width: 1024px) {
+      padding: 0 10px;
+    }
   }
 
   .nav {

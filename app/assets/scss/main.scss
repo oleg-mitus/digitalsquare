@@ -112,6 +112,9 @@ button {
       margin: 0;
       font-size: 45px;
       font-weight: 500;
+      @media (max-width: 1024px) {
+        font-size: 24px;
+      }
     }
     &--desc {
       display: flex;
@@ -120,6 +123,9 @@ button {
         font-size: 18px;
         color: rgba($blackColor, 0.5);
         line-height: 150%;
+        @media (max-width: 1024px) {
+          font-size: 14px;
+        }
       }
     }
   }
@@ -127,4 +133,24 @@ button {
 
 .catalog-products {
   margin-bottom: 40px;
+}
+
+:root {
+  --ba-bs-handle-width: 126px !important;
+  --ba-bs-handle-height: 3px !important;
+  --ba-bs-handle-color: #2f2f2f !important;
+  --ba-bs-radius: 20px !important;
+  --ba-bs-padding-small: 0px !important;
+  --ba-bs-padding: 0px !important;
+}
+.ba-bs-container {
+  z-index: 2000 !important;
+}
+.ba-bs-header {
+  padding: 6px !important;
+  height: 12px !important;
+  background-color: #fec93b !important;
+  &:before {
+    top: 4px !important;
+  }
 }

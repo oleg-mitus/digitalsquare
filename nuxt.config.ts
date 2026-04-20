@@ -3,7 +3,14 @@ export default defineNuxtConfig({
   compatibilityDate: "2025-07-15",
   devtools: { enabled: true },
   css: ["~/assets/scss/main.scss"],
-  modules: ["@nuxtjs/google-fonts", "@nuxt/icon", "@nuxt/image", "@vueuse/nuxt"],
+  modules: [
+    "@nuxtjs/google-fonts",
+    "@nuxt/icon",
+    "@nuxt/image",
+    "@vueuse/nuxt",
+    "nuxt-swiper",
+    "@balalarast/vue-bottom-sheet/nuxt",
+  ],
   vite: {
     css: {
       preprocessorOptions: {
@@ -32,4 +39,7 @@ export default defineNuxtConfig({
       includeCustomCollections: true, // This option is key
     },
   },
+  build: {
+    transpile: ['swiper']
+  }
 });

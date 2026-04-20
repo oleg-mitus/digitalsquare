@@ -42,10 +42,12 @@
                         Картридж СF259XL для HP LJ Pro M304, LJ Pro M404
                       </div>
                       <div class="cart__item-price">
-                        <div class="cart__item-price_current">2010 ₽</div>
-                        <div class="cart__item-price_row">
-                          <div class="cart__item-price_old">2010 ₽</div>
-                          <div class="text-green">3%</div>
+                        <div class="cart__item-prices">
+                          <div class="cart__item-price_current">2010 ₽</div>
+                          <div class="cart__item-price_row">
+                            <div class="cart__item-price_old">2010 ₽</div>
+                            <div class="text-green">3%</div>
+                          </div>
                         </div>
                         <div class="cart__item-price_info">
                           2010 ₽ при покупке от 3х штук
@@ -58,6 +60,18 @@
                           :max="10"
                           :step="1"
                         />
+                        <div class="cart__item-quantity_buttons">
+                          <UiButton
+                            icon="my-icon:icon-heart"
+                            iconOnly
+                            variant="red"
+                          />
+                          <UiButton
+                            icon="my-icon:icon-trash"
+                            iconOnly
+                            variant="grey"
+                          />
+                        </div>
                       </div>
                     </div>
                     <div class="cart__item-buttons">
@@ -144,10 +158,18 @@ const count = ref<Number>(1);
 <style lang="scss" scoped>
 .cart {
   margin-bottom: 40px;
+  @media (max-width: 1024px) {
+    background-color: #fff;
+    border-radius: 6px;
+  }
   &__wrapper {
     display: flex;
     justify-content: space-between;
     gap: 20px;
+    @media (max-width: 1024px) {
+      flex-direction: column;
+      gap: 0;
+    }
   }
   &__left {
     flex: 1;
@@ -155,6 +177,9 @@ const count = ref<Number>(1);
   &__right {
     width: 365px;
     position: relative;
+    @media (max-width: 1024px) {
+      width: 100%;
+    }
   }
   &__actions {
     background: #fff;
@@ -168,6 +193,10 @@ const count = ref<Number>(1);
       display: flex;
       gap: 20px;
     }
+
+    @media (max-width: 1024px) {
+      display: none;
+    }
   }
   &__info {
     background: #fff;
@@ -175,12 +204,24 @@ const count = ref<Number>(1);
     padding: 10px;
     position: sticky;
     top: calc($headerTopHeight + $headerBottomHeight + 20px);
+    @media (max-width: 1024px) {
+      flex-direction: column-reverse;
+      display: flex;
+      background: transparent;
+      border-radius: 0;
+      padding: 0 10px;
+    }
+
     &-top {
       display: flex;
       flex-direction: column;
       gap: 10px;
       padding-bottom: 20px;
       border-bottom: 1px solid rgba(#000000, 0.2);
+      @media (max-width: 1024px) {
+        border-bottom: none;
+        margin-top: 20px;
+      }
     }
     &-desc {
       font-size: 14px;
@@ -191,9 +232,16 @@ const count = ref<Number>(1);
       display: flex;
       flex-direction: column;
       gap: 20px;
+      @media (max-width: 1024px) {
+        gap: 12px;
+        padding-top: 20px;
+      }
     }
     &-more {
       margin-top: 20px;
+      @media (max-width: 1024px) {
+        display: none;
+      }
     }
     &-row {
       display: flex;
@@ -205,16 +253,26 @@ const count = ref<Number>(1);
     border-radius: 16px;
     background: #fff;
     padding: 10px;
+    @media (max-width: 1024px) {
+      padding: 0 10px;
+    }
     &-title {
       padding: 20px;
       border-radius: 6px;
       background: $greyColor;
+      @media (max-width: 1024px) {
+        display: none;
+      }
     }
     &-wrapper {
       display: flex;
       flex-direction: column;
       gap: 20px;
       margin-top: 20px;
+      @media (max-width: 1024px) {
+        gap: 0;
+        margin-top: 0;
+      }
     }
   }
 
@@ -224,6 +282,10 @@ const count = ref<Number>(1);
     padding: 10px;
     gap: 10px;
     min-height: 176px;
+    @media (max-width: 1024px) {
+      border-bottom: 1px solid rgba($blackColor, 0.2);
+      padding: 20px 0;
+    }
     &-left {
       position: relative;
       display: flex;
@@ -246,6 +308,9 @@ const count = ref<Number>(1);
         height: 100%;
         object-fit: fill;
       }
+      @media (max-width: 1024px) {
+        width: 80px;
+      }
     }
     &-check {
       position: absolute;
@@ -256,32 +321,86 @@ const count = ref<Number>(1);
       display: flex;
       align-items: center;
       justify-content: center;
+      @media (max-width: 1024px) {
+        display: none;
+      }
     }
     &-info {
       display: flex;
       justify-content: space-between;
       gap: 20px;
+      @media (max-width: 1024px) {
+        flex-direction: column;
+        gap: 6px;
+      }
     }
     &-buttons {
       display: flex;
       gap: 10px;
+      @media (max-width: 1024px) {
+        display: none;
+      }
+    }
+    &-quantity {
+      @media (max-width: 1024px) {
+        order: 2;
+        justify-content: space-between;
+        display: flex;
+      }
+      &_buttons {
+        display: none;
+        gap: 12px;
+        align-items: center;
+        @media (max-width: 1024px) {
+          display: flex;
+          .ui-button {
+            width: 24px;
+            height: 24px;
+            padding: 0;
+            background: transparent;
+          }
+        }
+      }
     }
     &-title {
       max-width: 420px;
+      @media (max-width: 1024px) {
+        order: 1;
+        max-width: none;
+        font-size: 16px;
+      }
+    }
+    &-prices {
+      @media (max-width: 1024px) {
+        display: flex;
+        gap: 10px;
+      }
     }
     &-price {
+      @media (max-width: 1024px) {
+        order: 0;
+      }
       &_current {
         font-size: 28px;
         font-weight: 500;
+        @media (max-width: 1024px) {
+          font-size: 20px;
+        }
       }
       &_old {
         text-decoration: line-through;
+        @media (max-width: 1024px) {
+          font-size: 14px;
+        }
       }
       &_row {
         display: flex;
         gap: 10px;
         margin-top: 6px;
         font-size: 20px;
+        @media (max-width: 1024px) {
+          font-size: 14px;
+        }
       }
       &_info {
         margin-top: 10px;
@@ -289,6 +408,11 @@ const count = ref<Number>(1);
         border-bottom: 1px dotted $redText;
         text-decoration: none;
         cursor: pointer;
+        @media (max-width: 1024px) {
+          margin-top: 6px;
+          display: inline-flex;
+          font-size: 12px;
+        }
       }
     }
   }

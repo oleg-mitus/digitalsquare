@@ -1,44 +1,38 @@
 <template>
   <nav class="bottom-bar" v-if="isMobile">
     <ul class="bottom-bar__list">
-      <!-- Поиск -->
       <li class="bottom-bar__item">
         <button class="bottom-bar__link" aria-label="Поиск">
-          <span class="icon icon-search"></span>
+          <Icon name="my-icon:icon-search" size="20px" />
+          <span class="bottom-bar__text">Поиск</span>
         </button>
       </li>
 
-      <!-- Каталог -->
       <li class="bottom-bar__item">
-        <button class="bottom-bar__link" aria-label="Каталог">
-          <span class="icon icon-catalog"></span>
-        </button>
+        <BottomBarServices />
       </li>
-
-      <!-- Профиль -->
+       
       <li class="bottom-bar__item">
-        <button class="bottom-bar__link" aria-label="Профиль">
-          <span class="icon icon-profile"></span>
-        </button>
+        <BottomBarProfile />
       </li>
 
-      <!-- Обратный звонок -->
       <li class="bottom-bar__item">
-        <button class="bottom-bar__link" aria-label="Обратный звонок">
-          <span class="icon icon-phone"></span>
-        </button>
+        <BottomBarCallback />
       </li>
 
-      <!-- Корзина с бейджем -->
       <li class="bottom-bar__item">
         <button
           class="bottom-bar__link bottom-bar__link--cart"
           aria-label="Корзина"
+          @click="navigateTo('/cart')"
         >
-          <span class="icon icon-cart"></span>
-          <span v-if="cartCount > 0" class="bottom-bar__badge">
-            {{ cartCount }}
-          </span>
+          <div class="bottom-bar__icon">
+            <Icon name="my-icon:icon-cart" size="20px" />
+            <span v-if="cartCount > 0" class="bottom-bar__badge">
+              {{ cartCount }}
+            </span>
+          </div>
+          <span class="bottom-bar__text">Корзина</span>
         </button>
       </li>
     </ul>
@@ -49,22 +43,24 @@
 const isMobile = ref(false);
 const cartCount = ref<number>(3);
 
+
 const checkWidth = () => {
   isMobile.value = window.innerWidth <= 768;
 };
 
+
+
 onMounted(() => {
   checkWidth();
-  window.addEventListener('resize', checkWidth);
+  window.addEventListener("resize", checkWidth);
 });
 
 onUnmounted(() => {
-  window.removeEventListener('resize', checkWidth);
+  window.removeEventListener("resize", checkWidth);
 });
 </script>
 
-<style lang="scss" scoped>
-
+<style lang="scss">
 $bg-color: #ebebeb;
 $badge-color: $blackColor;
 $icon-color: $blackColor;
@@ -104,17 +100,31 @@ $icon-color: $blackColor;
     justify-content: center;
   }
 
+  &__icon {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
   &__link {
     position: relative;
     background: none;
     border: none;
-    padding: 8px;
+    padding: 6px 12px;
+    border-radius: 12px;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
+    gap: 4px;
     color: $icon-color;
     transition: opacity 0.2s;
+
+    &.active {
+      background-color: #fec93b;
+    }
 
     &:active {
       opacity: 0.6;
@@ -125,26 +135,29 @@ $icon-color: $blackColor;
     }
   }
 
+  &__text {
+    font-size: 12px;
+  }
+
   &__badge {
     position: absolute;
-    top: 2px;
-    right: 2px;
-    background-color: $badge-color;
+    top: -2px;
+    right: -4px;
+    background-color: #2f2f2f;
     color: white;
-    font-size: 10px;
-    font-weight: bold;
-    min-width: 16px;
-    height: 16px;
+    font-size: 8px;
+    font-weight: 300;
+    min-width: 12px;
+    height: 12px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0 4px;
-    border: 1px solid $bg-color; // Чтобы визуально отделить бейдж
+    padding: 0 2px;
+    border: 1px solid #ebebeb;
   }
 }
 
-// Заглушки для иконок (используйте SVG или иконочный шрифт)
 .icon {
   width: 24px;
   height: 24px;
@@ -155,19 +168,60 @@ $icon-color: $blackColor;
   mask-position: center;
 
   &-search {
-    mask-image: url('@/assets/icons/icon-search.svg');
+    mask-image: url("@/assets/icons/icon-search.svg");
   }
   &-catalog {
-    mask-image: url('@/assets/icons/icon-grid.svg');
+    mask-image: url("@/assets/icons/icon-grid.svg");
   }
   &-profile {
-    mask-image: url('@/assets/icons/icon-user.svg');
+    mask-image: url("@/assets/icons/icon-user.svg");
   }
   &-phone {
-    mask-image: url('@/assets/icons/icon-phone.svg');
+    mask-image: url("@/assets/icons/icon-phone.svg");
   }
   &-cart {
-    mask-image: url('@/assets/icons/icon-cart.svg');
+    mask-image: url("@/assets/icons/icon-cart.svg");
   }
 }
+
+.bottom-sheet {
+  &__title {
+    font-size: 20px;
+    font-weight: 500;
+    padding: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    padding: 20px 10px;
+    border-bottom: 1px solid #ececec;
+  }
+
+  &__close {
+    cursor: pointer;
+  }
+
+  &__content {
+    padding: 10px;
+  }
+
+  &__nav {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    &-link {
+      padding: 12px 16px;
+      border-radius: 10px;
+      height: 44px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+
+      &:hover, &.active {
+        background-color: #F5F7FA;
+      }
+    }
+  }
+}
+
 </style>
