@@ -1,15 +1,15 @@
 <template>
-  <div class="h-services" ref="target">
+  <div class="h-services" ref="linkTarget">
     <div
       class="h-services__link"
-      @click="show = !show"
+      @click.prevent="show = !show"
       :class="{ active: show }"
     >
       <span>Сервис</span>
       <span><Icon name="ds:icon-caret" class="h-services__caret" /></span>
     </div>
-    <Transition name="slide-up">
-      <div class="h-drop" v-if="show">
+    <Transition name="fade-in">
+      <div class="h-drop h-drop--services" v-if="show" ref="target">
         <div class="h-drop__content">
           <ul class="h-drop__results">
             <li class="h-drop__results-item">
@@ -61,13 +61,16 @@
 
 <script setup lang="ts">
 const show = ref<boolean>(false);
-const target = useTemplateRef<HTMLElement>('target');
+const target = useTemplateRef<HTMLElement>("target");
+const linkTarget = useTemplateRef<HTMLElement>("linkTarget");
 
 const closeDropdown = (): void => {
   show.value = false;
 };
 
-onClickOutside(target, () => closeDropdown());
+onClickOutside(target, () => closeDropdown(), {
+  ignore: [linkTarget],
+});
 </script>
 
 <style lang="scss" scoped>
@@ -87,7 +90,8 @@ onClickOutside(target, () => closeDropdown());
     gap: 4px;
     align-items: center;
     cursor: pointer;
-    &:hover, &.active {
+    &:hover,
+    &.active {
       background-color: #ffd461;
     }
     &.active {
@@ -101,53 +105,6 @@ onClickOutside(target, () => closeDropdown());
     width: 8px;
     height: 8px;
     transform: rotate(0deg);
-  }
-}
-
-.h-drop {
-  position: absolute;
-  width: 375px;
-  right: 0;
-  top: calc(100% + 25px);
-  background: $whiteColor;
-  padding-bottom: 10px;
-  border-radius: 0 0 20px 20px;
-  border: 1px solid $secondaryColor;
-  border-top: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  &__content {
-    padding: 10px 10px 0 10px;
-  }
-  &__results {
-    margin: 0;
-    padding: 0;
-    list-style-type: none;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    &-item {
-      width: 100%;
-      display: flex;
-      flex: 1;
-    }
-    &-link {
-      width: 100%;
-      height: 44px;
-      padding: 0 10;
-      border-radius: 6px;
-      color: rgba(49, 49, 49, 0.5);
-      font-size: 16px;
-      text-decoration: none;
-      align-items: center;
-      display: flex;
-      padding: 0 10px;
-      &:hover {
-        background-color: $greyColor;
-      }
-    }
   }
 }
 </style>

@@ -9,6 +9,7 @@
       { 'ui-button--block': block },
       { 'ui-button--icon': iconOnly },
       `ui-button--${size}`,
+      `ui-button--radius-${radius}`,
     ]"
     @click="$emit('click', $event)"
   >
@@ -49,6 +50,10 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  radius: {
+    type: String,
+    default: "md",
+  }
 });
 
 defineEmits(["click"]);
@@ -93,6 +98,11 @@ const tag = computed(() => (props.href ? "a" : "button"));
       background-color: #1c1c1c;
     }
   }
+  &--vk {
+    background-color: #fff9ea;
+    color: #311313;
+    font-weight: 500;
+  }
   &--transparent {
     background: transparent;
     color: $primaryColor;
@@ -125,6 +135,9 @@ const tag = computed(() => (props.href ? "a" : "button"));
   }
   &--block {
     width: 100%;
+  }
+  &--radius-lg {
+    border-radius: 10px;
   }
 }
 </style>

@@ -35,9 +35,7 @@
           <NuxtLink to="/" class="header-logo">
             <img src="~/assets/images/logo.png" alt="logo" />
           </NuxtLink>
-          <UiButton icon="ds:icon-catalog" variant="secondary"
-            >Каталог</UiButton
-          >
+          <HeaderCatalog />
         </div>
         <div class="header__bottom-right">
           <div class="header__bottom-search">
@@ -58,7 +56,7 @@
               </div>
               <div class="header__bottom-icon">
                 <NuxtLink to="/cart" class="h-cart h-icon">
-                  <Icon name="my-icon:icon-cart" class="h-cart__icon" />
+                  <Icon name="ds:icon-cart" class="h-cart__icon" />
                   <span class="h-cart__num">1</span>
                 </NuxtLink>
               </div>
@@ -135,7 +133,8 @@
     &-item a {
       color: $whiteColor;
       text-decoration: none;
-      &.active, &:hover {
+      &.active,
+      &:hover {
         color: $secondaryColor;
         text-decoration: underline;
         text-decoration-thickness: 1px;
@@ -256,7 +255,6 @@
       }
     }
   }
-
 }
 
 .h-icon {
@@ -277,16 +275,28 @@
   }
 }
 
+.h-catalog {
+  @media (max-width: 1024px) {
+    display: none;
+  }
+}
+
 .h-cart {
   &__num {
     position: absolute;
     font-size: 14px;
     top: 4px;
-    right: 4px;
+    right: 2px;
     font-weight: 300;
     background-color: #ffffff;
     border-radius: 50%;
     padding: 0 4px;
+    line-height: 130%;
+    height: 18px;
+    min-width: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }
 </style>
