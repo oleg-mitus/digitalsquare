@@ -9,7 +9,7 @@
         <Icon
           width="26px"
           height="26px"
-          name="my-icon:icon-user"
+          name="ds:icon-user"
           class="ui-header-profile__svg"
         />
       </span>

@@ -80,22 +80,22 @@ const tag = computed(() => (props.href ? "a" : "button"));
     height: 24px;
   }
   &--primary {
-    background: #fec93b;
-    color: #2f2f2f;
+    background: $secondaryColor;
+    color: $primaryColor;
     &:hover {
       background-color: #ffd461;
     }
   }
   &--secondary {
-    background: #272727;
-    color: #ffffff;
+    background: $primaryColor;
+    color: $whiteColor;
     &:hover {
-      opacity: 0.8;
+      background-color: #1c1c1c;
     }
   }
   &--transparent {
     background: transparent;
-    color: #2f2f2f;
+    color: $primaryColor;
     &:hover {
       background-color: #f5f7fa;
     }

@@ -6,7 +6,7 @@
       :class="{ active: show }"
     >
       <span>Сервис</span>
-      <span><Icon name="my-icon:icon-caret" class="h-services__caret" /></span>
+      <span><Icon name="ds:icon-caret" class="h-services__caret" /></span>
     </div>
     <Transition name="slide-up">
       <div class="h-drop" v-if="show">
@@ -79,7 +79,7 @@ onClickOutside(target, () => closeDropdown());
     border-radius: 6px;
     height: 40px;
     text-decoration: none;
-    color: #2f2f2f;
+    color: $primaryColor;
     display: flex;
     align-items: center;
     padding: 0 12px;
@@ -108,20 +108,19 @@ onClickOutside(target, () => closeDropdown());
   position: absolute;
   width: 375px;
   right: 0;
-  top: calc(100% + 26px);
-  background: #fff;
+  top: calc(100% + 25px);
+  background: $whiteColor;
   padding-bottom: 10px;
   border-radius: 0 0 20px 20px;
-  border: 1px solid #fec93b;
+  border: 1px solid $secondaryColor;
   border-top: 0;
   display: flex;
   flex-direction: column;
   gap: 10px;
   &__content {
-    padding: 0 10px;
+    padding: 10px 10px 0 10px;
   }
   &__results {
-    padding: 10px 0 0;
     margin: 0;
     padding: 0;
     list-style-type: none;
@@ -146,7 +145,7 @@ onClickOutside(target, () => closeDropdown());
       display: flex;
       padding: 0 10px;
       &:hover {
-        background-color: #f5f7fa;
+        background-color: $greyColor;
       }
     }
   }

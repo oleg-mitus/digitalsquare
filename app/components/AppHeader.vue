@@ -5,7 +5,7 @@
         <div class="header__top-nav">
           <ul class="header__nav">
             <li class="header__nav-item">
-              <NuxtLink to="/about">О магазине</NuxtLink>
+              <NuxtLink to="/about" class="active">О магазине</NuxtLink>
             </li>
             <li class="header__nav-item">
               <NuxtLink to="/about">Оплата и доставка</NuxtLink>
@@ -28,13 +28,14 @@
         </div>
       </div>
     </div>
+
     <div class="header__bottom">
       <div class="header__bottom-content container">
         <div class="header__bottom-left">
           <NuxtLink to="/" class="header-logo">
             <img src="~/assets/images/logo.png" alt="logo" />
           </NuxtLink>
-          <UiButton icon="my-icon:icon-catalog" variant="secondary"
+          <UiButton icon="ds:icon-catalog" variant="secondary"
             >Каталог</UiButton
           >
         </div>
@@ -66,7 +67,9 @@
           <div class="header__bottom-profile">
             <HeaderProfile />
           </div>
-          <div class="header__bottom-city">г. Санкт-Петербург<Icon name="my-icon:icon-caret" size="6px" /></div>
+          <div class="header__bottom-city">
+            г. Санкт-Петербург<Icon name="my-icon:icon-caret" size="6px" />
+          </div>
         </div>
       </div>
     </div>
@@ -75,9 +78,10 @@
 
 <style lang="scss" scoped>
 .header {
-  position: sticky;
+  position: fixed;
   top: 0;
-  z-index: 100;
+  width: 100%;
+  z-index: 10;
 
   &-logo {
     @media (max-width: 1024px) {
@@ -89,6 +93,9 @@
     background-color: $primaryColor;
     height: $headerTopHeight;
     display: flex;
+    font-size: 16px;
+    color: $whiteColor;
+
     &-content {
       display: flex;
       justify-content: space-between;
@@ -99,20 +106,49 @@
       justify-content: space-between;
       align-items: center;
       gap: 40px;
-      color: #ffffff;
+      @media (max-width: 1280px) {
+        gap: 30px;
+      }
       a {
         text-decoration: none;
-        color: #ffffff;
+        color: $whiteColor;
+        &:hover {
+          color: $secondaryColor;
+        }
       }
     }
-
+    @media (max-width: 1280px) {
+      font-size: 14px;
+    }
     @media (max-width: 1024px) {
       display: none;
     }
   }
 
+  &__nav {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+    margin: 0;
+    padding: 0;
+
+    &-item a {
+      color: $whiteColor;
+      text-decoration: none;
+      &.active, &:hover {
+        color: $secondaryColor;
+        text-decoration: underline;
+        text-decoration-thickness: 1px;
+        text-underline-offset: 2px;
+      }
+    }
+    @media (max-width: 1280px) {
+      gap: 20px;
+    }
+  }
+
   &__bottom {
-    background-color: #fec93b;
+    background-color: $secondaryColor;
     height: $headerBottomHeight;
     border-radius: 0 0 15px 15px;
     backdrop-filter: blur(10px);
@@ -221,63 +257,6 @@
     }
   }
 
-  &__nav {
-    list-style: none;
-    display: flex;
-    gap: 30px;
-    margin: 0;
-    padding: 0;
-    &-item a {
-      color: #fff;
-      text-decoration: none;
-    }
-  }
-
-  .container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 40px;
-    max-width: 1600px;
-    margin: 0 auto;
-    width: 100%;
-    @media (max-width: 1024px) {
-      padding: 0 10px;
-    }
-  }
-
-  .nav {
-    display: flex;
-    gap: 20px;
-    align-items: center;
-
-    @media (max-width: $tablet) {
-      display: none;
-
-      &.open {
-        display: flex;
-        flex-direction: column;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        right: 0;
-        background: #fff;
-        padding: 20px;
-        border-top: 1px solid #eee;
-      }
-    }
-  }
-
-  .burger {
-    display: none;
-
-    @media (max-width: $tablet) {
-      display: block;
-      background: none;
-      border: none;
-      font-size: 24px;
-    }
-  }
 }
 
 .h-icon {

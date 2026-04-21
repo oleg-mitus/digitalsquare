@@ -1,4 +1,4 @@
-@use "colors";
+@use "variables";
 @use "mixins";
 @use "grids";
 @use "components/catalog";
@@ -16,7 +16,9 @@ body {
   padding: 0;
   scroll-behavior: smooth;
   font-family: "Roboto";
-  color: #2f2f2f;
+  color: $blackColor;
+  line-height: 130%;
+  letter-spacing: -2%;
 }
 
 img,
@@ -40,8 +42,9 @@ button {
   cursor: pointer;
 }
 
-.main {
+.main-content {
   background-color: #f3f3f3;
+  padding-top: calc($headerTopHeight + $headerBottomHeight);
 }
 
 .container {
@@ -49,9 +52,29 @@ button {
   padding: 0 40px;
   margin: 0 auto;
   width: 100%;
+  @media (max-width: 1366px) {
+    padding: 0 20px;
+  }
   @media (max-width: 1023px) {
     padding: 0 10px;
   }
+}
+
+.fade-in-enter-from,
+.fade-in-leave-to {
+  opacity: 0;
+}
+
+.fade-in-enter-to,
+.fade-in-leave-from {
+  opacity: 1;
+}
+
+.fade-in-enter-active,
+.fade-in-leave-active {
+  transition:
+    opacity 0.5s ease,
+    transform 0.5s ease;
 }
 
 .h-icon {
@@ -70,7 +93,7 @@ button {
 .ui-input {
   height: 44px;
   padding: 10px;
-  background-color: $greyColor;
+  background-color: #232323;
   border-radius: 10px;
   border: none;
   outline: none;

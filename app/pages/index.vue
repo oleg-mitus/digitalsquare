@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="home" v-if="false">
     <div class="home__hero">
       <div class="home__hero-back">
         <video

@@ -2,10 +2,11 @@
   <div class="h-search">
     <div class="h-search__field">
       <div class="h-search__icon">
-        <Icon name="my-icon:icon-search" />
+        <Icon name="ds:icon-search" size="15" />
       </div>
       <input
-        type="h-search"
+        class="h-search"
+        type="search"
         @focusin="show = true"
         @focusout="show = false"
         placeholder="Найти товары"
@@ -62,16 +63,17 @@ const closeDropdown = (): void => {
 </script>
 
 <style lang="scss">
-input[type="search"]::-webkit-search-decoration,
-input[type="search"]::-webkit-search-cancel-button,
-input[type="search"]::-webkit-search-results-button,
-input[type="search"]::-webkit-search-results-decoration {
-  -webkit-appearance:none;
-}
-
 .h-search {
   position: relative;
   width: 100%;
+
+  input[type='search']::-webkit-search-decoration,
+  input[type='search']::-webkit-search-cancel-button,
+  input[type='search']::-webkit-search-results-button,
+  input[type='search']::-webkit-search-results-decoration {
+    -webkit-appearance: none;
+  }
+
   input {
     width: 100%;
     height: 50px;
@@ -96,17 +98,21 @@ input[type="search"]::-webkit-search-results-decoration {
     display: flex;
     align-items: center;
     justify-content: center;
+    z-index: 1;
+    color: rgba($blackColor, 0.5);
   }
   &__drop {
-    margin-top: 22px;
+    margin-top: 21px;
     position: absolute;
     width: 100%;
-    background: #fff;
+    background: $whiteColor;
     padding-bottom: 10px;
     border-radius: 0 0 20px 20px;
+    border: 1px solid $secondaryColor;
+    border-top: none;
     &-top {
       padding: 20px 10px;
-      border-bottom: 1px solid #ececec;
+      border-bottom: 1px solid $borderColor;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -119,10 +125,10 @@ input[type="search"]::-webkit-search-results-decoration {
     &-clear {
       font-size: 14px;
       line-height: 1;
-      color: rgba(49, 49, 49, 0.5);
+      color: rgba($blackColor, 0.5);
       cursor: pointer;
       &:hover {
-        color: rgba(49, 49, 49);
+        color: $blackColor;
       }
     }
     &-content {
@@ -146,14 +152,14 @@ input[type="search"]::-webkit-search-results-decoration {
       height: 44px;
       padding: 0 10;
       border-radius: 6px;
-      color: rgba(49, 49, 49, 0.5);
+      color: rgba($blackColor, 0.5);
       font-size: 16px;
       text-decoration: none;
       align-items: center;
       display: flex;
       padding: 0 10px;
       &:hover {
-        background-color: #f5f7fa;
+        background-color: $greyColor;
       }
     }
   }

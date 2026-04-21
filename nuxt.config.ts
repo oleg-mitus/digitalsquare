@@ -15,7 +15,7 @@ export default defineNuxtConfig({
     css: {
       preprocessorOptions: {
         scss: {
-          additionalData: '@use "~/assets/scss/_mixins.scss" as *;',
+          additionalData: '@use "~/assets/scss/_variables.scss" as *;',
         },
       },
     },
@@ -30,13 +30,13 @@ export default defineNuxtConfig({
     provider: "server",
     customCollections: [
       {
-        prefix: "my-icon",
+        prefix: "ds",
         dir: "./app/assets/icons/",
         recursive: true,
       },
     ],
     clientBundle: {
-      includeCustomCollections: true, // This option is key
+      includeCustomCollections: true,
     },
   },
   build: {
