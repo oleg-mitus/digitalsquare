@@ -6,7 +6,7 @@
       :disabled="modelValue <= min || disabled"
       @click="updateValue(modelValue - step)"
     >
-      <Icon name="my-icon:icon-minus" size="24px" />
+      <Icon name="ds:icon-minus" size="24px" />
     </button>
 
     <input
@@ -27,7 +27,7 @@
       :disabled="modelValue >= max || disabled"
       @click="updateValue(modelValue + step)"
     >
-      <Icon name="my-icon:icon-plus" size="24px" />
+      <Icon name="ds:icon-plus" size="24px" />
     </button>
   </div>
 </template>
@@ -42,6 +42,7 @@ interface Props {
 }
 
 const props = withDefaults(defineProps<Props>(), {
+  number: 1,
   min: 0,
   max: 100,
   step: 1,

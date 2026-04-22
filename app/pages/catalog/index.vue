@@ -11,7 +11,7 @@
               <div class="filter-section__top">
                 <h4>Цена ₽</h4>
                 <div class="filter-section__clear">
-                  <Icon name="my-icon:icon-clear" size="7px" />
+                  <Icon name="ds:icon-clear" size="7px" />
                   Сбросить
                 </div>
               </div>
@@ -30,13 +30,13 @@
               <div class="filter-section__top">
                 <h4>Бренды</h4>
                 <div class="filter-section__clear">
-                  <Icon name="my-icon:icon-clear" size="7px" />
+                  <Icon name="ds:icon-clear" size="7px" />
                   Сбросить
                 </div>
               </div>
               <div
                 class="checkbox-group"
-                v-for="brand in brands"
+                v-for="brand in visibleBrands"
                 :key="brand.id"
               >
                 <UiCheckbox
@@ -55,60 +55,88 @@
                 @click="showMoreBrands"
                 class="show-more-btn"
               >
+                <Icon
+                  name="ds:icon-bottom"
+                  size="8px"
+                  :style="{ width: '8px', height: '8px' }"
+                />
                 {{ showAllBrands ? "Скрыть" : "Показать ещё" }}
               </button>
             </div>
 
-            <!-- Фильтр по видам -->
             <div class="filter-section">
-              <h4>Виды</h4>
-              <div class="checkbox-group">
-                <label
-                  v-for="category in categories"
-                  :key="category.id"
-                  class="checkbox-label"
+              <div class="filter-section__top">
+                <h4>Виды</h4>
+                <div class="filter-section__clear">
+                  <Icon name="ds:icon-clear" size="7px" />
+                  Сбросить
+                </div>
+              </div>
+              <div
+                class="checkbox-group"
+                v-for="category in visibleCategories"
+                :key="category.id"
+              >
+                <UiCheckbox
+                  v-model="selectedCategories"
+                  @change="applyFilters"
+                  :value="category.id"
+                  color="orange"
+                  >{{ category.name }}</UiCheckbox
                 >
-                  <input
-                    type="checkbox"
-                    :value="category.name"
-                    v-model="selectedCategories"
-                    @change="applyFilters"
-                  />
-                  {{ category.name }}
-                </label>
+                <div class="checkbox-group__counter">
+                  <span>99</span>
+                </div>
               </div>
               <button
                 v-if="categories.length > 6"
                 @click="showMoreCategories"
                 class="show-more-btn"
               >
+                <Icon
+                  name="ds:icon-bottom"
+                  size="8px"
+                  :style="{ width: '8px', height: '8px' }"
+                />
                 {{ showAllCategories ? "Скрыть" : "Показать ещё" }}
               </button>
             </div>
 
-            <!-- Фильтр по цветам -->
             <div class="filter-section">
-              <h4>Цвета</h4>
-              <div class="checkbox-group">
-                <label
-                  v-for="color in colors"
-                  :key="color.id"
-                  class="checkbox-label"
+              <div class="filter-section__top">
+                <h4>Цвета</h4>
+                <div class="filter-section__clear">
+                  <Icon name="ds:icon-clear" size="7px" />
+                  Сбросить
+                </div>
+              </div>
+
+              <div
+                class="checkbox-group"
+                v-for="color in visibleColors"
+                :key="color.id"
+              >
+                <UiCheckbox
+                  v-model="selectedColors"
+                  @change="applyFilters"
+                  :value="color.id"
+                  color="orange"
+                  >{{ color.name }}</UiCheckbox
                 >
-                  <input
-                    type="checkbox"
-                    :value="color.name"
-                    v-model="selectedColors"
-                    @change="applyFilters"
-                  />
-                  {{ color.name }}
-                </label>
+                <div class="checkbox-group__counter">
+                  <span>99</span>
+                </div>
               </div>
               <button
                 v-if="colors.length > 6"
                 @click="showMoreColors"
                 class="show-more-btn"
               >
+                <Icon
+                  name="ds:icon-bottom"
+                  size="8px"
+                  :style="{ width: '8px', height: '8px' }"
+                />
                 {{ showAllColors ? "Скрыть" : "Показать ещё" }}
               </button>
             </div>
@@ -131,9 +159,81 @@
               ]"
             />
           </div>
-          <div class="catalog-grid">
-            <div class="product-cards">
-              <CatalogProduct v-for="i in 8" :key="i" />
+          <div class="catalog">
+            <div class="catalog-actions">
+              <div class="catalog-actions__filter">
+                <div class="catalog-actions__filter-item">
+                  <button class="catalog-actions__filter-button">
+                    <Icon name="ds:icon-sort" size="18px" />
+                  </button>
+                </div>
+                <div class="catalog-actions__filter-item">
+                  <button class="catalog-actions__filter-button">
+                    <Icon name="ds:icon-filter" size="18px" />
+                  </button>
+                </div>
+                <div class="catalog-actions__filter-item">
+                  <UiSelect
+                    label="Бренд"
+                    multiple
+                    v-model="selectedBrands"
+                    :options="
+                      brands.map((item) => ({
+                        value: item.id,
+                        label: item.name,
+                      }))
+                    "
+                  />
+                </div>
+                <div class="catalog-actions__filter-item">
+                  <UiSelect
+                    label="Вид"
+                    multiple
+                    v-model="selectedCategories"
+                    :options="
+                      categories.map((item) => ({
+                        value: item.id,
+                        label: item.name,
+                      }))
+                    "
+                  />
+                </div>
+                <div class="catalog-actions__filter-item">
+                  <UiSelect
+                    label="Цвет"
+                    multiple
+                    v-model="selectedColors"
+                    :options="
+                      colors.map((item) => ({
+                        value: item.id,
+                        label: item.name,
+                      }))
+                    "
+                  />
+                </div>
+              </div>
+              <div class="catalog-actions__sort">
+                <UiSelect
+                  label="Сортировка"
+                  v-model="sortOptionsValue"
+                  :options="sortOptions"
+                />
+              </div>
+            </div>
+            <div class="catalog-grid">
+              <div class="product-cards">
+                <CatalogProduct v-for="i in 12" :key="i" />
+              </div>
+            </div>
+            <div class="catalog-pagination">
+              <UiPagination
+                v-model:current-page="currentPage"
+                v-model:page-size="pageSize"
+                :total-items="totalItems"
+                :page-size-options="[10, 20, 50, 100]"
+                @update:current-page="handleUpdate"
+                @update:page-size="handleUpdate"
+              />
             </div>
           </div>
         </main>
@@ -178,6 +278,15 @@ const colors = reactive([
   { id: 8, name: "Розовый" },
 ]);
 
+const sortOptions = [
+  { label: "По названию", value: "name-asc" },
+  { label: "Сначала дешевле", value: "price-asc" },
+  { label: "Сначала дороже", value: "price-desc" },
+  { label: "По популярности", value: "popular" },
+];
+
+const sortOptionsValue = ref("name-asc");
+
 const priceRange = reactive({ min: 0, max: 10000 });
 const selectedBrands = ref<string[]>([]);
 const selectedCategories = ref<string[]>([]);
@@ -186,6 +295,16 @@ const selectedColors = ref<string[]>([]);
 const showAllBrands = ref(false);
 const showAllCategories = ref(false);
 const showAllColors = ref(false);
+
+const totalItems = ref(1000);
+const currentPage = ref(1);
+const pageSize = ref(9);
+
+const handleUpdate = () => {
+  console.log(
+    `Загрузка страницы ${currentPage.value} с лимитом ${pageSize.value}`,
+  );
+};
 
 const visibleBrands = computed(() =>
   showAllBrands.value ? brands : brands.slice(0, 6),
@@ -218,10 +337,7 @@ const updatePriceFilter = () => {
   applyFilters();
 };
 
-const applyFilters = () => {
-  // Здесь можно добавить логику для отправки фильтров на сервер
-  // или обновления URL с параметрами фильтров
-};
+const applyFilters = () => {};
 </script>
 
 <style scoped lang="scss">
@@ -229,12 +345,17 @@ const applyFilters = () => {
   display: grid;
   grid-template-columns: 365px 1fr;
   gap: 30px;
+  padding-bottom: 80px;
 }
 
 .filters-sidebar {
+  position: relative;
+}
+
+.filters-content {
   position: sticky;
   top: 150px;
-  height: calc(100dvh - 140px);
+  bottom: 0;
 }
 
 .filter-section {
@@ -302,11 +423,14 @@ const applyFilters = () => {
 .show-more-btn {
   background: none;
   border: none;
-  color: #007bff;
+  display: flex;
+  gap: 6px;
+  align-items: center;
   cursor: pointer;
   margin-top: 10px;
-  font-size: 14px;
-  padding: 5px 0;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
   width: 100%;
   text-align: left;
 }
@@ -329,6 +453,43 @@ const applyFilters = () => {
   }
 }
 
+.filters-container {
+  position: sticky;
+  top: 150px;
+  bottom: 0;
+}
+
+.catalog-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  margin-top: 40px;
+}
+
+.catalog-pagination {
+  margin-top: 20px;
+}
+
+.catalog-actions__filter {
+  display: flex;
+  gap: 10px;
+}
+
+.catalog-actions__filter-button {
+  outline: none;
+  background-color: #fff;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 35px;
+  height: 35px;
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
 .grid-header {
   margin-bottom: 20px;
 }
@@ -342,7 +503,7 @@ const applyFilters = () => {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 20px;
-  margin-top: 30px;
+  margin-top: 20px;
 }
 
 .product-card {
@@ -372,27 +533,33 @@ const applyFilters = () => {
   font-weight: 500;
 }
 
-.product-price {
-  color: #e44d2e;
-  font-weight: bold;
-  font-size: 18px;
-  margin: 5px 0;
-}
-
-.product-brand {
-  color: #666;
-  font-size: 14px;
-  margin: 0;
-}
-
-@media (max-width: 768px) {
+@media (max-width: 1023px) {
   .filters-and-grid {
     grid-template-columns: 1fr;
   }
 
+  .product-cards {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
   .filters-sidebar {
-    position: static;
-    height: auto;
+    position: fixed;
+    height: 100vh;
+    padding-top: 56px;
+    padding-bottom: 56px;
+    overflow-y: scroll;
+    z-index: 9;
+    background: #fff;
+    top: 0;
+    left: 0;
+    width: 100%;
+    transform: translateX(-100%);
+    transition: transform 0.2s ease-in;
+  }
+
+  .filters-sidebar.is-open {
+    transform: translateX(0);
   }
 
   .checkbox-group {

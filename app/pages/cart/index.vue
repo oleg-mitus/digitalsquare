@@ -62,12 +62,12 @@
                         />
                         <div class="cart__item-quantity_buttons">
                           <UiButton
-                            icon="my-icon:icon-heart"
+                            icon="ds:icon-heart"
                             iconOnly
                             variant="red"
                           />
                           <UiButton
-                            icon="my-icon:icon-trash"
+                            icon="ds:icon-trash"
                             iconOnly
                             variant="grey"
                           />
@@ -76,12 +76,12 @@
                     </div>
                     <div class="cart__item-buttons">
                       <UiButton
-                        icon="my-icon:icon-trash"
+                        icon="ds:icon-trash"
                         iconOnly
                         variant="grey"
                       />
                       <UiButton
-                        icon="my-icon:icon-heart"
+                        icon="ds:icon-heart"
                         iconOnly
                         variant="red"
                       />
@@ -151,8 +151,8 @@
 
 <script lang="ts" setup>
 const isShowAll = ref<boolean>(false);
-const checkedItems = ref<Number[]>([]);
-const count = ref<Number>(1);
+const checkedItems = ref<number[]>([]);
+const count = ref<number>(1);
 </script>
 
 <style lang="scss" scoped>

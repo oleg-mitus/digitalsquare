@@ -54,11 +54,65 @@ const submitOrder = () => {
 <template>
   <div class="checkout">
     <div class="checkout__container">
-      <!-- Левая часть: Формы и Корзина -->
       <main class="checkout__main">
-        <h1 class="checkout__title">Оформление заказа</h1>
+        <section class="checkout__section card">
+          <div class="checkout__delivery">
+            <div class="checkout__delivery-item">
+              <div class="checkout-delivery checked">
+                <div class="checkout-delivery__title">Пункт выдачи</div>
+                <div class="checkout-delivery__desc">с 15 января бесплатно</div>
+              </div>
+            </div>
+            <div class="checkout__delivery-item">
+              <div class="checkout-delivery checked">
+                <div class="checkout-delivery__title">Курьером</div>
+                <div class="checkout-delivery__desc">При заказе от 600 ₽</div>
+              </div>
+            </div>
+            <div class="checkout__delivery-item">
+              <div class="checkout-delivery disabled">
+                <div class="checkout-delivery__title">
+                  По клику курьером, за 15-30 мин
+                </div>
+                <div class="checkout-delivery__desc">Недоступно</div>
+              </div>
+            </div>
+          </div>
+          <div class="checkout__data">
+            <div class="checkout__data-item">
+              <div class="checkout-data checked">
+                <div class="checkout-data__info">
+                  <div class="checkout-data__title">Пункт выдачи</div>
+                  <div class="checkout-data__desc">
+                    г. Санкт-Петербург, ул. Кантемировская, 39
+                  </div>
+                </div>
+                <div class="checkout-data__arrrow">
+                  <Icon name="ds:icon-caret" />
+                </div>
+              </div>
+              <div class="checkout-data">
+                <div class="checkout-data__info">
+                  <div class="checkout-data__title">Получатель</div>
+                  <div class="checkout-data__desc">
+                    Петр Семенович +7 (342) 981-32-11
+                  </div>
+                </div>
+                <div class="checkout-data__arrrow">
+                  <Icon name="ds:icon-caret" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
 
-        <!-- Выбор типа лица -->
+        <section class="checkout__section card">
+          <div class="checkout-info">
+            <div class="checkout-info__title">29 янв -1 фев, в ПВЗ</div>
+            <div class="checkout-info__desc">29 янв -1 фев, в ПВЗ</div>
+          </div>
+        </section>
+
         <section class="checkout__section card">
           <div class="customer-toggle">
             <button
@@ -96,25 +150,6 @@ const submitOrder = () => {
         </section>
 
         <!-- Доставка -->
-        <section class="checkout__section card">
-          <h2 class="section-title">Способ доставки</h2>
-          <div class="delivery-options">
-            <label class="option-card">
-              <input type="radio" name="delivery" checked />
-              <div class="option-content">
-                <span>Курьерская доставка</span>
-                <small>Завтра, бесплатно</small>
-              </div>
-            </label>
-            <label class="option-card">
-              <input type="radio" name="delivery" />
-              <div class="option-content">
-                <span>Пункт выдачи</span>
-                <small>24 апреля, бесплатно</small>
-              </div>
-            </label>
-          </div>
-        </section>
 
         <!-- Корзина -->
         <section class="checkout__section card">
@@ -134,16 +169,39 @@ const submitOrder = () => {
         </section>
       </main>
 
-      <!-- Правая часть: Сайдбар (Sticked) -->
       <aside class="checkout__sidebar">
         <div class="summary-card">
           <div class="summary-section">
-            <h3 class="summary-title">Способ оплаты</h3>
-            <select v-model="selectedPayment" class="select-field">
-              <option value="card">Банковская карта</option>
-              <option value="sbp">СБП (скидка 1%)</option>
-              <option value="cash">При получении</option>
-            </select>
+            <div class="summary-card__item">
+              <div class="summary-card__item-icon"></div>
+              <div class="summary-card__item-title">
+                Наличными<br />при получении
+              </div>
+            </div>
+            <div class="summary-card__item">
+              <div class="summary-card__item-icon"></div>
+              <div class="summary-card__item-title">Банковской<br />картой</div>
+            </div>
+            <div class="summary-card__item">
+              <div class="summary-card__item-icon"></div>
+              <div class="summary-card__item-title">
+                Безналичный<br />расчет
+              </div>
+            </div>
+          </div>
+          <div class="summary-details">
+            <div class="detail-row">
+              <span>1 товар</span>
+              <span>2000 ₽</span>
+            </div>
+            <div class="detail-row discount">
+              <span>Скидка</span>
+              <span>-10 ₽</span>
+            </div>
+            <div class="detail-row total">
+              <span>Доставка и сервисы</span>
+              <span>0 ₽</span>
+            </div>
           </div>
 
           <div class="summary-section">
@@ -157,29 +215,14 @@ const submitOrder = () => {
               <button class="btn-apply">Применить</button>
             </div>
           </div>
-
           <div class="summary-details">
             <div class="detail-row">
-              <span>Товары ({{ cartItems.length }})</span>
-              <span>{{ totalItemsPrice.toLocaleString() }} ₽</span>
-            </div>
-            <div class="detail-row discount">
-              <span>Скидка</span>
-              <span>− {{ discount.toLocaleString() }} ₽</span>
-            </div>
-            <div class="detail-row total">
               <span>Итого</span>
-              <span>{{ totalPrice.toLocaleString() }} ₽</span>
+              <span>2010 ₽</span>
             </div>
           </div>
 
-          <button class="btn-submit" @click="submitOrder">
-            Оформить заказ
-          </button>
-
-          <p class="terms">
-            Нажимая «Оформить», вы подтверждаете согласие с условиями оферты.
-          </p>
+          <UiButton block @click="submitOrder"> Оформить заказ </UiButton>
         </div>
       </aside>
     </div>
