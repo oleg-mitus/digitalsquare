@@ -53,7 +53,7 @@ const props = defineProps({
   radius: {
     type: String,
     default: "md",
-  }
+  },
 });
 
 defineEmits(["click"]);
@@ -83,6 +83,10 @@ const tag = computed(() => (props.href ? "a" : "button"));
   .iconify {
     width: 24px;
     height: 24px;
+    @media (max-width: 1023px) {
+      width: 20px;
+      height: 20px;
+    }
   }
   &--primary {
     background: $secondaryColor;

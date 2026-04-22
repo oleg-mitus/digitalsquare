@@ -66,7 +66,7 @@
             <HeaderProfile />
           </div>
           <div class="header__bottom-city">
-            г. Санкт-Петербург<Icon name="my-icon:icon-caret" size="6px" />
+            г. Санкт-Петербург<Icon name="ds:icon-caret" size="6px" />
           </div>
         </div>
       </div>

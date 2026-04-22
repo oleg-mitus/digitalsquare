@@ -7,16 +7,16 @@
         </div>
         <div class="footer__socials">
           <a href="#" target="_blank" class="footer__social-link">
-            <Icon name="my-icon:icon-youtube" size="44px" />
+            <Icon name="ds:icon-youtube" size="44px" />
           </a>
           <a href="#" target="_blank" class="footer__social-link">
-            <Icon name="my-icon:icon-vk" size="44px" />
+            <Icon name="ds:icon-vk" size="44px" />
           </a>
           <a href="#" target="_blank" class="footer__social-link">
-            <Icon name="my-icon:icon-market" size="44px" />
+            <Icon name="ds:icon-market" size="44px" />
           </a>
           <a href="#" target="_blank" class="footer__social-link">
-            <Icon name="my-icon:icon-ds" size="44px" />
+            <Icon name="ds:icon-ds" size="44px" />
           </a>
         </div>
       </div>
@@ -37,7 +37,7 @@
           </div>
           <button class="footer__btn" @click="handleCallback">
             Заказать обратный звонок
-            <Icon name="my-icon:icon-arrow" size="14px" />
+            <Icon name="ds:icon-arrow" size="14px" />
           </button>
         </div>
 
@@ -50,11 +50,7 @@
           >
             <h4 class="footer__nav-title" @click="toggleMenu(index)">
               {{ menu.title }}
-              <Icon
-                name="my-icon:icon-caret"
-                class="footer__nav-arrow"
-                size="12px"
-              />
+              <Icon name="ds:icon-caret" class="footer__nav-arrow" size="6px" />
             </h4>
             <ul class="footer__nav-list">
               <li v-for="link in menu.links" :key="link">
@@ -76,7 +72,7 @@
                 class="footer__input"
               />
               <button type="submit" class="footer__submit">
-                <Icon name="my-icon:icon-arrow-left" size="16px" />
+                <Icon name="ds:icon-arrow-left" size="16px" />
               </button>
             </div>
             <div class="footer__checkbox">
@@ -101,48 +97,48 @@ interface NavGroup {
   links: string[];
 }
 
-const email = ref<string>('');
+const email = ref<string>("");
 const agree = ref<boolean>(true);
 const activeMenu = ref<number | null>(null);
 const currentYear = computed(() => new Date().getFullYear());
 
 const navigation: NavGroup[] = [
   {
-    title: 'Каталог картриджей',
+    title: "Каталог картриджей",
     links: [
-      'Категория 1',
-      'Категория 2',
-      'Категория 3',
-      'Категория 4',
-      'Категория 5',
+      "Категория 1",
+      "Категория 2",
+      "Категория 3",
+      "Категория 4",
+      "Категория 5",
     ],
   },
   {
-    title: 'Помощь',
+    title: "Помощь",
     links: [
-      'Как заказать',
-      'Оплата заказа',
-      'Доставка',
-      'Гарантия',
-      'Легкий возврат',
-      'Акции и скидки',
-      'Абонентская программа',
-      'Условия работы и продажи',
-      'Отследить заказ',
+      "Как заказать",
+      "Оплата заказа",
+      "Доставка",
+      "Гарантия",
+      "Легкий возврат",
+      "Акции и скидки",
+      "Абонентская программа",
+      "Условия работы и продажи",
+      "Отследить заказ",
     ],
   },
   {
-    title: 'Цифровой квадрат',
+    title: "Цифровой квадрат",
     links: [
-      'О компании',
-      'Статьи',
-      'Новости и обзоры',
-      'Реквизиты компании',
-      'Написать директору',
-      'Заправка картриджей в СПБ',
-      'Абонентская программа',
-      'Условия работы и продажи',
-      'Отследить заказ',
+      "О компании",
+      "Статьи",
+      "Новости и обзоры",
+      "Реквизиты компании",
+      "Написать директору",
+      "Заправка картриджей в СПБ",
+      "Абонентская программа",
+      "Условия работы и продажи",
+      "Отследить заказ",
     ],
   },
 ];
@@ -154,12 +150,12 @@ const toggleMenu = (index: number) => {
 };
 
 const handleCallback = () => {
-  alert('Модальное окно обратного звонка');
+  alert("Модальное окно обратного звонка");
 };
 
 const subscribe = () => {
-  console.log('Подписка на:', email.value);
-  email.value = '';
+  console.log("Подписка на:", email.value);
+  email.value = "";
 };
 </script>
 
@@ -286,6 +282,9 @@ const subscribe = () => {
     .footer__nav-arrow {
       display: none;
     }
+    @media (max-width: 1439px) {
+      font-size: 16px;
+    }
   }
 
   &__nav-list {
@@ -303,6 +302,10 @@ const subscribe = () => {
     font-size: 16px;
     &:hover {
       color: #ccc;
+    }
+
+    @media (max-width: 1439px) {
+      font-size: 14px;
     }
   }
 
@@ -333,6 +336,10 @@ const subscribe = () => {
     padding-left: 10px;
     padding-right: 54px;
     font-size: 14px;
+    outline: none;
+    @media (max-width: 1439px) {
+      width: 330px;
+    }
   }
 
   &__submit {
@@ -382,15 +389,19 @@ const subscribe = () => {
     &__col--nav {
       grid-template-columns: 1fr;
     }
-
+    &__col {
+      gap: 0;
+    }
     &__nav-title {
       display: flex;
       align-items: center;
       cursor: pointer;
       margin-bottom: 15px;
-
+      gap: 8px;
       .footer__nav-arrow {
         display: block;
+        color: #678f97;
+        transform: rotate(-90deg);
       }
     }
 
@@ -406,7 +417,7 @@ const subscribe = () => {
         padding-bottom: 15px;
       }
       .footer__nav-arrow {
-        transform: rotate(-135deg);
+        transform: rotate(-180deg);
       }
     }
 

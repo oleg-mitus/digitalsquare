@@ -4,7 +4,7 @@
     aria-label="Профиль"
     @click="openSheet"
   >
-    <Icon name="my-icon:icon-user" size="20px" />
+    <Icon name="ds:icon-user" size="20px" />
     <span class="bottom-bar__text">Вход</span>
   </button>
   <BottomSheet ref="sheetRef" :snapPoints="snapPoints" :hideScrollbar="true">
@@ -12,7 +12,7 @@
       <div class="bottom-sheet__title">
         Вход
         <Icon
-          name="my-icon:icon-close"
+          name="ds:icon-close"
           size="24px"
           class="bottom-sheet__close"
           @click="sheetRef?.close()"

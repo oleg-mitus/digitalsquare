@@ -4,6 +4,17 @@
   grid-template-columns: repeat(3, 1fr);
   @media (max-width: 1023px) {
     grid-template-columns: repeat(1, 1fr);
-    gap: 10px;
+    gap: 30px;
+  }
+}
+
+.news-grid {
+  display: grid;
+  gap: 30px;
+  grid-template-columns: repeat(1, 1fr);
+  @media (max-width: 1023px) {
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: 30px;
+    column-gap: 10px;
   }
 }

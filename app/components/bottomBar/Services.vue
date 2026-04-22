@@ -4,7 +4,7 @@
     aria-label="Сервис"
     @click="openServiceSheet"
   >
-    <Icon name="my-icon:icon-grid" size="20px" />
+    <Icon name="ds:icon-grid" size="20px" />
     <span class="bottom-bar__text">Сервис</span>
   </button>
   <BottomSheet ref="sheetServiceRef" :snapPoints="snapPoints" :hideScrollbar="true" @open="() => openSheet">
@@ -12,7 +12,7 @@
       <div class="bottom-sheet__title">
         Сервис
         <Icon
-          name="my-icon:icon-close"
+          name="ds:icon-close"
           size="24px"
           class="bottom-sheet__close"
           @click="sheetServiceRef?.close()"

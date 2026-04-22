@@ -1,5 +1,5 @@
 <template>
-  <div class="home" v-if="false">
+  <div class="home">
     <div class="home__hero">
       <div class="home__hero-back">
         <video
@@ -68,7 +68,9 @@
               <NuxtLink to="/catalog">Смотреть все </NuxtLink>
             </div>
           </div>
-          <div class="news__grid"></div>
+          <div class="news-grid">
+            <NewsItem v-for="i in 3" :key="i" />
+          </div>
         </div>
       </div>
     </div>

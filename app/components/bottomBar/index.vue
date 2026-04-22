@@ -3,7 +3,7 @@
     <ul class="bottom-bar__list">
       <li class="bottom-bar__item">
         <button class="bottom-bar__link" aria-label="Поиск">
-          <Icon name="my-icon:icon-search" size="20px" />
+          <Icon name="ds:icon-search" size="20px" />
           <span class="bottom-bar__text">Поиск</span>
         </button>
       </li>
@@ -27,7 +27,7 @@
           @click="navigateTo('/cart')"
         >
           <div class="bottom-bar__icon">
-            <Icon name="my-icon:icon-cart" size="20px" />
+            <Icon name="ds:icon-cart" size="20px" />
             <span v-if="cartCount > 0" class="bottom-bar__badge">
               {{ cartCount }}
             </span>

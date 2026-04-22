@@ -4,7 +4,7 @@
     aria-label="Возникли вопросы?"
     @click="openSheet"
   >
-    <Icon name="my-icon:icon-phone" size="20px" />
+    <Icon name="ds:icon-phone" size="20px" />
     <span class="bottom-bar__text">Позвонить</span>
   </button>
   <BottomSheet ref="sheetRef" :snapPoints="snapPoints" :hideScrollbar="true">
@@ -12,7 +12,7 @@
       <div class="bottom-sheet__title">
         Возникли вопросы?
         <Icon
-          name="my-icon:icon-close"
+          name="ds:icon-close"
           size="24px"
           class="bottom-sheet__close"
           @click="sheetRef?.close()"
@@ -39,7 +39,7 @@
             <UiButton
               type="outline"
               block
-              icon="my-icon:icon-ds"
+              icon="ds:icon-ds"
               class="ui-button-vk"
               >VK Мессенджер</UiButton
             >

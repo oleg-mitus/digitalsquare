@@ -17,18 +17,19 @@
       </div>
       <div class="product__nums">
         <div class="product__nums-item product__nums-rating">
-          <Icon name="my-icon:icon-star" />
+          <Icon name="ds:icon-star" />
           <span>5</span>
         </div>
         <div class="product__nums-item product__nums-reviews">
-          <Icon name="my-icon:icon-comment" />
+          <Icon name="ds:icon-comment" />
           <span>98</span>
         </div>
       </div>
     </div>
     <div class="product__action">
-      <UiButton block icon="my-icon:icon-cart">Доставка завтра</UiButton>
+      <UiButton block icon="ds:icon-cart">Доставка завтра</UiButton>
     </div>
+    <NuxtLink to="/product" class="product__link"></NuxtLink>
   </div>
 </template>
 
@@ -42,10 +43,12 @@
   gap: 20px;
   @media (max-width: 1023px) {
     gap: 12px;
+    border-radius: 6px;
+    overflow: hidden;
   }
   &__label {
     position: absolute;
-    z-index: 1;
+    z-index: 2;
     top: 10px;
     left: 10px;
     padding: 8px;
@@ -62,7 +65,7 @@
     padding: 0 20px;
     aspect-ratio: 1.43;
     @media (max-width: 1023px) {
-      padding: 0;
+      padding: 10px;
     }
     img {
       width: 100%;
@@ -75,6 +78,11 @@
     display: flex;
     flex-direction: column;
     gap: 16px;
+  }
+  &__link {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
   }
   &__price {
     display: flex;
@@ -133,6 +141,14 @@
     &-reviews {
       display: flex;
       gap: 6px;
+    }
+  }
+  &__action {
+    z-index: 2;
+    .ui-button {
+      @media (max-width: 1023px) {
+        padding: 10px;
+      }
     }
   }
 }

@@ -1,12 +1,12 @@
 .home {
   &__hero {
     width: 100%;
-    height: calc(100dvh - 140px + 16px);
+    height: calc(100vh - 140px + 16px);
     min-height: 400px;
     margin-top: -16px;
     position: relative;
     @media (max-width: 1023px) {
-      height: 100dvh;
+      height: calc(100vh - 100px);
       margin-top: 0;
     }
     &-back {
