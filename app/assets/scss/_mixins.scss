@@ -1,7 +1,13 @@
+@use "variables" as *;
+
 @mixin respond-to($breakpoint) {
   @if $breakpoint == "tablet" {
-    @media (max-width: #{$tablet}) { @content; }
+    @media (max-width: #{$tablet}) {
+      @content;
+    }
   } @else if $breakpoint == "desktop" {
-    @media (max-width: #{$desktop}) { @content; }
+    @media (max-width: #{$desktop}) {
+      @content;
+    }
   }
 }
