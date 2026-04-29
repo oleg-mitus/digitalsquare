@@ -1,11 +1,10 @@
 <script setup lang="ts">
-// В Nuxt 4 все импорты из vue и nuxt автоимпортируются
-import type { Swiper as SwiperType } from 'swiper';
-import { Navigation, Thumbs, FreeMode } from 'swiper/modules';
+import type { Swiper as SwiperType } from "swiper";
+import { Navigation, Thumbs, FreeMode } from "swiper/modules";
 
-const containerRef = ref(null)
+const containerRef = ref(null);
 
-const swiper = useSwiper(containerRef)
+const swiper = useSwiper(containerRef);
 
 const thumbsSwiper = ref<SwiperType | null>(null);
 const setThumbsSwiper = (swiper: SwiperType) => {
@@ -18,148 +17,288 @@ const selectedVolume = ref(0);
 const quantity = ref(1);
 const isGalleryOpen = ref(false);
 
-const activeMainTab = ref<'description' | 'specs' | 'delivery'>('description');
-const activeReviewTab = ref<'reviews' | 'faq'>('reviews');
+const activeMainTab = ref<"description" | "specs" | "delivery">("description");
+const activeReviewTab = ref<"reviews" | "faq">("reviews");
 
-const { data: product } = await useAsyncData('product', () => {
+const { data: product } = await useAsyncData("product", () => {
   return Promise.resolve({
-    name: "Профессиональный монитор UltraVision 32\"",
-    price: 89000,
-    oldPrice: 105000,
-    images: Array.from({ length: 5 }, (_, i) => `https://picsum.photos/id/${i + 20}/800/800`),
-    variants: Array.from({ length: 3 }, (_, i) => `https://picsum.photos/id/{i + 30}/100/100`),
-    packs: ['1 шт', '2 шт', '4 шт'],
-    volumes: ['24"', '27"', '32"'],
+    name: "Картридж СF259XL для HP LJ Pro M304, LJ Pro M404",
+    price: 2100,
+    oldPrice: 3000,
+    discount: "3%",
+    images: Array.from(
+      { length: 5 },
+      (_, i) => `https://picsum.photos/id/${i + 20}/800/800`,
+    ),
+    variants: Array.from(
+      { length: 3 },
+      (_, i) => `https://picsum.photos/id/{i + 30}/100/100`,
+    ),
+    packs: ["1", "2", "4"],
+    volumes: ["1600", "2000", "4000"],
     specs: [
-      { label: 'Вид', value: 'IPS матрица' },
-      { label: 'Цвет', value: 'Черный матовый' },
-      { label: 'Емкость', value: '10 бит' },
-      { label: 'Совместимость', value: 'macOS, Windows, Linux' },
+      { label: "Вид", value: "IPS матрица" },
+      { label: "Цвет", value: "Черный матовый" },
+      { label: "Емкость", value: "10 бит" },
+      { label: "Совместимость", value: "macOS, Windows, Linux" },
     ],
-    reviewsPhotos: Array.from({ length: 8 }, (_, i) => `https://picsum.photos{i + 40}/400/400`)
+    reviewsPhotos: Array.from(
+      { length: 8 },
+      (_, i) => `https://picsum.photos{i + 40}/400/400`,
+    ),
   });
 });
 </script>
 
 <template>
   <div class="product-page" v-if="product">
-    <div class="app-container">
-      <div class="product-layout">
+    <div class="container">
+      <div class="product-breadcrumbs">
+        <Breadcrumbs
+          :items="[
+            { text: 'Главная', to: '/' },
+            { text: 'Каталог', to: '/catalog/' },
+            {
+              text: 'Картриджи',
+            },
+          ]"
+        />
+      </div>
+      <div class="product-container">
         <main class="product-main">
-          <div class="gallery-section">
-  
-            <div class="thumbs-container">
-              <ClientOnly>
-                <swiper-container ref="containerRef"
-                  @swiper="setThumbsSwiper"
-                  :direction="'vertical'"
-                  :space-between="10"
-                  :slides-per-view="4"
-                  :modules="[FreeMode, Navigation, Thumbs]"
-                  class="thumbs-slider"
-                >
-                  <swiper-slide v-for="(img, idx) in product.images" :key="idx">
-                    <div class="thumb-card"><img :src="img" /></div>
-                  </swiper-slide>
-                </swiper-container>
-              </ClientOnly>
-            </div>
+          <div class="product-layout">
+            <div class="gallery-section">
+              <div class="thumbs-container">
+                <ClientOnly>
+                  <swiper-container
+                    ref="containerRef"
+                    @swiper="setThumbsSwiper"
+                    :direction="'vertical'"
+                    :space-between="10"
+                    :slides-per-view="4"
+                    :modules="[FreeMode, Navigation, Thumbs]"
+                    class="thumbs-slider"
+                  >
+                    <swiper-slide
+                      v-for="(img, idx) in product.images"
+                      :key="idx"
+                    >
+                      <div class="thumb-card"><img :src="img" /></div>
+                    </swiper-slide>
+                  </swiper-container>
+                </ClientOnly>
+              </div>
 
-            
-            <div class="main-slider-container">
-              <ClientOnly>
-                <Swiper
-                  :navigation="true"
-                  :thumbs="{ swiper: thumbsSwiper }"
-                  :modules="[Navigation, Thumbs]"
-                  class="main-slider"
-                >
-                  <SwiperSlide v-for="(img, idx) in product.images" :key="idx">
-                    <img :src="img" class="main-img" />
-                  </SwiperSlide>
-                </Swiper>
-              </ClientOnly>
-            </div>
-          </div>
-
-          <h1 class="title">{{ product.name }}</h1>
-
-          
-          <div class="option-group">
-            <p class="label">Выберите вариант:</p>
-            <div class="variant-list">
-              <button 
-                v-for="(v, i) in product.variants" :key="i"
-                :class="['variant-btn', { active: selectedVariant === i }]"
-                @click="selectedVariant = i"
-              >
-                <img :src="v" />
-              </button>
-            </div>
-          </div>
-
-          
-          <div class="option-group">
-            <p class="label">Количество в упаковке:</p>
-            <div class="grid-boxes">
-              <div 
-                v-for="(p, i) in product.packs" :key="i"
-                :class="['pack-box', { active: selectedPack === i }]"
-                @click="selectedPack = i"
-              >
-                {{ p }}
+              <div class="main-slider-container">
+                <ClientOnly>
+                  <Swiper
+                    :navigation="true"
+                    :thumbs="{ swiper: thumbsSwiper }"
+                    :modules="[Navigation, Thumbs]"
+                    class="main-slider"
+                  >
+                    <SwiperSlide
+                      v-for="(img, idx) in product.images"
+                      :key="idx"
+                    >
+                      <img :src="img" class="main-img" />
+                    </SwiperSlide>
+                  </Swiper>
+                </ClientOnly>
               </div>
             </div>
-          </div>
+            <div class="product-section">
+              <h1 class="product-title">{{ product.name }}</h1>
 
-          
-          <div class="option-group">
-            <p class="label">Объем / Размер:</p>
-            <div class="grid-boxes">
-              <div 
-                v-for="(v, i) in product.volumes" :key="i"
-                :class="['pack-box', { active: selectedVolume === i }]"
-                @click="selectedVolume = i"
-              >
-                {{ v }}
+              <!-- Блок с количеством отзывов и вопросов -->
+              <div class="product-nums">
+                <div class="product-nums__item product-nums__item--rating">
+                  <div class="product-nums__item-icon">
+                    <Icon name="ds:icon-star" />
+                    <span>5</span>
+                  </div>
+                  <span class="product-nums__sep"></span>
+                  <div>205 отзывов</div>
+                </div>
+                <div class="product-nums__item product-nums__item--questions">
+                  <div class="product-nums__item-icon">
+                    <Icon name="ds:icon-comment" />
+                    <span>4</span>
+                  </div>
+                  <div>вопроса</div>
+                </div>
               </div>
-            </div>
-          </div>
 
-          
-          <ul class="specs-list">
-            <li v-for="spec in product.specs" :key="spec.label">
-              <span class="spec-name">{{ spec.label }}</span>
-              <span class="spec-value">{{ spec.value }}</span>
-            </li>
-          </ul>
+              <!-- Блок с выбором вариантов товара -->
+              <div class="product-variants">
+                <div class="product-variants__list">
+                  <div
+                    v-for="(v, i) in product.variants"
+                    :key="i"
+                    :class="[
+                      'product-variants__item',
+                      { active: selectedVariant === i },
+                    ]"
+                    @click="selectedVariant = i"
+                  >
+                    <div class="product-variants__item-image">
+                      <NuxtImg src="/images/product-variant.jpg" />
+                    </div>
+                  </div>
+                </div>
+                <div class="product-variants__title">
+                  Голубой (cyan) 2000 мл
+                </div>
+              </div>
 
-          
-          <div class="reviews-preview">
-            <p class="label">Фотографии покупателей:</p>
-            <div class="stack-container" @click="isGalleryOpen = true">
-              <div 
-                v-for="(img, i) in product.reviewsPhotos.slice(0, 4)" 
-                :key="i"
-                class="stack-item"
-                :style="{ transform: `translateX(${i * 45}px)` }"
-              >
-                <img :src="img" />
-                <div v-if="i === 3" class="stack-more">
-                  +{{ product.reviewsPhotos.length - 4 }}
+              <!-- Блок с выбором количества в упаковке -->
+              <div class="product-package">
+                <div class="product-package__title">
+                  Количество в упаковке, шт
+                </div>
+                <div class="product-package__list">
+                  <div
+                    v-for="(p, i) in product.packs"
+                    :key="i"
+                    :class="[
+                      'product-package__item',
+                      { active: selectedPack === i },
+                    ]"
+                    @click="selectedPack = i"
+                  >
+                    <div class="product-package__item-title">{{ p }}</div>
+                    <div class="product-package__item-desc">551₽ за шт</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Блок с выбором объема -->
+              <div class="product-volume">
+                <div class="product-volume__title">Объем, мл</div>
+                <div class="product-volume__list">
+                  <div
+                    v-for="(v, i) in product.volumes"
+                    :key="i"
+                    :class="[
+                      'product-volume__item',
+                      { active: selectedVolume === i },
+                    ]"
+                    @click="selectedVolume = i"
+                  >
+                    {{ v }}
+                  </div>
+                </div>
+              </div>
+
+              <!-- Блок о товаре -->
+              <div class="product-about">
+                <div class="product-about__top">
+                  <div class="product-about__title">О товаре</div>
+                  <div class="product-about__more">
+                    <button>
+                      Перейти к описанию
+                      <span>
+                        <Icon name="ds:icon-arrow" size="8px" />
+                      </span>
+                    </button>
+                  </div>
+                </div>
+                <div class="product-about__content">
+                  <ul class="product-about__list">
+                    <li v-for="spec in product.specs" :key="spec.label">
+                      <span class="product-about__list-title">{{
+                        spec.label
+                      }}</span>
+                      <span class="product-about__list-desc">{{
+                        spec.value
+                      }}</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              <!-- Блок фото и видео от покупателей -->
+              <div class="product-reviews">
+                <div class="product-reviews__title">
+                  Фото и видео покупателей:
+                </div>
+                <div
+                  class="product-reviews__container"
+                  @click="isGalleryOpen = true"
+                >
+                  <div
+                    v-for="(img, i) in product.reviewsPhotos.slice(0, 4)"
+                    :key="i"
+                    class="product-reviews__item"
+                    :style="{ transform: `translateX(${i * 45}px)` }"
+                  >
+                    <NuxtImg src="/images/product-variant.jpg" />
+                    <div v-if="i === 3" class="product-reviews__more">
+                      +{{ product.reviewsPhotos.length - 4 }}
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
+          <!-- Блок с характеристиками и описанием -->
+          <div class="tabs-section">
+            <nav class="tab-header">
+              <button
+                @click="activeMainTab = 'description'"
+                :class="{ active: activeMainTab === 'description' }"
+              >
+                Описание
+              </button>
+              <button
+                @click="activeMainTab = 'specs'"
+                :class="{ active: activeMainTab === 'specs' }"
+              >
+                Характеристики
+              </button>
+              <button
+                @click="activeMainTab = 'delivery'"
+                :class="{ active: activeMainTab === 'delivery' }"
+              >
+                Доставка
+              </button>
+            </nav>
+            <div class="tab-body card">
+              <p v-if="activeMainTab === 'description'">
+                Здесь находится подробное описание товара в Nuxt 4...
+              </p>
+            </div>
+
+            <nav class="tab-header mt-8">
+              <button
+                @click="activeReviewTab = 'reviews'"
+                :class="{ active: activeReviewTab === 'reviews' }"
+              >
+                Отзывы
+              </button>
+              <button
+                @click="activeReviewTab = 'faq'"
+                :class="{ active: activeReviewTab === 'faq' }"
+              >
+                Вопрос-ответ
+              </button>
+            </nav>
+            <div class="tab-body card">
+              <div v-if="activeReviewTab === 'reviews'">Список отзывов...</div>
+            </div>
+          </div>
         </main>
 
-        
         <aside class="product-sidebar">
-          <div class="sticky-panel">
+          <div class="product-actions">
             <div class="price-wrapper">
               <div class="prices">
-                <span class="price-now">{{ product.price.toLocaleString() }} ₽</span>
-                <span class="price-old">{{ product.oldPrice.toLocaleString() }} ₽</span>
+                <span class="price-now"
+                  >{{ product.price.toLocaleString() }} ₽</span
+                >
+                <span class="price-old"
+                  >{{ product.oldPrice.toLocaleString() }} ₽</span
+                >
               </div>
               <div class="discount-tag">Скидка 20%</div>
             </div>
@@ -172,38 +311,26 @@ const { data: product } = await useAsyncData('product', () => {
 
             <button class="buy-btn">Добавить в корзину</button>
           </div>
+          <div class="product-buy"></div>
+          <div class="product-delivery"></div>
         </aside>
       </div>
-
-      
-      <div class="tabs-section">
-        <nav class="tab-header">
-          <button @click="activeMainTab = 'description'" :class="{ active: activeMainTab === 'description' }">Описание</button>
-          <button @click="activeMainTab = 'specs'" :class="{ active: activeMainTab === 'specs' }">Характеристики</button>
-          <button @click="activeMainTab = 'delivery'" :class="{ active: activeMainTab === 'delivery' }">Доставка</button>
-        </nav>
-        <div class="tab-body card">
-          <p v-if="activeMainTab === 'description'">Здесь находится подробное описание товара в Nuxt 4...</p>
-        </div>
-
-        <nav class="tab-header mt-8">
-          <button @click="activeReviewTab = 'reviews'" :class="{ active: activeReviewTab === 'reviews' }">Отзывы</button>
-          <button @click="activeReviewTab = 'faq'" :class="{ active: activeReviewTab === 'faq' }">Вопрос-ответ</button>
-        </nav>
-        <div class="tab-body card">
-          <div v-if="activeReviewTab === 'reviews'">Список отзывов...</div>
-        </div>
-      </div>
     </div>
-
-    
     <Teleport to="body">
-      <div v-if="isGalleryOpen" class="gallery-modal" @click.self="isGalleryOpen = false">
+      <div
+        v-if="isGalleryOpen"
+        class="gallery-modal"
+        @click.self="isGalleryOpen = false"
+      >
         <div class="modal-inner">
           <ClientOnly>
-            <Swiper :navigation="true" :modules="[Navigation]" class="full-viewer">
+            <Swiper
+              :navigation="true"
+              :modules="[Navigation]"
+              class="full-viewer"
+            >
               <SwiperSlide v-for="(img, i) in product.reviewsPhotos" :key="i">
-                <img :src="img" />
+                <NuxtImg src="/images/product.jpg" />
               </SwiperSlide>
             </Swiper>
           </ClientOnly>
@@ -216,14 +343,6 @@ const { data: product } = await useAsyncData('product', () => {
 
 <style lang="scss" scoped>
 .product-page {
-  padding: 40px 0;
-  background: #fcfcfc;
-}
-
-.app-container {
-  max-width: 1320px;
-  margin: 0 auto;
-  padding: 0 20px;
 }
 
 .product-layout {
@@ -236,7 +355,225 @@ const { data: product } = await useAsyncData('product', () => {
   flex: 1;
 }
 
-// Галлерея
+.product-breadcrumbs {
+  margin: 30px 0;
+}
+
+.product-container {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+.product-title {
+  font-size: 24px;
+  margin: 0;
+  line-height: 130%;
+}
+
+// Блок с количеством отзывов и вопросов
+.product-nums {
+  display: flex;
+  gap: 18px;
+  margin-top: 20px;
+  &__item {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    &--questions {
+      gap: 12px;
+    }
+    &-icon {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+      line-height: 100%;
+    }
+  }
+  &__sep {
+    display: flex;
+    width: 4px;
+    height: 4px;
+    background-color: $primaryColor;
+    border-radius: 50%;
+  }
+}
+
+// Блок с выбором вариантов товара
+.product-variants {
+  &__list {
+    display: flex;
+    gap: 6px;
+    margin-top: 30px;
+  }
+  &__item {
+    padding: 4px;
+    border-radius: 6px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    &.active {
+      border: 1px solid $secondaryColor;
+    }
+    &-image {
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    img {
+      display: block;
+      width: 70px;
+      height: auto;
+    }
+  }
+  &__title {
+    font-size: 14px;
+    font-weight: 500;
+    margin-top: 10px;
+  }
+}
+
+// Блок с выбором количества в упаковке
+.product-package {
+  margin-top: 30px;
+  &__title {
+    font-size: 20px;
+    font-weight: 500;
+  }
+  &__list {
+    display: flex;
+    gap: 6px;
+    margin-top: 16px;
+  }
+  &__item {
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px dashed rgba($primaryColor, 0.5);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 80px;
+    gap: 4px;
+    &.active {
+      border: 1px solid $secondaryColor;
+    }
+    &-title {
+      font-size: 18px;
+      font-weight: 500;
+      text-align: center;
+    }
+    &-desc {
+      font-size: 14px;
+      color: rgba($primaryColor, 0.5);
+    }
+  }
+}
+
+//Блок с выбором объема
+.product-volume {
+  margin-top: 30px;
+  &__title {
+    font-size: 20px;
+    font-weight: 500;
+  }
+  &__list {
+    display: flex;
+    gap: 6px;
+    margin-top: 16px;
+  }
+  &__item {
+    cursor: pointer;
+    padding: 8px 20px;
+    border-radius: 6px;
+    border: 1px dashed rgba($primaryColor, 0.5);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-width: 80px;
+    &.active {
+      border: 1px solid $secondaryColor;
+    }
+    &-title {
+      font-size: 18px;
+      font-weight: 400;
+      text-align: center;
+    }
+  }
+}
+
+// Блок о товаре
+.product-about {
+  margin-top: 30px;
+  &__top {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    justify-content: space-between;
+  }
+  &__title {
+    font-size: 20px;
+    font-weight: 600;
+  }
+  &__list {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0 0;
+    li {
+      display: flex;
+      padding: 12px 0;
+      min-height: 50px;
+      border-bottom: 1px solid $borderColor;
+      gap: 6px;
+    }
+    &-title {
+      color: rgba($primaryColor, 0.6);
+      flex: 0 0 200px;
+    }
+    &-value {
+    }
+  }
+}
+
+// Блок фото и видео от покупателей
+.product-reviews {
+  margin-top: 30px;
+  &__title {
+    font-size: 20px;
+    font-weight: 600;
+  }
+  &__container {
+    position: relative;
+    height: 100px;
+    margin-top: 12px;
+    cursor: pointer;
+  }
+  &__item {
+    position: absolute;
+    width: 90px;
+    height: 90px;
+    border-radius: 15px;
+    border: 2px solid #fff;
+    overflow: hidden;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+  &__more {
+    position: absolute;
+    inset: 0;
+    background: rgba(#ffffff, 0.2);
+    backdrop-filter: blur(6px);
+    color: $primaryColor;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+  }
+}
+
 .gallery-section {
   display: flex;
   gap: 20px;
@@ -264,7 +601,11 @@ const { data: product } = await useAsyncData('product', () => {
     border-radius: 10px;
     overflow: hidden;
     cursor: pointer;
-    img { width: 100%; height: 100%; object-fit: cover; }
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
   }
   .swiper-slide-thumb-active .thumb-card {
     border-color: #000;
@@ -275,26 +616,6 @@ const { data: product } = await useAsyncData('product', () => {
   width: 100%;
   height: 100%;
   object-fit: contain;
-}
-
-// Опции
-.option-group {
-  margin-bottom: 30px;
-  .label { font-weight: 600; margin-bottom: 12px; font-size: 16px; }
-}
-
-.variant-list {
-  display: flex;
-  gap: 10px;
-  .variant-btn {
-    width: 65px; height: 65px;
-    border-radius: 8px;
-    border: 2px solid #eee;
-    padding: 0; overflow: hidden;
-    cursor: pointer;
-    &.active { border-color: #007bff; }
-    img { width: 100%; height: 100%; object-fit: cover; }
-  }
 }
 
 .grid-boxes {
@@ -312,68 +633,34 @@ const { data: product } = await useAsyncData('product', () => {
     background: #fff;
     font-weight: 500;
     transition: all 0.2s;
-    &:hover { border-color: #ccc; }
-    &.active { border-color: #007bff; color: #007bff; background: #f0f7ff; }
-  }
-}
-
-// Характеристики
-.specs-list {
-  list-style: none;
-  padding: 0;
-  margin: 40px 0;
-  li {
-    display: flex;
-    justify-content: space-between;
-    padding: 12px 0;
-    border-bottom: 1px solid #f0f0f0;
-    .spec-name { color: #777; }
-    .spec-value { font-weight: 500; }
-  }
-}
-
-// Фото покупателей
-.stack-container {
-  position: relative;
-  height: 100px;
-  margin-top: 20px;
-  cursor: pointer;
-  .stack-item {
-    position: absolute;
-    width: 90px; height: 90px;
-    border-radius: 15px;
-    border: 4px solid #fff;
-    overflow: hidden;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    img { width: 100%; height: 100%; object-fit: cover; }
-  }
-  .stack-more {
-    position: absolute; inset: 0;
-    background: rgba(0,0,0,0.6);
-    color: #fff;
-    display: flex; align-items: center; justify-content: center;
-    font-weight: bold; font-size: 18px;
-  }
-}
-
-// Сайдбар
-.product-sidebar {
-  width: 365px;
-  .sticky-panel {
-    position: sticky;
-    top: 100px;
-    background: #fff;
-    padding: 30px;
-    border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    &:hover {
+      border-color: #ccc;
+    }
+    &.active {
+      border-color: #007bff;
+      color: #007bff;
+      background: #f0f7ff;
+    }
   }
 }
 
 .price-wrapper {
   margin-bottom: 25px;
-  .price-now { font-size: 36px; font-weight: 800; display: block; }
-  .price-old { color: #999; text-decoration: line-through; font-size: 18px; }
-  .discount-tag { margin-top: 8px; color: #ff4757; font-weight: 600; }
+  .price-now {
+    font-size: 36px;
+    font-weight: 800;
+    display: block;
+  }
+  .price-old {
+    color: #999;
+    text-decoration: line-through;
+    font-size: 18px;
+  }
+  .discount-tag {
+    margin-top: 8px;
+    color: #ff4757;
+    font-weight: 600;
+  }
 }
 
 .counter-box {
@@ -383,14 +670,28 @@ const { data: product } = await useAsyncData('product', () => {
   border-radius: 12px;
   width: fit-content;
   margin-bottom: 20px;
-  button { 
-    width: 45px; height: 45px; border: none; background: none; cursor: pointer; font-size: 20px; 
-    &:hover { color: #007bff; }
+  button {
+    width: 45px;
+    height: 45px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 20px;
+    &:hover {
+      color: #007bff;
+    }
   }
-  input { 
-    width: 60px; border: none; text-align: center; font-size: 16px; font-weight: 600;
+  input {
+    width: 60px;
+    border: none;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 600;
     -moz-appearance: textfield;
-    &::-webkit-outer-spin-button, &::-webkit-inner-spin-button { -webkit-appearance: none; }
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+    }
   }
 }
 
@@ -405,7 +706,9 @@ const { data: product } = await useAsyncData('product', () => {
   font-weight: 700;
   cursor: pointer;
   transition: transform 0.2s;
-  &:active { transform: scale(0.98); }
+  &:active {
+    transform: scale(0.98);
+  }
 }
 
 // Табы
@@ -417,22 +720,64 @@ const { data: product } = await useAsyncData('product', () => {
     border-bottom: 1px solid #eee;
     button {
       padding: 15px 5px;
-      background: none; border: none; cursor: pointer;
-      font-size: 18px; color: #888;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 18px;
+      color: #888;
       border-bottom: 3px solid transparent;
-      &.active { color: #000; border-color: #007bff; font-weight: 600; }
+      &.active {
+        color: #000;
+        border-color: #007bff;
+        font-weight: 600;
+      }
     }
   }
-  .tab-body { padding: 30px 0; min-height: 100px; }
+  .tab-body {
+    padding: 30px 0;
+    min-height: 100px;
+  }
 }
 
 // Модалка
 .gallery-modal {
-  position: fixed; inset: 0; background: rgba(0,0,0,0.95);
-  z-index: 9999; display: flex; align-items: center; justify-content: center;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.95);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   .modal-inner {
-    width: 90%; max-width: 1000px; position: relative;
-    .close-modal { position: absolute; top: -50px; right: 0; color: #fff; font-size: 30px; background: none; border: none; cursor: pointer; }
+    width: 90%;
+    max-width: 1000px;
+    position: relative;
+    .close-modal {
+      position: absolute;
+      top: -50px;
+      right: 0;
+      color: #fff;
+      font-size: 30px;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
   }
+}
+
+.product-sidebar {
+  width: 365px;
+  position: sticky;
+  top: 150px;
+  bottom: 0;
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+}
+
+.product-actions {
+  background-color: $whiteColor;
+  border-radius: 16px;
+  padding: 10px;
 }
 </style>

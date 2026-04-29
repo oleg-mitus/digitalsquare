@@ -32,7 +32,7 @@ const syncSwipers = () => {
       @swiperafterinit="syncSwipers"
     >
       <swiper-slide v-for="img in images" :key="img">
-        <img :src="img" />
+        <NuxtImg src="/images/product.jpg" />
       </swiper-slide>
     </swiper-container>
 
@@ -43,9 +43,9 @@ const syncSwipers = () => {
         class="thumbs-swiper"
         slides-per-view="auto" 
         space-between="10"
-        navigation="true"
-        watch-slides-progress="true"
-        center-insufficient-slides="true"
+        :navigation="true"
+        :watch-slides-progress="true"
+        :center-insufficient-slides="true"
       >
         <swiper-slide 
           v-for="(img, index) in images" 
@@ -54,7 +54,7 @@ const syncSwipers = () => {
           @click="onThumbClick(index)"
         >
           <div class="thumb-content">
-            <img :src="img" />
+            <NuxtImg src="/images/product-variant.jpg" />
           </div>
         </swiper-slide>
       </swiper-container>
