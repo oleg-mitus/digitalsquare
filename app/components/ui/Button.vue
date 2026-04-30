@@ -114,6 +114,14 @@ const tag = computed(() => (props.href ? "a" : "button"));
       background-color: #f5f7fa;
     }
   }
+  &--yellow {
+    background: rgba($secondaryColor, 0.1);
+    color: $secondaryColor;
+    &:hover {
+      background-color: $secondaryColor;
+      color: #fff;
+    }
+  }
   &--grey {
     background: $greyColor;
     color: $greyText;

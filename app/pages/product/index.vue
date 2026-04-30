@@ -18,6 +18,28 @@ const quantity = ref(1);
 const isGalleryOpen = ref(false);
 
 const activeMainTab = ref<"description" | "specs" | "delivery">("description");
+const mainTabs = [
+  { id: "description", label: "Описание" },
+  { id: "specs", label: "Характеристики" },
+  { id: "delivery", label: "Доставка и оплата" },
+];
+
+const specs = [
+  { title: "Вид", value: "Новый, совместный" },
+  { title: "Цвет", value: "Черный" },
+  { title: "Емкость", value: "Стандартная" },
+  { title: "Совместимость", value: "HP LJ Pro M304, LJ Pro M404" },
+  { title: "Вид", value: "Новый, совместный" },
+  { title: "Вид", value: "Новый, совместный" },
+  { title: "Вид", value: "Новый, совместный" },
+  { title: "Вид", value: "Новый, совместный" },
+  { title: "Вид", value: "Новый, совместный" },
+  { title: "Вид", value: "Новый, совместный" },
+  { title: "Вид", value: "Новый, совместный" },
+  { title: "Вид", value: "Новый, совместный" },
+  { title: "Внешний вид упаковки может  отличаться", value: "" },
+];
+
 const activeReviewTab = ref<"reviews" | "faq">("reviews");
 
 const { data: product } = await useAsyncData("product", () => {
@@ -67,45 +89,8 @@ const { data: product } = await useAsyncData("product", () => {
       <div class="product-container">
         <main class="product-main">
           <div class="product-layout">
-            <div class="gallery-section">
-              <div class="thumbs-container">
-                <ClientOnly>
-                  <swiper-container
-                    ref="containerRef"
-                    @swiper="setThumbsSwiper"
-                    :direction="'vertical'"
-                    :space-between="10"
-                    :slides-per-view="4"
-                    :modules="[FreeMode, Navigation, Thumbs]"
-                    class="thumbs-slider"
-                  >
-                    <swiper-slide
-                      v-for="(img, idx) in product.images"
-                      :key="idx"
-                    >
-                      <div class="thumb-card"><img :src="img" /></div>
-                    </swiper-slide>
-                  </swiper-container>
-                </ClientOnly>
-              </div>
-
-              <div class="main-slider-container">
-                <ClientOnly>
-                  <Swiper
-                    :navigation="true"
-                    :thumbs="{ swiper: thumbsSwiper }"
-                    :modules="[Navigation, Thumbs]"
-                    class="main-slider"
-                  >
-                    <SwiperSlide
-                      v-for="(img, idx) in product.images"
-                      :key="idx"
-                    >
-                      <img :src="img" class="main-img" />
-                    </SwiperSlide>
-                  </Swiper>
-                </ClientOnly>
-              </div>
+            <div class="product-slider">
+              <ProductSlider />
             </div>
             <div class="product-section">
               <h1 class="product-title">{{ product.name }}</h1>
@@ -242,78 +227,68 @@ const { data: product } = await useAsyncData("product", () => {
             </div>
           </div>
           <!-- Блок с характеристиками и описанием -->
-          <div class="tabs-section">
-            <nav class="tab-header">
-              <button
-                @click="activeMainTab = 'description'"
-                :class="{ active: activeMainTab === 'description' }"
-              >
-                Описание
-              </button>
-              <button
-                @click="activeMainTab = 'specs'"
-                :class="{ active: activeMainTab === 'specs' }"
-              >
-                Характеристики
-              </button>
-              <button
-                @click="activeMainTab = 'delivery'"
-                :class="{ active: activeMainTab === 'delivery' }"
-              >
-                Доставка
-              </button>
-            </nav>
-            <div class="tab-body card">
-              <p v-if="activeMainTab === 'description'">
-                Здесь находится подробное описание товара в Nuxt 4...
-              </p>
-            </div>
-
-            <nav class="tab-header mt-8">
-              <button
-                @click="activeReviewTab = 'reviews'"
-                :class="{ active: activeReviewTab === 'reviews' }"
-              >
-                Отзывы
-              </button>
-              <button
-                @click="activeReviewTab = 'faq'"
-                :class="{ active: activeReviewTab === 'faq' }"
-              >
-                Вопрос-ответ
-              </button>
-            </nav>
-            <div class="tab-body card">
-              <div v-if="activeReviewTab === 'reviews'">Список отзывов...</div>
-            </div>
-          </div>
+          <ProductTabs v-model="activeMainTab" :items="mainTabs">
+            <template #description>
+              <div class="product-description">
+                <p>Какое-то описание</p>
+              </div>
+            </template>
+            <template #specs>
+              <div class="product-specs">
+                <div
+                  class="product-specs__row"
+                  v-for="spec in specs"
+                  :key="spec.title"
+                >
+                  <div class="product-specs__title">{{ spec.title }}</div>
+                  <div class="product-specs__value">{{ spec.value }}</div>
+                </div>
+              </div>
+            </template>
+            <template #delivery>
+              <div class="product-delivery">
+                <p>Доставка и оплата</p>
+              </div>
+            </template>
+          </ProductTabs>
         </main>
 
         <aside class="product-sidebar">
           <div class="product-actions">
-            <div class="price-wrapper">
-              <div class="prices">
-                <span class="price-now"
-                  >{{ product.price.toLocaleString() }} ₽</span
-                >
-                <span class="price-old"
-                  >{{ product.oldPrice.toLocaleString() }} ₽</span
-                >
+            <div class="product-price">
+              <div class="product-price__row">
+                <div class="product-price__value">2010 ₽</div>
+                <div class="product-price__old">2010 ₽</div>
+                <div class="product-price__discount">3%</div>
               </div>
-              <div class="discount-tag">Скидка 20%</div>
+              <div class="product-price__desc">540₽ за 3 шт</div>
             </div>
-
-            <div class="counter-box">
-              <button @click="quantity > 1 && quantity--">−</button>
-              <input type="number" v-model="quantity" />
-              <button @click="quantity++">+</button>
+            <div class="product-buttons">
+              <div class="product-cart">
+                <div class="product-button"></div>
+                <div class="product-quantity"></div>
+                <div class="product-favorite"></div>
+              </div>
             </div>
-
-            <button class="buy-btn">Добавить в корзину</button>
           </div>
-          <div class="product-buy"></div>
+          <div class="product-click">
+            <UiButton variant="yellow" block>Купить в 1 клик</UiButton>
+          </div>
           <div class="product-delivery"></div>
         </aside>
+      </div>
+      <div class="catalog-products">
+        <div class="home__blocks-top">
+          <div class="home__blocks-title">
+            <h3>Подобрали для вас</h3>
+          </div>
+          <div class="home__blocks-more">
+            <NuxtLink to="/catalog">История просмотров</NuxtLink>
+          </div>
+        </div>
+        <div class="catalog__grid">
+          <CatalogProduct v-for="i in 8" :key="i" />
+        </div>
       </div>
     </div>
     <Teleport to="body">
@@ -347,12 +322,15 @@ const { data: product } = await useAsyncData("product", () => {
 
 .product-layout {
   display: flex;
-  gap: 50px;
-  align-items: flex-start;
+  gap: 16px;
+  align-items: stretch;
 }
 
 .product-main {
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 }
 
 .product-breadcrumbs {
@@ -363,12 +341,18 @@ const { data: product } = await useAsyncData("product", () => {
   display: flex;
   gap: 20px;
   align-items: flex-start;
+  width: 100%;
 }
 
 .product-title {
   font-size: 24px;
   margin: 0;
   line-height: 130%;
+}
+
+.product-slider, .product-section {
+  flex: 1;
+  width: 100%;
 }
 
 // Блок с количеством отзывов и вопросов
@@ -612,6 +596,21 @@ const { data: product } = await useAsyncData("product", () => {
   }
 }
 
+.product-specs {
+  &__row {
+    display: flex;
+    gap: 20px;
+    min-height: 40px;
+    align-items: center;
+  }
+  &__title {
+    flex: 0 0 360px;
+    color: rgba($primaryColor, 0.6);
+  }
+  &__value {
+  }
+}
+
 .main-img {
   width: 100%;
   height: 100%;
@@ -775,9 +774,45 @@ const { data: product } = await useAsyncData("product", () => {
   flex-direction: column;
 }
 
+// Блок с ценой и кнопками
 .product-actions {
   background-color: $whiteColor;
   border-radius: 16px;
   padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.product-price {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  &__row {
+    display: flex;
+    gap: 6px;
+    align-items: baseline;
+  }
+  &__value {
+    font-size: 30px;
+    font-weight: 600;
+    line-height: 130%;
+  }
+  &__old {
+    font-size: 20px;
+    text-decoration: line-through;
+    font-weight: 500;
+    line-height: 130%;
+  }
+  &__discount {
+    margin-left: 4px;
+    color: $greenText;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 130%;
+  }
+  &__desc {
+    font-size: 20px;
+    color: rgba($primaryColor, 0.5);
+  }
 }
 </style>

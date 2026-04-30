@@ -1,127 +1,148 @@
 <script setup lang="ts">
+import { Swiper, SwiperSlide } from 'swiper/vue'
+import { Navigation, Thumbs } from 'swiper/modules'
+import type { Swiper as SwiperType } from 'swiper'
+
+import 'swiper/css'
+import 'swiper/css/navigation'
+import 'swiper/css/thumbs'
+
+const thumbsSwiper = ref<SwiperType | null>(null)
+const setThumbsSwiper = (swiper: SwiperType) => {
+  thumbsSwiper.value = swiper
+}
+
 const images = [
-  'https://picsum.photos/id/1/800/800',
-  'https://picsum.photos/id/2/800/800',
-  'https://picsum.photos/id/3/800/800',
-  'https://picsum.photos/id/4/800/800',
-  'https://picsum.photos/id/5/800/800',
-  'https://picsum.photos/id/6/800/800',
+  '/images/printer-1.png',
+  '/images/printer-1.png',
+  '/images/printer-1.png',
+  '/images/printer-1.png',
+  '/images/printer-1.png',
+  '/images/printer-1.png',
+  '/images/printer-1.png',
+  '/images/printer-1.png',
+  '/images/printer-1.png',
 ]
-
-const mainSwiperRef = ref<any>(null)
-const thumbsSwiperRef = ref<any>(null)
-
-const onThumbClick = (index: number) => {
-  mainSwiperRef.value?.swiper?.slideTo(index)
-}
-
-const syncSwipers = () => {
-  if (mainSwiperRef.value?.swiper && thumbsSwiperRef.value?.swiper) {
-    mainSwiperRef.value.swiper.thumbs.swiper = thumbsSwiperRef.value.swiper
-  }
-}
 </script>
 
 <template>
-  <div class="gallery-wrapper">
+  <div class="slider-container">
     <!-- Основной слайдер -->
-    <swiper-container 
-      ref="mainSwiperRef"
+    <Swiper
+      :modules="[Navigation, Thumbs]"
+      :thumbs="{ swiper: thumbsSwiper }"
+      :navigation="true"
       class="main-swiper"
-      space-between="10"
-      @swiperafterinit="syncSwipers"
     >
-      <swiper-slide v-for="img in images" :key="img">
-        <NuxtImg src="/images/product.jpg" />
-      </swiper-slide>
-    </swiper-container>
+      <SwiperSlide v-for="(img, idx) in images" :key="idx">
+        <img :src="img" alt="Slide image" />
+      </SwiperSlide>
+    </Swiper>
 
     <!-- Слайдер миниатюр -->
-    <div class="thumbs-container">
-      <swiper-container 
-        ref="thumbsSwiperRef"
-        class="thumbs-swiper"
-        slides-per-view="auto" 
-        space-between="10"
-        :navigation="true"
+    <div class="thumbs-wrapper">
+      <div class="swiper-button-prev thumb-prev">
+        <Icon name="ds:icon-slider-arrow" size="8px" />
+      </div>
+      <Swiper
+        @swiper="setThumbsSwiper"
+        :modules="[Navigation, Thumbs]"
+        :slides-per-view="5"
+        :space-between="10"
         :watch-slides-progress="true"
-        :center-insufficient-slides="true"
+        :navigation="{
+          prevEl: '.thumb-prev',
+          nextEl: '.thumb-next',
+        }"
+        class="thumbs-swiper"
       >
-        <swiper-slide 
-          v-for="(img, index) in images" 
-          :key="'t'+index"
-          class="thumb-slide"
-          @click="onThumbClick(index)"
-        >
-          <div class="thumb-content">
-            <NuxtImg src="/images/product-variant.jpg" />
-          </div>
-        </swiper-slide>
-      </swiper-container>
+        <SwiperSlide v-for="(img, idx) in images" :key="idx" class="thumb-slide">
+          <img :src="img" alt="Thumb" />
+        </SwiperSlide>
+      </Swiper>
+      <div class="swiper-button-next thumb-next">
+        <Icon name="ds:icon-slider-arrow" size="8px" />
+      </div>
     </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
-.gallery-wrapper {
-  max-width: 800px; // Ширина всей галереи
+.slider-container {
+  width: 560px;
   margin: 0 auto;
 
   .main-swiper {
     width: 100%;
-    aspect-ratio: 16 / 9;
-    border-radius: 12px;
+    height: 100%;
+    min-height: 500px;
+    border-radius: 8px;
     margin-bottom: 10px;
-    img { width: 100%; height: 100%; object-fit: cover; }
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
   }
 
-  .thumbs-container {
-    position: relative; // Для позиционирования стрелок, если нужно
-    width: 100%;
+  .thumbs-wrapper {
+    position: relative;
 
     .thumbs-swiper {
       width: 100%;
-      height: 80px;
-      // ВАЖНО: чтобы стрелки были видны, Swiper Elements 
-      // добавляет padding внутри Shadow DOM, если включена навигация.
       
       .thumb-slide {
-        width: 120px; // ФИКСИРОВАННАЯ ШИРИНА МИНИАТЮРЫ
+        width: 100px;
+        height: 100px;
+        padding: 10px;
+        background-color: #FFF8E6;
         cursor: pointer;
-      }
-
-      .thumb-content {
-        height: 100%;
-        border-radius: 6px;
+        opacity: 0.6;
+        transition: opacity 0.3s, border-color 0.3s;
+        border: 1px solid transparent;
+        border-radius: 4px;
         overflow: hidden;
-        opacity: 0.4;
-        transition: opacity 0.3s;
-        border: 2px solid transparent;
-        img { width: 100%; height: 100%; object-fit: cover; }
-      }
+        border-radius: 16px;
 
-      // Активная миниатюра
-      .swiper-slide-thumb-active .thumb-content {
-        opacity: 1;
-        border-color: #00dc82;
-      }
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+        }
 
-      /* СТИЛИЗАЦИЯ СТРЕЛОК ЧЕРЕЗ ::PART */
-      &::part(button-prev),
-      &::part(button-next) {
-        color: #fff;
-        background: rgba(0, 0, 0, 0.6);
-        width: 30px;
-        height: 30px;
-        border-radius: 50%;
-        --swiper-navigation-size: 14px;
-        // Если фото не выходят за границы, Swiper сам скроет стрелки 
-        // благодаря параметру watch-slides-progress
+        &.swiper-slide-thumb-active {
+          opacity: 1;
+          border-color: $secondaryColor;
+        }
       }
-
-      &::part(button-prev) { left: 5px; }
-      &::part(button-next) { right: 5px; }
     }
+    
+    :deep(.swiper-button-disabled) {
+      display: none;
+    }
+
+    .thumb-prev, .thumb-next {
+      width: 30px;
+      height: 30px;
+      margin-top: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: $greyColor;
+      border-radius: 30px;
+
+      &::after {
+        font-size: 18px;
+        font-weight: bold;
+      }
+
+      &.swiper-button-disabled {
+        display: none;
+      }
+    }
+
+    .thumb-prev { left: 10px; }
+    .thumb-next { right: 10px; }
   }
 }
 </style>
