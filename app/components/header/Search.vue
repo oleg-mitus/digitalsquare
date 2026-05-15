@@ -1,5 +1,5 @@
 <template>
-  <div class="h-search">
+  <div class="h-search" ref="linkTarget">
     <div class="h-search__field">
       <div class="h-search__icon">
         <Icon name="ds:icon-search" size="15" />
@@ -8,13 +8,12 @@
         class="h-search"
         type="search"
         @focusin="show = true"
-        @focusout="show = false"
         placeholder="Найти товары"
       />
       <div class="h-search__close"></div>
     </div>
     <Transition name="slide-up">
-      <div class="h-search__drop" v-if="show">
+      <div class="h-search__drop" v-if="show" ref="target">
         <div class="h-search__drop-wrapper">
           <div class="h-search__drop-top">
             <div class="h-search__drop-title">История</div>
@@ -56,10 +55,16 @@
 
 <script setup lang="ts">
 const show = ref<boolean>(false);
+const target = useTemplateRef<HTMLElement>("target");
+const linkTarget = useTemplateRef<HTMLElement>("linkTarget");
 
 const closeDropdown = (): void => {
   show.value = false;
 };
+
+onClickOutside(target, () => closeDropdown(), {
+  ignore: [linkTarget],
+});
 </script>
 
 <style lang="scss">
@@ -67,10 +72,10 @@ const closeDropdown = (): void => {
   position: relative;
   width: 100%;
 
-  input[type='search']::-webkit-search-decoration,
-  input[type='search']::-webkit-search-cancel-button,
-  input[type='search']::-webkit-search-results-button,
-  input[type='search']::-webkit-search-results-decoration {
+  input[type="search"]::-webkit-search-decoration,
+  input[type="search"]::-webkit-search-cancel-button,
+  input[type="search"]::-webkit-search-results-button,
+  input[type="search"]::-webkit-search-results-decoration {
     -webkit-appearance: none;
   }
 

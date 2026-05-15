@@ -227,7 +227,6 @@
     }
     &-search {
       flex: 1;
-      max-width: 500px;
       input {
         width: 100%;
       }

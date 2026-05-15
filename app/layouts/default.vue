@@ -1,6 +1,6 @@
 <template>
   <div class="site-wrapper">
-    <AppHeader />
+    <Header />
     
     <main class="main-content">
       <slot />

@@ -189,5 +189,10 @@ onClickOutside(target, () => closeDropdown(), {
       }
     }
   }
+
+  .ui-button--secondary.active {
+    color: $primaryColor;
+    background-color: #FFD461;
+  }
 }
 </style>
