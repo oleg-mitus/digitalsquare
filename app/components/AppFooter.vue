@@ -369,7 +369,7 @@ const subscribe = () => {
 
   @media (max-width: 768px) {
     padding: 20px 12px;
-    padding-bottom: calc(20px + $bottomBarHeight);
+    padding-bottom: calc(20px + $bottomBarHeight + env(safe-area-inset-bottom));
     &__top {
       margin-bottom: 0;
     }

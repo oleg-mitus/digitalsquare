@@ -22,7 +22,7 @@
           </div>
           <div class="c-thanks__item">
             <div class="c-thanks__item-row c-thanks__item-row--icon">
-              <Icon name="my-icon:icon-cart" size="20px" />
+              <Icon name="ds:icon-cart" size="20px" />
               <span>Товар в заказе:</span>
             </div>
             <div class="c-thanks__item-row">
@@ -31,11 +31,11 @@
           </div>
           <div class="c-thanks__item">
             <div class="c-thanks__item-row c-thanks__item-row--icon">
-              <Icon name="my-icon:icon-phone" size="20px" />
+              <Icon name="ds:icon-phone" size="20px" />
               <span>Поддержка: <span class="bold">support@shop.ru</span></span>
             </div>
             <div class="c-thanks__item-row c-thanks__item-row--icon">
-              <Icon name="my-icon:icon-mail" size="20px" />
+              <Icon name="ds:icon-mail" size="20px" />
               <span
                 >Письмо с чеком отправлено на
                 <span class="bold">email.example.com</span></span

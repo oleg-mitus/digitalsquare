@@ -146,7 +146,7 @@ const removeItem = (value: string | number) => {
     transition: border-color 0.2s;
 
     &:hover {
-      border-color: darken($blackColor, 10%);
+      border-color: rgba($blackColor, 10%);
     }
     &.is-open {
       border-color: $secondaryColor;

@@ -28,7 +28,7 @@
           @blur="validateMin"
         />
       </div>
-      <div><Icon name="my-icon:icon-minus" /></div>
+      <div><Icon name="ds:icon-minus" /></div>
       <div class="field">
         <input
           type="text"

@@ -13,10 +13,10 @@
                 <UiCheckbox v-model="isShowAll">Выбрать все</UiCheckbox>
               </div>
               <div class="cart__actions-right">
-                <UiButton icon="my-icon:icon-share" variant="grey" size="sm"
+                <UiButton icon="ds:icon-share" variant="grey" size="sm"
                   >Поделится</UiButton
                 >
-                <UiButton icon="my-icon:icon-trash" iconOnly variant="grey" />
+                <UiButton icon="ds:icon-trash" iconOnly variant="grey" />
               </div>
             </div>
             <div class="cart__list">
@@ -153,6 +153,7 @@
 const isShowAll = ref<boolean>(false);
 const checkedItems = ref<number[]>([]);
 const count = ref<number>(1);
+
 </script>
 
 <style lang="scss" scoped>

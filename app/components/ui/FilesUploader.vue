@@ -81,7 +81,7 @@ onUnmounted(() => {
         @change="onFileSelect"
       />
       <div>
-        <Icon name="my-icon:icon-download" size="70" />
+        <Icon name="ds:icon-download" size="70" />
       </div>
       <p v-if="files.length < maxFiles">Загрузите не более 10 файлов</p>
       <p v-else>Лимит в {{ maxFiles }} файлов достигнут</p>
