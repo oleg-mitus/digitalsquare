@@ -11,9 +11,22 @@
       <li class="bottom-bar__item">
         <BottomBarServices />
       </li>
-       
-      <li class="bottom-bar__item">
+      <!-- Добавить когда будет ЛК -->
+      <li class="bottom-bar__item" v-if="false">
         <BottomBarProfile />
+      </li>
+
+      <li class="bottom-bar__item">
+        <button
+          class="bottom-bar__link"
+          aria-label="Каталог"
+          @click="navigateTo('/catalog')"
+        >
+          <div class="bottom-bar__icon">
+            <Icon name="ds:icon-catalog" size="20px" />
+          </div>
+          <span class="bottom-bar__text">Каталог</span>
+        </button>
       </li>
 
       <li class="bottom-bar__item">
@@ -43,12 +56,9 @@
 const isMobile = ref(false);
 const cartCount = ref<number>(3);
 
-
 const checkWidth = () => {
   isMobile.value = window.innerWidth <= 768;
 };
-
-
 
 onMounted(() => {
   checkWidth();
@@ -192,11 +202,11 @@ $icon-color: $blackColor;
       cursor: pointer;
       transition: background-color 0.2s;
 
-      &:hover, &.active {
-        background-color: #F5F7FA;
+      &:hover,
+      &.active {
+        background-color: #f5f7fa;
       }
     }
   }
 }
-
 </style>

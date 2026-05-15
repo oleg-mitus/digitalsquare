@@ -86,7 +86,7 @@ const { data: product } = await useAsyncData("product", () => {
           ]"
         />
       </div>
-      <div class="product-container">
+      <div class="product-container" v-if="false">
         <main class="product-main">
           <div class="product-layout">
             <div class="product-slider">

@@ -45,9 +45,8 @@ button {
 
 .main-content {
   background-color: #f3f3f3;
-  padding-top: calc($headerTopHeight + $headerBottomHeight);
   @media (max-width: 1024px) {
-    padding-top: 56px;
+    padding-top: 0;
   }
 }
 

@@ -62,12 +62,26 @@
               </div>
             </div>
           </div>
-          <div class="header__bottom-profile">
+          <!-- Добавить когда будет ЛК -->
+          <div class="header__bottom-profile" v-if="false">
             <HeaderProfile />
           </div>
           <div class="header__bottom-city">
             г. Санкт-Петербург<Icon name="ds:icon-caret" size="6px" />
           </div>
+        </div>
+      </div>
+      <div class="header__search" v-if="false">
+        <div class="h-search__field">
+          <div class="h-search__icon">
+            <Icon name="ds:icon-search" size="15" />
+          </div>
+          <input
+            class="h-search"
+            type="search"
+            placeholder="Найти товары"
+          />
+          <div class="h-search__close"></div>
         </div>
       </div>
     </div>
@@ -76,10 +90,13 @@
 
 <style lang="scss" scoped>
 .header {
-  position: fixed;
-  top: 0;
+  position: sticky;
+  top: calc(-1 * var(--top-bar-height, 30px));
   width: 100%;
   z-index: 10;
+  @media (max-width: 1024px) {
+    top: 0;
+  }
 
   &-logo {
     @media (max-width: 1024px) {
@@ -91,7 +108,7 @@
     background-color: $primaryColor;
     height: $headerTopHeight;
     display: flex;
-    font-size: 16px;
+    font-size: 14px;
     color: $whiteColor;
 
     &-content {
@@ -153,6 +170,9 @@
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     display: flex;
+    position: sticky;
+    top: 0;
+    z-index: 30;
     @media (max-width: 1024px) {
       border-radius: 0;
       height: 56px;
