@@ -89,7 +89,8 @@ $icon-color: $blackColor;
     justify-content: space-around;
     align-items: center;
     width: 100%;
-    margin: 0;
+    max-width: 480px;
+    margin: 0 auto;
     padding: 0;
     list-style: none;
   }
@@ -155,32 +156,6 @@ $icon-color: $blackColor;
     justify-content: center;
     padding: 0 2px;
     border: 1px solid #ebebeb;
-  }
-}
-
-.icon {
-  width: 24px;
-  height: 24px;
-  display: inline-block;
-  background-color: currentColor;
-  mask-size: contain;
-  mask-repeat: no-repeat;
-  mask-position: center;
-
-  &-search {
-    mask-image: url("@/assets/icons/icon-search.svg");
-  }
-  &-catalog {
-    mask-image: url("@/assets/icons/icon-grid.svg");
-  }
-  &-profile {
-    mask-image: url("@/assets/icons/icon-user.svg");
-  }
-  &-phone {
-    mask-image: url("@/assets/icons/icon-phone.svg");
-  }
-  &-cart {
-    mask-image: url("@/assets/icons/icon-cart.svg");
   }
 }
 

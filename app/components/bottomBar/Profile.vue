@@ -1,9 +1,5 @@
 <template>
-  <button
-    class="bottom-bar__link"
-    aria-label="Профиль"
-    @click="openSheet"
-  >
+  <button class="bottom-bar__link" aria-label="Профиль" @click="openSheet">
     <Icon name="ds:icon-user" size="20px" />
     <span class="bottom-bar__text">Вход</span>
   </button>
@@ -66,7 +62,7 @@
 <script setup lang="ts">
 const sheetRef = ref(null);
 const sheetContentRef = ref(null);
-const sheetContentHeight = ref(0);
+const sheetContentHeight = ref<number>(0);
 
 const isPasswordVisible = ref(false);
 
@@ -95,7 +91,6 @@ const openSheet = (): void => {
     sheetRef.value?.open();
   });
 };
-
 </script>
 
 <style lang="scss" scoped>

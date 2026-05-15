@@ -172,6 +172,17 @@ button {
   margin-bottom: 40px;
 }
 
+.site-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #F3F3F3;
+}
+
+.main-content {
+  flex: 1;
+}
+
 :root {
   --ba-bs-handle-width: 126px !important;
   --ba-bs-handle-height: 3px !important;
@@ -179,6 +190,7 @@ button {
   --ba-bs-radius: 20px !important;
   --ba-bs-padding-small: 0px !important;
   --ba-bs-padding: 0px !important;
+  --ba-bs-max-width: 100% !important;
 }
 .ba-bs-container {
   z-index: 2000 !important;
