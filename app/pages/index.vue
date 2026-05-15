@@ -77,6 +77,102 @@
   </div>
 </template>
 
-<script lang="ts" setup></script>
-
-<style></style>
+<style lang="scss" scoped>
+.home {
+  &__hero {
+    width: 100%;
+    height: calc(100dvh - $headerTopHeight - $headerBottomHeight + 16px);
+    min-height: 400px;
+    margin-top: -16px;
+    position: relative;
+    @media (max-width: 1023px) {
+      height: calc(100vh - 56px);
+      margin-top: 0;
+    }
+    &-back {
+      position: absolute;
+      inset: 0;
+      video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+    &-front {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    &-content {
+      padding: 0 40px;
+      max-width: 1600px;
+      margin: 0 auto;
+      width: 100%;
+      display: flex;
+      gap: 37px;
+      flex-direction: column;
+      color: #fff;
+      @media (max-width: 1023px) {
+        padding: 0 10px;
+      }
+      &_title {
+        font-size: 75px;
+        line-height: 1;
+        font-weight: 500;
+        @media (max-width: 1023px) {
+          font-size: 40px;
+        }
+      }
+      &_desc {
+        font-size: 22px;
+        max-width: 710px;
+      }
+    }
+  }
+  &__blocks {
+    display: flex;
+    flex-direction: column;
+    gap: 80px;
+    padding: 80px 0;
+    @media (max-width: 1023px) {
+      gap: 40px;
+      padding: 40px 0;
+    }
+    &-top {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 30px;
+      align-items: baseline;
+      @media (max-width: 1023px) {
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+    }
+    &-title {
+      color: #2f2f2f;
+      h3 {
+        font-weight: 500;
+        font-size: 45px;
+        line-height: 1;
+        margin: 0;
+        padding: 0;
+        @media (max-width: 1023px) {
+          font-size: 24px;
+        }
+      }
+    }
+    &-more {
+      a {
+        color: #fec93b;
+        text-decoration: none;
+        line-height: 1.3;
+        @media (max-width: 1023px) {
+          font-size: 12px;
+        }
+      }
+    }
+  }
+}
+</style>
