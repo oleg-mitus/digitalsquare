@@ -1,17 +1,17 @@
 <template>
   <div class="page container">
     <div class="page__title">
-      <h1>Новости</h1>
+      <h1>Статьи</h1>
     </div>
     <div class="page__breadcrumbs">
       <Breadcrumbs
-        :items="[{ text: 'Главная', to: '/' }, { text: 'Новости' }]"
+        :items="[{ text: 'Главная', to: '/' }, { text: 'Статьи' }]"
       />
     </div>
     <div class="page__content">
       <div class="page__content-container">
-        <div class="news-grid">
-          <NewsItem v-for="i in 12" :key="i" />
+        <div class="articles-grid">
+          <ArticlesItem v-for="i in 12" :key="i" />
         </div>
         <UiPagination
           v-model:current-page="currentPage"

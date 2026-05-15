@@ -3,14 +3,6 @@ type CustomerType = "individual" | "legal";
 type PaymentMethod = "cash" | "card" | "non-cash";
 type DeliveryMethod = "pickup-point" | "courier" | "courier-click";
 
-interface CartItem {
-  id: number;
-  name: string;
-  price: number;
-  quantity: number;
-  image: string;
-}
-
 const customerType = ref<CustomerType>("individual");
 const promoCode = ref("");
 const selectedPayment = ref<PaymentMethod>("card");
@@ -395,12 +387,12 @@ const applyPromocode = () => {
         </div>
       </div>
       <div class="catalog-products">
-        <div class="home__blocks-top">
-          <div class="home__blocks-title">
+        <div class="catalog-products__top">
+          <div class="catalog-products__title">
             <h3>Подобрали для вас</h3>
           </div>
-          <div class="home__blocks-more">
-            <NuxtLink to="/catalog">История просмотров</NuxtLink>
+          <div class="catalog-products__more">
+            <NuxtLink to="/catalog">Смотреть все</NuxtLink>
           </div>
         </div>
         <div class="catalog__grid">
@@ -409,6 +401,7 @@ const applyPromocode = () => {
       </div>
     </div>
   </div>
+
   <UiModal :isOpen="showModal" @close="showModal = false">
     <template #header>
       <h3>Адрес доставки</h3>
@@ -417,9 +410,7 @@ const applyPromocode = () => {
     <div class="checkout__address">
       <div class="checkout__address-item">
         <div class="address-item">
-          <div class="address-item__check">
-            
-          </div>
+          <div class="address-item__check"></div>
           <div class="address-item__content">
             <div class="address-item__title"></div>
             <div class="address-item__address"></div>

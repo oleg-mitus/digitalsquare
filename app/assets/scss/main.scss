@@ -3,6 +3,7 @@
 @use "grids";
 @use "components/h-drop";
 @use "components/catalog";
+@use "components/content";
 
 *,
 *::before,
@@ -45,7 +46,7 @@ button {
 .main-content {
   background-color: #f3f3f3;
   padding-top: calc($headerTopHeight + $headerBottomHeight);
-  @media (max-width: 1023px) {
+  @media (max-width: 1024px) {
     padding-top: 56px;
   }
 }
@@ -96,7 +97,8 @@ button {
 .ui-input {
   height: 44px;
   padding: 10px;
-  background-color: #232323;
+  background-color: $greyColor;
+
   border-radius: 10px;
   border: none;
   outline: none;
@@ -163,6 +165,14 @@ button {
           font-size: 14px;
         }
       }
+    }
+  }
+  &__content {
+    &-container {
+      margin: 25px auto 50px;
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
     }
   }
 }

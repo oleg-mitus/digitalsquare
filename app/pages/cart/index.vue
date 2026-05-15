@@ -50,7 +50,7 @@
                           </div>
                         </div>
                         <div class="cart__item-price_info">
-                          2010 ₽ при покупке от 3х штук
+                          <span>2010 ₽ при покупке от 3х штук</span>
                         </div>
                       </div>
                       <div class="cart__item-quantity">
@@ -75,16 +75,8 @@
                       </div>
                     </div>
                     <div class="cart__item-buttons">
-                      <UiButton
-                        icon="ds:icon-trash"
-                        iconOnly
-                        variant="grey"
-                      />
-                      <UiButton
-                        icon="ds:icon-heart"
-                        iconOnly
-                        variant="red"
-                      />
+                      <UiButton icon="ds:icon-trash" iconOnly variant="grey" />
+                      <UiButton icon="ds:icon-heart" iconOnly variant="red" />
                       <UiButton size="sm" variant="grey">Купить</UiButton>
                     </div>
                   </div>
@@ -134,12 +126,12 @@
   </div>
   <div class="catalog-products">
     <div class="container">
-      <div class="home__blocks-top">
-        <div class="home__blocks-title">
+      <div class="catalog-products__top">
+        <div class="catalog-products__title">
           <h3>Подобрали для вас</h3>
         </div>
-        <div class="home__blocks-more">
-          <NuxtLink to="/catalog">История просмотров</NuxtLink>
+        <div class="catalog-products__more">
+          <NuxtLink to="/catalog">Смотреть все</NuxtLink>
         </div>
       </div>
       <div class="catalog__grid">
@@ -153,7 +145,6 @@
 const isShowAll = ref<boolean>(false);
 const checkedItems = ref<number[]>([]);
 const count = ref<number>(1);
-
 </script>
 
 <style lang="scss" scoped>
@@ -347,6 +338,7 @@ const count = ref<number>(1);
         order: 2;
         justify-content: space-between;
         display: flex;
+        margin-top: 6px;
       }
       &_buttons {
         display: none;
@@ -374,7 +366,8 @@ const count = ref<number>(1);
     &-prices {
       @media (max-width: 1024px) {
         display: flex;
-        gap: 10px;
+        gap: 4px;
+        align-items: baseline;
       }
     }
     &-price {
@@ -406,13 +399,17 @@ const count = ref<number>(1);
       &_info {
         margin-top: 10px;
         color: $redText;
-        border-bottom: 1px dotted $redText;
         text-decoration: none;
         cursor: pointer;
         @media (max-width: 1024px) {
-          margin-top: 6px;
+          margin-top: 4px;
           display: inline-flex;
           font-size: 12px;
+        }
+
+        span {
+          border-bottom: 1px dotted $redText;
+          display: inline;
         }
       }
     }

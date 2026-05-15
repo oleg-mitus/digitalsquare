@@ -4,10 +4,12 @@ interface Props {
   pageSize: number;
   currentPage: number;
   pageSizeOptions?: number[];
+  showInfo?: boolean;
 }
 
 const props = withDefaults(defineProps<Props>(), {
   pageSizeOptions: () => [9, 12, 18, 36],
+  showInfo: true,
 });
 
 const emit = defineEmits<{
@@ -95,7 +97,7 @@ const onPageSizeChange = (event: Event) => {
         </div>
       </div>
     </div>
-    <div class="pagination__info">
+    <div class="pagination__info" v-if="showInfo">
       Показано {{ Math.min(pageSize * currentPage, totalItems) }} товаров из
       {{ totalItems }}
     </div>

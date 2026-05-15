@@ -17,48 +17,51 @@
       />
     </div>
     <div class="page__content">
-      <div class="p-review">
-        <div class="p-review__top">
-          <div class="p-review__product">
-            <div class="p-review__product-image">
-              <NuxtImg src="/images/product.jpg" alt="Product" />
+      <form @submit.prevent="handleSubmit">
+        <div class="p-review">
+          <div class="p-review__top">
+            <div class="p-review__product">
+              <div class="p-review__product-image">
+                <NuxtImg src="/images/product.jpg" alt="Product" />
+              </div>
+              <div class="p-review__product-title">
+                Картридж СF259XL для HP LJ Pro M304, LJ Pro M404
+              </div>
             </div>
-            <div class="p-review__product-title">
-              Картридж СF259XL для HP LJ Pro M304, LJ Pro M404
+          </div>
+
+          <div class="p-review__content">
+            <div class="p-review__field">
+              <label>Общая оценка</label>
+              <div class="p-review__field-input">
+                <UiRating v-model="form.rating" />
+              </div>
             </div>
+            <div class="p-review__field">
+              <label>Добавьте фото или видео</label>
+              <UiFilesUploader :max-files="10" @update:files="updateFiles" />
+            </div>
+            <div class="p-review__field">
+              <label>Как вам товар</label>
+              <input
+                type="text"
+                v-model="form.comment"
+                placeholder="Общее впечатление"
+                class="ui-input"
+              />
+            </div>
+            <div class="p-review__field">
+              <div class="p-review__anonymous">
+                Сделать отзыв анонимным
+                <UiSwitch v-model="form.isAnonymous" />
+              </div>
+            </div>
+          </div>
+          <div class="p-review__actions">
+            <UiButton block type="submit">Отправить отзыв</UiButton>
           </div>
         </div>
-        <div class="p-review__content">
-          <div class="p-review__field">
-            <label>Общая оценка</label>
-            <div class="p-review__field-input">
-              <UiRating v-model="form.rating" />
-            </div>
-          </div>
-          <div class="p-review__field">
-            <label>Добавьте фото или видео</label>
-            <UiFilesUploader :max-files="10" @update:files="updateFiles" />
-          </div>
-          <div class="p-review__field">
-            <label>Как вам товар</label>
-            <input
-              type="text"
-              v-model="form.comment"
-              placeholder="Общее впечатление"
-              class="ui-input"
-            />
-          </div>
-          <div class="p-review__field">
-            <div class="p-review__anonymous">
-              Сделать отзыв анонимным
-              <UiSwitch v-model="form.isAnonymous" />
-            </div>
-          </div>
-        </div>
-        <div class="p-review__actions">
-          <UiButton block>Отправить отзыв</UiButton>
-        </div>
-      </div>
+      </form>
     </div>
   </div>
 </template>
@@ -82,6 +85,10 @@ const form = reactive<ReviewData>({
 
 const updateFiles = (newFiles: File[]) => {
   form.photos = newFiles;
+};
+
+const handleSubmit = () => {
+  console.log("Данные формы:", { ...form });
 };
 </script>
 
