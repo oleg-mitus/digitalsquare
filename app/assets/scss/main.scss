@@ -133,24 +133,31 @@ button {
 }
 
 .page {
-  padding-top: 50px;
-  padding-bottom: 90px;
-  @media (max-width: 768px) {
-    padding-top: 20px;
-    padding-bottom: 40px;
+  padding-top: 20px;
+  padding-bottom: 40px;
+  @include respond-to("lg") {
+    padding-top: 30px;
+    padding-bottom: 60px;
+  }
+  @include respond-to("2xl") {
+    padding-top: 50px;
+    padding-bottom: 90px;
   }
   &__title {
-    margin: 0 0 30px;
-    @media (max-width: 768px) {
-      margin: 0 0 20px;
+    margin: 0 0 20px;
+    @include respond-to("lg") {
+      margin: 0 0 30px;
     }
     h1 {
       margin: 0;
-      font-size: 45px;
+      font-size: 20px;
       font-weight: 500;
       line-height: 130%;
-      @media (max-width: 1024px) {
-        font-size: 20px;
+      @include respond-to("lg") {
+        font-size: 36px;
+      }
+      @include respond-to("2xl") {
+        font-size: 45px;
       }
     }
     &--desc {
@@ -184,7 +191,7 @@ button {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background-color: #F3F3F3;
+  background-color: #f3f3f3;
 }
 
 .main-content {

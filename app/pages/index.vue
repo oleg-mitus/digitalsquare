@@ -81,13 +81,15 @@
 .home {
   &__hero {
     width: 100%;
-    height: calc(100dvh - $headerTopHeight - $headerBottomHeight + 16px);
-    min-height: 400px;
-    margin-top: -16px;
+    height: calc(100vh - 100px + 16px);
     position: relative;
-    @media (max-width: 1023px) {
-      height: calc(100vh - 56px);
-      margin-top: 0;
+    @include respond-to("lg") {
+      height: calc(100dvh - $headerTopHeight - 80px + 16px);
+      min-height: 400px;
+      margin-top: -16px;
+    }
+    @include respond-to("2xl") {
+      height: calc(100dvh - $headerTopHeight - 90px + 16px);
     }
     &-back {
       position: absolute;
@@ -106,7 +108,7 @@
       justify-content: center;
     }
     &-content {
-      padding: 0 40px;
+      padding: 0 10px;
       max-width: 1600px;
       margin: 0 auto;
       width: 100%;
@@ -114,52 +116,64 @@
       gap: 37px;
       flex-direction: column;
       color: #fff;
-      @media (max-width: 1023px) {
-        padding: 0 10px;
+      @include respond-to("lg") {
+        padding: 0 40px;
       }
       &_title {
-        font-size: 75px;
+        font-size: 40px;
         line-height: 1;
         font-weight: 500;
-        @media (max-width: 1023px) {
-          font-size: 40px;
+        @include respond-to("lg") {
+          font-size: 48px;
+        }
+        @include respond-to("2xl") {
+          font-size: 75px;
         }
       }
       &_desc {
-        font-size: 22px;
+        font-size: 18px;
         max-width: 710px;
+        line-height: 130%;
+        @include respond-to("2xl") {
+          font-size: 22px;
+        }
       }
     }
   }
   &__blocks {
     display: flex;
     flex-direction: column;
-    gap: 80px;
-    padding: 80px 0;
-    @media (max-width: 1023px) {
-      gap: 40px;
-      padding: 40px 0;
+    gap: 40px;
+    padding: 40px 0;
+
+    @include respond-to("lg") {
+      gap: 80px;
+      padding: 80px 0;
     }
     &-top {
       display: flex;
       justify-content: space-between;
       margin-bottom: 30px;
       align-items: baseline;
-      @media (max-width: 1023px) {
-        flex-wrap: wrap;
-        gap: 12px;
+      flex-wrap: wrap;
+      gap: 12px;
+      @include respond-to("lg") {
+        flex-wrap: nowrap;
       }
     }
     &-title {
       color: #2f2f2f;
       h3 {
         font-weight: 500;
-        font-size: 45px;
+        font-size: 24px;
         line-height: 1;
         margin: 0;
         padding: 0;
-        @media (max-width: 1023px) {
-          font-size: 24px;
+        @include respond-to("lg") {
+          font-size: 32px;
+        }
+        @include respond-to("2xl") {
+          font-size: 45px;
         }
       }
     }

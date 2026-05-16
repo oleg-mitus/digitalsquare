@@ -65,47 +65,49 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 130px 0;
-  @include respond-to(tablet) {
-    padding: 0;
+  @include respond-to("lg") {
+    padding: 130px 0;
   }
   &__wrapper {
     width: 100%;
     max-width: 647px;
     background: #fff;
-    border-radius: 10px;
-    padding: 20px;
+    justify-content: space-between;
+    padding: 10px;
     display: flex;
     gap: 30px;
     flex-direction: column;
-    @include respond-to(tablet) {
-      padding: 10px;
-      min-height: 100dvh;
-      justify-content: space-between;
-      border-radius: 0;
+    @include respond-to("lg") {
+      padding: 20px;
+      justify-content: flex-start;
+      border-radius: 10px;
     }
   }
   &__main {
     display: flex;
     flex-direction: column;
-    gap: 30px;
-    @include respond-to(tablet) {
-      gap: 40px;
-      padding: 10px;
+    gap: 40px;
+    padding: 10px;
+    @include respond-to("lg") {
+      gap: 30px;
+      padding: 0;
     }
   }
   &__top {
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    @include respond-to(tablet) {
-      gap: 12px;
+    gap: 12px;
+    @include respond-to("lg") {
+      gap: 10px;
     }
     &-title {
-      font-size: 45px;
+      font-size: 20px;
       font-weight: 500;
-      @include respond-to(tablet) {
-        font-size: 20px;
+      @include respond-to("lg") {
+        font-size: 36px;
+      }
+      @include respond-to("2xl") {
+        font-size: 45px;
       }
     }
     &-desc {

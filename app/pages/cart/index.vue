@@ -150,44 +150,49 @@ const count = ref<number>(1);
 <style lang="scss" scoped>
 .cart {
   margin-bottom: 40px;
-  @media (max-width: 1024px) {
-    background-color: #fff;
-    border-radius: 6px;
+  background-color: #fff;
+  border-radius: 6px;
+  @include respond-to("lg") {
+    background-color: transparent;
+    border-radius: none;
   }
   &__wrapper {
     display: flex;
     justify-content: space-between;
-    gap: 20px;
-    @media (max-width: 1024px) {
-      flex-direction: column;
-      gap: 0;
+    flex-direction: column;
+    gap: 0;
+    @include respond-to("lg") {
+      flex-direction: row;
+      gap: 20px;
     }
   }
   &__left {
     flex: 1;
   }
   &__right {
-    width: 365px;
+    width: 100%;
     position: relative;
-    @media (max-width: 1024px) {
-      width: 100%;
+    @include respond-to("lg") {
+      width: 365px;
     }
   }
   &__actions {
     background: #fff;
     border-radius: 16px;
-    padding: 20px 12px;
+    padding: 12px;
     margin-bottom: 10px;
-    display: flex;
+    display: none;
     align-items: center;
     justify-content: space-between;
     &-right {
       display: flex;
       gap: 20px;
     }
-
-    @media (max-width: 1024px) {
-      display: none;
+    @include respond-to("lg") {
+      display: flex;
+    }
+    @include respond-to("2xl") {
+      padding: 20px 12px;
     }
   }
   &__info {
@@ -195,7 +200,7 @@ const count = ref<number>(1);
     border-radius: 16px;
     padding: 10px;
     position: sticky;
-    top: calc($headerTopHeight + $headerBottomHeight + 20px);
+    top: calc(100px);
     @media (max-width: 1024px) {
       flex-direction: column-reverse;
       display: flex;
@@ -209,10 +214,11 @@ const count = ref<number>(1);
       flex-direction: column;
       gap: 10px;
       padding-bottom: 20px;
-      border-bottom: 1px solid rgba(#000000, 0.2);
-      @media (max-width: 1024px) {
-        border-bottom: none;
-        margin-top: 20px;
+      margin-top: 20px;
+
+      @include respond-to("lg") {
+        border-bottom: 1px solid rgba(#000000, 0.2);
+        margin-top: 0;
       }
     }
     &-desc {
@@ -223,16 +229,16 @@ const count = ref<number>(1);
       padding-top: 20px;
       display: flex;
       flex-direction: column;
-      gap: 20px;
-      @media (max-width: 1024px) {
-        gap: 12px;
-        padding-top: 20px;
+      gap: 12px;
+      @include respond-to("lg") {
+        gap: 20px;
       }
     }
     &-more {
       margin-top: 20px;
-      @media (max-width: 1024px) {
-        display: none;
+      display: none;
+      @include respond-to("lg") {
+        display: block;
       }
     }
     &-row {
@@ -249,21 +255,26 @@ const count = ref<number>(1);
       padding: 0 10px;
     }
     &-title {
-      padding: 20px;
+      display: none;
       border-radius: 6px;
       background: $greyColor;
-      @media (max-width: 1024px) {
-        display: none;
+      font-size: 16px;
+      padding: 12px;
+      @include respond-to("lg") {
+        display: block;
+      }
+      @include respond-to("2xl") {
+        font-size: 20px;
+        padding: 20px;
       }
     }
     &-wrapper {
       display: flex;
       flex-direction: column;
-      gap: 20px;
-      margin-top: 20px;
-      @media (max-width: 1024px) {
-        gap: 0;
-        margin-top: 0;
+
+      @include respond-to("lg") {
+        gap: 20px;
+        margin-top: 20px;
       }
     }
   }
@@ -271,12 +282,16 @@ const count = ref<number>(1);
   &__item {
     display: flex;
     justify-content: space-between;
-    padding: 10px;
     gap: 10px;
-    min-height: 176px;
-    @media (max-width: 1024px) {
-      border-bottom: 1px solid rgba($blackColor, 0.2);
-      padding: 20px 0;
+    min-height: 140px;
+    border-bottom: 1px solid rgba($blackColor, 0.2);
+    padding: 20px 0;
+    @include respond-to("lg") {
+      border-bottom: none;
+      padding: 10px;
+    }
+    @include respond-to("2xl") {
+      min-height: 176px;
     }
     &-left {
       position: relative;
@@ -291,17 +306,18 @@ const count = ref<number>(1);
       display: flex;
     }
     &-image {
-      padding: 10px;
       display: flex;
       align-items: center;
       justify-content: center;
+      width: 80px;
       img {
         width: 100%;
         height: 100%;
         object-fit: fill;
       }
-      @media (max-width: 1024px) {
-        width: 80px;
+      @include respond-to("lg") {
+        width: 160px;
+        padding: 10px;
       }
     }
     &-check {
@@ -357,10 +373,16 @@ const count = ref<number>(1);
     }
     &-title {
       max-width: 420px;
-      @media (max-width: 1024px) {
-        order: 1;
-        max-width: none;
-        font-size: 16px;
+      font-size: 16px;
+      order: 1;
+      @include respond-to("lg") {
+        max-width: 320px;
+        font-size: 18px;
+        order: 0;
+      }
+      @include respond-to("2xl") {
+        font-size: 20px;
+        max-width: 420px;
       }
     }
     &-prices {
@@ -375,25 +397,35 @@ const count = ref<number>(1);
         order: 0;
       }
       &_current {
-        font-size: 28px;
+        font-size: 20px;
         font-weight: 500;
-        @media (max-width: 1024px) {
-          font-size: 20px;
+        @include respond-to("lg") {
+          font-size: 24px;
+        }
+        @include respond-to("2xl") {
+          font-size: 28px;
         }
       }
       &_old {
         text-decoration: line-through;
-        @media (max-width: 1024px) {
-          font-size: 14px;
+        font-size: 14px;
+        @include respond-to("lg") {
+          font-size: 18px;
+        }
+        @include respond-to("2xl") {
+          font-size: 20px;
         }
       }
       &_row {
         display: flex;
         gap: 10px;
         margin-top: 6px;
-        font-size: 20px;
-        @media (max-width: 1024px) {
-          font-size: 14px;
+        font-size: 14px;
+        @include respond-to("lg") {
+          font-size: 18px;
+        }
+        @include respond-to("2xl") {
+          font-size: 20px;
         }
       }
       &_info {

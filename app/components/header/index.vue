@@ -20,7 +20,7 @@
         </div>
         <div class="header__top-contacts">
           <div class="header__top-address">
-            г. Санкт-Петербург, ул. Кантемировская, 39
+            Санкт-Петербург
           </div>
           <div class="header__top-phone">
             <a href="tel:+78124907406">+7 (812) 490 74 06</a>
@@ -76,11 +76,7 @@
           <div class="h-search__icon">
             <Icon name="ds:icon-search" size="15" />
           </div>
-          <input
-            class="h-search"
-            type="search"
-            placeholder="Найти товары"
-          />
+          <input class="h-search" type="search" placeholder="Найти товары" />
           <div class="h-search__close"></div>
         </div>
       </div>
@@ -165,17 +161,20 @@
 
   &__bottom {
     background-color: $secondaryColor;
-    height: $headerBottomHeight;
-    border-radius: 0 0 15px 15px;
+    height: 56px;
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     display: flex;
     position: sticky;
     top: 0;
     z-index: 30;
-    @media (max-width: 1024px) {
-      border-radius: 0;
-      height: 56px;
+
+    @include respond-to("lg") {
+      border-radius: 0 0 15px 15px;
+      height: 80px;
+    }
+    @include respond-to("2xl") {
+      height: 80px;
     }
     &-content {
       display: flex;
@@ -188,21 +187,22 @@
       gap: 40px;
       align-items: center;
       .ui-button {
-        @media (max-width: 1024px) {
-          display: none;
+        display: none;
+        @include respond-to("lg") {
+          display: block;
         }
       }
     }
     &-catalog {
-      display: flex;
+      display: none;
       align-items: center;
       background-color: #272727;
       border-radius: 6px;
       color: #ffffff;
       padding: 10px 20px;
       gap: 10px;
-      @media (max-width: 1024px) {
-        display: none;
+      @include respond-to("lg") {
+        display: flex;
       }
     }
     &-right {
@@ -212,11 +212,11 @@
       gap: 30px;
     }
     &-nav {
-      display: flex;
+      display: none;
       gap: 30px;
       align-items: center;
-      @media (max-width: 1024px) {
-        display: none;
+      @include respond-to("lg") {
+        display: flex;
       }
     }
     &-links {

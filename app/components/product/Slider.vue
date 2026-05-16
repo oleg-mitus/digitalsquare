@@ -14,6 +14,7 @@ const setThumbsSwiper = (swiper: SwiperType) => {
 
 const images = [
   "/images/printer-1.png",
+  "https://dsquare.storage.yandexcloud.net/4137/4137/4137_premium_43r_g3.webp?v1776337499",
   "/images/printer-1.png",
   "/images/printer-1.png",
   "/images/printer-1.png",

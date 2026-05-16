@@ -1,12 +1,12 @@
 @use "variables" as *;
 
 @mixin respond-to($breakpoint) {
-  @if $breakpoint == "tablet" {
-    @media (max-width: #{$tablet}) {
+  @if map-has-key($breakpoints, $breakpoint) {
+    @media screen and (min-width: map-get($breakpoints, $breakpoint)) {
       @content;
     }
-  } @else if $breakpoint == "desktop" {
-    @media (max-width: #{$desktop}) {
+  } @else {
+    @media screen and (min-width: $breakpoint) {
       @content;
     }
   }

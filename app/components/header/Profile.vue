@@ -22,18 +22,20 @@
         </div>
         <div class="h-drop__content">
           <form @submit.prevent="handleSubmit">
-            <div class="form-group">
+            <div class="form-group" :class="{ error: errors.email }">
               <label for="email">Электронная почта</label>
               <input
                 id="email"
                 v-model="form.email"
                 type="email"
                 placeholder="example@mail.com"
-                required
               />
+              <span v-if="errors.email" class="form-error">{{
+                errors.email
+              }}</span>
             </div>
 
-            <div class="form-group">
+            <div class="form-group" :class="{ error: errors.password }">
               <label for="password">Пароль</label>
               <div class="password-wrapper">
                 <input
@@ -41,7 +43,6 @@
                   v-model="form.password"
                   :type="isPasswordVisible ? 'text' : 'password'"
                   placeholder="Введите пароль"
-                  required
                 />
                 <button
                   type="button"
@@ -55,6 +56,9 @@
                   />
                 </button>
               </div>
+              <span v-if="errors.password" class="error-msg">{{
+                errors.password
+              }}</span>
             </div>
             <UiButton type="submit" block radius="lg">Войти</UiButton>
           </form>
@@ -65,6 +69,9 @@
 </template>
 
 <script setup lang="ts">
+import { LoginFormSchema, type LoginFormData } from "@/schemas/login";
+import { useValidation } from "@/composables/useValidate";
+
 const show = ref<boolean>(false);
 const target = useTemplateRef<HTMLElement>("target");
 const linkTarget = useTemplateRef<HTMLElement>("linkTarget");
@@ -83,13 +90,20 @@ const togglePassword = () => {
   isPasswordVisible.value = !isPasswordVisible.value;
 };
 
-const form = reactive({
+const form = ref<LoginFormData>({
   email: "",
   password: "",
 });
 
+const { errors, isValid, validate } = useValidation(form, LoginFormSchema);
+
 const handleSubmit = () => {
   console.log("Данные формы:", { ...form });
+  if (validate()) {
+    console.log("Данные формы:", { ...form });
+  } else {
+    console.log("Форма содержит ошибки");
+  }
 };
 </script>
 

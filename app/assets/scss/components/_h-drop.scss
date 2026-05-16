@@ -1,8 +1,10 @@
+@use "../variables" as *;
+
 .h-drop {
   position: absolute;
   width: 375px;
   right: 0;
-  top: calc(100% + 25px);
+  top: calc(100% + 20px);
   background: #fff;
   padding-bottom: 10px;
   border-radius: 0 0 20px 20px;
@@ -60,7 +62,7 @@
     width: 545px;
     left: 0;
     right: auto;
-    top: calc(100% + 20px);
+    top: calc(100% + 15px);
   }
 }
 
@@ -88,6 +90,12 @@
       border-color: #2f2f2f;
     }
   }
+
+  &.error {
+    label {
+      color: rgba($redText, 0.5)
+    }
+  }
 }
 
 .callback-info {
@@ -105,7 +113,7 @@
 
   input {
     width: 100%;
-    padding-right: 40px; // Место для иконки
+    padding-right: 40px;
   }
 
   .toggle-btn {

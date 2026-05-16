@@ -96,16 +96,15 @@ const handleSubmit = () => {
 .p-review {
   display: flex;
   width: 100%;
-  max-width: 750px;
   margin: 25px auto 50px;
   flex-direction: column;
   gap: 10px;
-  padding: 20px;
+  padding: 10px;
   border-radius: 10px;
   background: #ffffff;
-  @include respond-to(tablet) {
-    padding: 10px;
-    max-width: none;
+  @include respond-to("md") {
+    padding: 20px;
+    max-width: 750px;
   }
   &__product {
     display: flex;

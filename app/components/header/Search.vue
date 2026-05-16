@@ -107,7 +107,7 @@ onClickOutside(target, () => closeDropdown(), {
     color: rgba($blackColor, 0.5);
   }
   &__drop {
-    margin-top: 21px;
+    margin-top: 14px;
     position: absolute;
     width: 100%;
     background: $whiteColor;
