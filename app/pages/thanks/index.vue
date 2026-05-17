@@ -46,10 +46,10 @@
       </div>
       <div class="c-thanks__bottom">
         <div class="c-thanks__bottom-action">
-          <UiButton block href="/profile">Перейти в личный кабинет</UiButton>
+          <UiButton block href="/about">Перейти в личный кабинет</UiButton>
         </div>
         <div class="c-thanks__bottom-action">
-          <UiButton block href="/profile" variant="transparent"
+          <UiButton block href="/" variant="transparent"
             >Вернуться на главную</UiButton
           >
         </div>

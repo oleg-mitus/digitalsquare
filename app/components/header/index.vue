@@ -51,7 +51,7 @@
                 <HeaderServices />
               </div>
               <div class="header__bottom-link">
-                <NuxtLink to="/my-order">Мой заказ</NuxtLink>
+                <NuxtLink to="/about">Мой заказ</NuxtLink>
               </div>
             </div>
             <div class="header__bottom-icons">
