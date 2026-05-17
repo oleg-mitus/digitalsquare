@@ -5,8 +5,18 @@
         <h2>Каталог</h2>
       </div>
       <div class="filters-and-grid">
-        <aside class="filters-sidebar">
+        <aside class="filters-sidebar" :class="{ 'is-open': showFilter }">
           <div class="filters-container">
+            <div class="filter-top">
+              <div class="filter-title">Фильтр</div>
+              <div class="filter-close">
+                <Icon
+                  name="ds:icon-close"
+                  size="20px"
+                  @click="showFilter = false"
+                />
+              </div>
+            </div>
             <div class="filter-section">
               <div class="filter-section__top">
                 <h4>Цена ₽</h4>
@@ -162,13 +172,14 @@
           <div class="catalog">
             <div class="catalog-actions">
               <div class="catalog-actions__filter">
-                <div class="catalog-actions__filter-item">
-                  <button class="catalog-actions__filter-button">
-                    <Icon name="ds:icon-sort" size="18px" />
-                  </button>
+                <div class="catalog-actions__filter-item filter-mobile">
+                  <CatalogSortMobile />
                 </div>
-                <div class="catalog-actions__filter-item">
-                  <button class="catalog-actions__filter-button">
+                <div class="catalog-actions__filter-item filter-mobile">
+                  <button
+                    class="catalog-actions__filter-button"
+                    @click="showFilter = true"
+                  >
                     <Icon name="ds:icon-filter" size="18px" />
                   </button>
                 </div>
@@ -244,6 +255,8 @@
 
 <script setup lang="ts">
 const priceData = ref<[number, number]>([1000, 7000]);
+
+const showFilter = ref<boolean>(false);
 
 const brands = reactive([
   { id: 1, name: "Brother" },
@@ -340,7 +353,7 @@ const updatePriceFilter = () => {
 const applyFilters = () => {};
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 .filters-and-grid {
   display: grid;
   grid-template-columns: 365px 1fr;
@@ -358,11 +371,32 @@ const applyFilters = () => {};
   bottom: 0;
 }
 
+.filter-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 0 10px;
+  margin-bottom: 10px;
+  @include respond-to("lg") {
+    display: none;
+  }
+}
+
+.filter-title {
+  font-size: 18px;
+  font-weight: 500;
+}
+
 .filter-section {
-  margin-bottom: 25px;
+  border: 1px solid $borderColor;
   border-radius: 10px;
   background: #ffffff;
   padding: 12px;
+  margin: 0 10px 25px;
+  @include respond-to("lg") {
+    margin: 0 0 25px;
+    border: none;
+  }
   &__top {
     display: flex;
     justify-content: space-between;
@@ -386,6 +420,13 @@ const applyFilters = () => {};
     &:hover {
       color: $blackColor;
     }
+  }
+}
+
+.filter-mobile {
+  display: flex;
+  @include respond-to("lg") {
+    display: none;
   }
 }
 
@@ -547,7 +588,7 @@ const applyFilters = () => {};
   font-weight: 500;
 }
 
-@media (max-width: 1023px) {
+@media (max-width: 1024px) {
   .filters-and-grid {
     grid-template-columns: 1fr;
   }
@@ -561,7 +602,7 @@ const applyFilters = () => {};
     position: fixed;
     height: 100vh;
     padding-top: 56px;
-    padding-bottom: 56px;
+    padding-bottom: 80px;
     overflow-y: scroll;
     z-index: 9;
     background: #fff;

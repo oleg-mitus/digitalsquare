@@ -63,6 +63,9 @@ const applyPromocode = () => {
                     <div class="checkout-delivery__desc">
                       с 15 января бесплатно
                     </div>
+                    <div class="checkout-delivery__check" v-if="selectedDelivery === 'pickup-point'">
+                      <Icon name="ds:icon-circle-check" size="24px" />
+                    </div>
                   </div>
                 </div>
                 <div class="checkout__delivery-item">
@@ -74,6 +77,9 @@ const applyPromocode = () => {
                     <div class="checkout-delivery__title">Курьером</div>
                     <div class="checkout-delivery__desc highlight-color">
                       При заказе от 600 ₽
+                    </div>
+                    <div class="checkout-delivery__check" v-if="selectedDelivery === 'courier'">
+                      <Icon name="ds:icon-circle-check" size="24px" />
                     </div>
                   </div>
                 </div>
@@ -420,7 +426,7 @@ const applyPromocode = () => {
   &__sidebar {
     width: 365px;
     position: sticky;
-    top: 150px;
+    top: 100px;
     bottom: 0;
     display: flex;
     gap: 10px;
@@ -519,6 +525,7 @@ const applyPromocode = () => {
   cursor: pointer;
   min-height: 124px;
   flex: 1;
+  position: relative;
   @media (max-width: 768px) {
     border-color: $whiteColor;
     background-color: $whiteColor;
@@ -538,6 +545,21 @@ const applyPromocode = () => {
     }
     &.highlight-color {
       color: $secondaryColor;
+    }
+  }
+  &__check {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    width: 24px;
+    height: 24px;
+    @media (max-width: 768px) {
+      width: 20px;
+      height: 20px;
+      .iconify {
+        width: 20px;
+        height: 20px;
+      }
     }
   }
   &:hover:not(.disabled) {

@@ -136,14 +136,18 @@ const removeItem = (value: string | number) => {
   &__selection {
     border: none;
     border-radius: 100px;
-    padding: 6px 10px;
+    padding: 0 10px;
     background: $whiteColor;
     cursor: pointer;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    min-height: 35px;
+    min-height: 28px;
     transition: border-color 0.2s;
+
+    @include respond-to("lg") {
+      min-height: 35px;
+    }
 
     &:hover {
       border-color: rgba($blackColor, 10%);
