@@ -29,15 +29,14 @@ const specs = [
   { title: "Цвет", value: "Черный" },
   { title: "Емкость", value: "Стандартная" },
   { title: "Совместимость", value: "HP LJ Pro M304, LJ Pro M404" },
-  { title: "Вид", value: "Новый, совместный" },
-  { title: "Вид", value: "Новый, совместный" },
-  { title: "Вид", value: "Новый, совместный" },
-  { title: "Вид", value: "Новый, совместный" },
-  { title: "Вид", value: "Новый, совместный" },
-  { title: "Вид", value: "Новый, совместный" },
-  { title: "Вид", value: "Новый, совместный" },
-  { title: "Вид", value: "Новый, совместный" },
-  { title: "Внешний вид упаковки может  отличаться", value: "" },
+  { title: "Габариты (ВШГ), мм", value: "196х145х360" },
+  { title: "Вес, гр", value: "1500" },
+  { title: "Ресурс", value: "8000 страниц при 5% заполнении листа А4" },
+  { title: "Чип", value: "С чипом" },
+  { title: "Назначение", value: "Для лазерного принтера" },
+  { title: "Тип", value: "Картридж" },
+  { title: "Производство", value: "Китай" },
+  { title: "Гарантия", value: "1 год" },
 ];
 
 const activeReviewTab = ref<"reviews" | "faq">("reviews");
@@ -48,16 +47,13 @@ const { data: product } = await useAsyncData("product", () => {
     price: 2100,
     oldPrice: 3000,
     discount: "3%",
-    images: Array.from(
-      { length: 5 },
-      (_, i) => `https://picsum.photos/id/${i + 20}/800/800`,
-    ),
+    images: Array.from({ length: 5 }, (_, i) => `/images/product-variant.jpg`),
     variants: Array.from(
-      { length: 3 },
-      (_, i) => `https://picsum.photos/id/{i + 30}/100/100`,
+      { length: 6 },
+      (_, i) => `/images/product-variant.jpg`,
     ),
-    packs: ["1", "2", "4"],
-    volumes: ["1600", "2000", "4000"],
+    packs: ["1", "2", "4", "8", "16", "32"],
+    volumes: ["1600", "2000", "4000", "4000", "4000", "4000", "4000"],
     specs: [
       { label: "Вид", value: "IPS матрица" },
       { label: "Цвет", value: "Черный матовый" },
@@ -66,7 +62,7 @@ const { data: product } = await useAsyncData("product", () => {
     ],
     reviewsPhotos: Array.from(
       { length: 8 },
-      (_, i) => `https://picsum.photos{i + 40}/400/400`,
+      (_, i) => `/images/product-variant.jpg`,
     ),
   });
 });
@@ -86,17 +82,26 @@ const { data: product } = await useAsyncData("product", () => {
           ]"
         />
       </div>
-      <div class="product-container" >
+      <div class="product-container">
         <main class="product-main">
           <div class="product-layout">
             <div class="product-slider">
               <ProductSlider />
+              <div class="product-slider__price">
+                <div class="product-price">
+                  <div class="product-price__row">
+                    <div class="product-price__value">2010 ₽</div>
+                    <div class="product-price__old">2010 ₽</div>
+                    <div class="product-price__discount">3%</div>
+                  </div>
+                </div>
+              </div>
             </div>
             <div class="product-section">
-              <h1 class="product-title">{{ product.name }}</h1>
+              <h1 class="product-title only-desktop">{{ product.name }}</h1>
 
               <!-- Блок с количеством отзывов и вопросов -->
-              <div class="product-nums">
+              <div class="product-nums only-desktop">
                 <div class="product-nums__item product-nums__item--rating">
                   <div class="product-nums__item-icon">
                     <Icon name="ds:icon-star" />
@@ -176,7 +181,7 @@ const { data: product } = await useAsyncData("product", () => {
               </div>
 
               <!-- Блок о товаре -->
-              <div class="product-about">
+              <div class="product-about only-desktop">
                 <div class="product-about__top">
                   <div class="product-about__title">О товаре</div>
                   <div class="product-about__more">
@@ -230,7 +235,20 @@ const { data: product } = await useAsyncData("product", () => {
           <ProductTabs v-model="activeMainTab" :items="mainTabs">
             <template #description>
               <div class="product-description">
-                <p>Какое-то описание</p>
+                <p>
+                  Картридж W1120A для принтеров HP - это совместимый картридж,
+                  который обеспечивает надежную и качественную печать. С
+                  емкостью стандартная, 120A идеально подходит для лазерного
+                  принтера ХП. Картридж W1120A совместим с такими моделями, как
+                  HP Laser 150a, Laser 178nw, Laser 179fnw. Картридж W1120A не
+                  требуется чип, что обеспечивает удобство в установке и
+                  использовании. Картридж для принтеров HP 150, 178, 179 имеет
+                  цвет черный, а его ресурс печати составляет 16000 страниц, что
+                  позволяет значительно сократить частоту замен и снизить
+                  эксплуатационные расходы. Гарантия на 365 дней подтверждает
+                  его долговечность и надежность, обеспечивая вам спокойствие и
+                  уверенность в качестве продукции.
+                </p>
               </div>
             </template>
             <template #specs>
@@ -247,7 +265,20 @@ const { data: product } = await useAsyncData("product", () => {
             </template>
             <template #delivery>
               <div class="product-delivery">
-                <p>Доставка и оплата</p>
+                <p>
+                  Картридж W1120A для принтеров HP - это совместимый картридж,
+                  который обеспечивает надежную и качественную печать. С
+                  емкостью стандартная, 120A идеально подходит для лазерного
+                  принтера ХП. Картридж W1120A совместим с такими моделями, как
+                  HP Laser 150a, Laser 178nw, Laser 179fnw. Картридж W1120A не
+                  требуется чип, что обеспечивает удобство в установке и
+                  использовании. Картридж для принтеров HP 150, 178, 179 имеет
+                  цвет черный, а его ресурс печати составляет 16000 страниц, что
+                  позволяет значительно сократить частоту замен и снизить
+                  эксплуатационные расходы. Гарантия на 365 дней подтверждает
+                  его долговечность и надежность, обеспечивая вам спокойствие и
+                  уверенность в качестве продукции.
+                </p>
               </div>
             </template>
           </ProductTabs>
@@ -276,14 +307,27 @@ const { data: product } = await useAsyncData("product", () => {
           </div>
           <div class="product-delivery"></div>
         </aside>
+
+        <div class="product-m-actions">
+          <div class="product-m-actions__row">
+            <div class="product-m-actions__button">
+              <UiButton block>
+                В корзину
+                <template #desc>Доставим завтра</template>
+              </UiButton>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="catalog-products">
-        <div class="home__blocks-top">
-          <div class="home__blocks-title">
+    </div>
+    <div class="catalog-products">
+      <div class="container">
+        <div class="catalog-products__top">
+          <div class="catalog-products__title">
             <h3>Подобрали для вас</h3>
           </div>
-          <div class="home__blocks-more">
-            <NuxtLink to="/catalog">История просмотров</NuxtLink>
+          <div class="catalog-products__more">
+            <NuxtLink to="/catalog">Смотреть все</NuxtLink>
           </div>
         </div>
         <div class="catalog__grid">
@@ -318,12 +362,44 @@ const { data: product } = await useAsyncData("product", () => {
 
 <style lang="scss" scoped>
 .product-page {
+  .only-desktop {
+    display: none;
+    @include respond-to("lg") {
+      display: flex;
+    }
+  }
+}
+
+.product-m-actions {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 10;
+  padding-bottom: calc(60px + env(safe-area-inset-bottom));
+  width: 100%;
+  background-color: $secondaryColor;
+  border-radius: 20px 20px 0 0;
+  @include respond-to("lg") {
+    display: none;
+  }
+  &__row {
+    display: flex;
+    gap: 10px;
+    padding: 10px;
+  }
+  &__button {
+    flex: 1;
+  }
 }
 
 .product-layout {
   display: flex;
   gap: 16px;
   align-items: stretch;
+  flex-direction: column;
+  @include respond-to("lg") {
+    flex-direction: row;
+  }
 }
 
 .product-main {
@@ -331,10 +407,18 @@ const { data: product } = await useAsyncData("product", () => {
   display: flex;
   flex-direction: column;
   width: 100%;
+  padding-top: 10px;
+  @include respond-to("lg") {
+    padding-top: 0;
+  }
 }
 
 .product-breadcrumbs {
   margin: 30px 0;
+  display: none;
+  @include respond-to("lg") {
+    display: block;
+  }
 }
 
 .product-container {
@@ -350,9 +434,26 @@ const { data: product } = await useAsyncData("product", () => {
   line-height: 130%;
 }
 
-.product-slider, .product-section {
+.product-slider,
+.product-section {
   flex: 1;
   width: 100%;
+}
+
+.product-slider {
+  border-radius: 6px;
+  background-color: #fff;
+  @include respond-to("lg") {
+    border-radius: 0;
+    background-color: transparent;
+  }
+  &__price {
+    display: flex;
+    padding: 10px;
+    @include respond-to("lg") {
+      display: none;
+    }
+  }
 }
 
 // Блок с количеством отзывов и вопросов
@@ -385,16 +486,40 @@ const { data: product } = await useAsyncData("product", () => {
 
 // Блок с выбором вариантов товара
 .product-variants {
+  @media screen and (max-width: 1024px) {
+    margin: 0 -10px;
+    padding: 10px 0;
+    background: #fff;
+    border-radius: 6px;
+  }
   &__list {
     display: flex;
     gap: 6px;
-    margin-top: 30px;
+    @media (max-width: 1024px) {
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scroll-padding-left: 10px;
+      gap: 4px;
+      padding: 0 10px;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    @include respond-to("lg") {
+      margin-top: 30px;
+    }
   }
   &__item {
     padding: 4px;
     border-radius: 6px;
     border: 1px solid transparent;
     cursor: pointer;
+    @media (max-width: 1024px) {
+      min-width: 80px;
+    }
     &.active {
       border: 1px solid $secondaryColor;
     }
@@ -412,20 +537,51 @@ const { data: product } = await useAsyncData("product", () => {
     font-size: 14px;
     font-weight: 500;
     margin-top: 10px;
+    padding: 0 10px;
+    @include respond-to("lg") {
+      padding: 0;
+    }
   }
 }
 
 // Блок с выбором количества в упаковке
 .product-package {
   margin-top: 30px;
+  @media screen and (max-width: 1024px) {
+    margin: 0 -10px;
+    padding: 10px 0;
+    background: #fff;
+    border-radius: 6px;
+    margin-top: 15px;
+  }
+
   &__title {
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 500;
+    padding: 0 10px;
+    @include respond-to("lg") {
+      padding: 0;
+      font-size: 20px;
+    }
   }
   &__list {
     display: flex;
     gap: 6px;
     margin-top: 16px;
+    @media (max-width: 1024px) {
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scroll-padding-left: 10px;
+      gap: 4px;
+      padding: 0 10px;
+      margin-top: 12px;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
   }
   &__item {
     cursor: pointer;
@@ -437,6 +593,7 @@ const { data: product } = await useAsyncData("product", () => {
     justify-content: center;
     align-items: center;
     min-height: 80px;
+    min-width: 90px;
     gap: 4px;
     &.active {
       border: 1px solid $secondaryColor;
@@ -449,6 +606,7 @@ const { data: product } = await useAsyncData("product", () => {
     &-desc {
       font-size: 14px;
       color: rgba($primaryColor, 0.5);
+      text-wrap: nowrap;
     }
   }
 }
@@ -456,14 +614,41 @@ const { data: product } = await useAsyncData("product", () => {
 //Блок с выбором объема
 .product-volume {
   margin-top: 30px;
+  @media screen and (max-width: 1024px) {
+    margin: 0 -10px;
+    padding: 10px 0;
+    background: #fff;
+    border-radius: 6px;
+    margin-top: 15px;
+  }
+
   &__title {
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 500;
+    padding: 0 10px;
+    @include respond-to("lg") {
+      padding: 0;
+      font-size: 20px;
+    }
   }
   &__list {
     display: flex;
     gap: 6px;
     margin-top: 16px;
+    @media (max-width: 1024px) {
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scroll-padding-left: 10px;
+      gap: 4px;
+      padding: 0 10px;
+      margin-top: 12px;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
   }
   &__item {
     cursor: pointer;
@@ -597,20 +782,38 @@ const { data: product } = await useAsyncData("product", () => {
 }
 
 .product-specs {
+  padding: 0 10px;
+  @include respond-to("lg") {
+    padding: 0;
+  }
   &__row {
     display: flex;
     gap: 20px;
-    min-height: 40px;
-    align-items: center;
+    padding: 6px 0;
+    @include respond-to("lg") {
+      min-height: 40px;
+      align-items: center;
+    }
   }
   &__title {
-    flex: 0 0 360px;
+    flex: 0 0 50%;
     color: rgba($primaryColor, 0.6);
+    @include respond-to("lg") {
+      flex: 0 0 360px;
+    }
   }
   &__value {
   }
 }
 
+.product-description,
+.product-delivery {
+  padding: 0 10px;
+  line-height: 1.5;
+  @include respond-to("lg") {
+    padding: 0;
+  }
+}
 .main-img {
   width: 100%;
   height: 100%;
@@ -769,9 +972,12 @@ const { data: product } = await useAsyncData("product", () => {
   position: sticky;
   top: 150px;
   bottom: 0;
-  display: flex;
+  display: none;
   gap: 10px;
   flex-direction: column;
+  @include respond-to("lg") {
+    display: flex;
+  }
 }
 
 // Блок с ценой и кнопками
@@ -793,22 +999,31 @@ const { data: product } = await useAsyncData("product", () => {
     align-items: baseline;
   }
   &__value {
-    font-size: 30px;
+    font-size: 20px;
     font-weight: 600;
     line-height: 130%;
+    @include respond-to("lg") {
+      font-size: 30px;
+    }
   }
   &__old {
-    font-size: 20px;
+    font-size: 14px;
     text-decoration: line-through;
     font-weight: 500;
     line-height: 130%;
+    @include respond-to("lg") {
+      font-size: 20px;
+    }
   }
   &__discount {
     margin-left: 4px;
     color: $greenText;
-    font-size: 20px;
+    font-size: 14px;
     font-weight: 500;
     line-height: 130%;
+    @include respond-to("lg") {
+      font-size: 20px;
+    }
   }
   &__desc {
     font-size: 20px;

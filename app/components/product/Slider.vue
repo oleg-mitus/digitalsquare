@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { Swiper, SwiperSlide } from "swiper/vue";
-import { Navigation, Thumbs } from "swiper/modules";
+import { Navigation, Thumbs, Pagination } from "swiper/modules";
 import type { Swiper as SwiperType } from "swiper";
 
 import "swiper/css";
 import "swiper/css/navigation";
+import "swiper/css/pagination";
 import "swiper/css/thumbs";
 
 const thumbsSwiper = ref<SwiperType | null>(null);
@@ -30,21 +31,33 @@ const images = [
   <div class="slider-container">
     <!-- Основной слайдер -->
     <Swiper
-      :modules="[Navigation, Thumbs]"
+      :modules="[Thumbs, Pagination]"
       :thumbs="{ swiper: thumbsSwiper }"
       :navigation="true"
+      :loop="true"
+      :breakpoints="{
+        320: {
+          pagination: {
+            el: '.swiper-pagination',
+            enabled: true,
+            dynamicBullets: true,
+          },
+        },
+        1024: {
+          pagination: { enabled: false },
+        },
+      }"
       class="main-swiper"
     >
       <SwiperSlide v-for="(img, idx) in images" :key="idx">
         <img :src="img" alt="Slide image" />
       </SwiperSlide>
+      <div class="swiper-pagination"></div>
     </Swiper>
 
     <!-- Слайдер миниатюр -->
     <div class="thumbs-wrapper">
-      <div class="swiper-button-prev thumb-prev">
-        <Icon name="ds:icon-slider-arrow" size="8px" />
-      </div>
+      <div class="swiper-button-prev thumb-prev"></div>
       <Swiper
         @swiper="setThumbsSwiper"
         :modules="[Navigation, Thumbs]"
@@ -65,14 +78,17 @@ const images = [
           <img :src="img" alt="Thumb" />
         </SwiperSlide>
       </Swiper>
-      <div class="swiper-button-next thumb-next">
-        <Icon name="ds:icon-slider-arrow" size="8px" />
-      </div>
+      <div class="swiper-button-next thumb-next"></div>
     </div>
+
+    <!-- Иконки на моб -->
   </div>
 </template>
 
 <style lang="scss" scoped>
+.swiper-slide {
+  height: auto;
+}
 .slider-container {
   width: 100%;
   max-width: 560px;
@@ -84,10 +100,12 @@ const images = [
     width: 100%;
     height: 100%;
     min-height: 500px;
-    border-radius: 16px;
+    border-radius: 6px;
     background-color: #fff0c7;
-    padding: 10px;
-
+    padding: 0;
+    @include respond-to("lg") {
+      border-radius: 16px;
+    }
     img {
       width: 100%;
       height: 100%;
@@ -100,6 +118,11 @@ const images = [
     width: calc(100% - 20px);
     left: 10px;
     bottom: 10px;
+    display: none;
+    @include respond-to("lg") {
+      display: block;
+    }
+
     .thumbs-swiper {
       width: 100%;
 
@@ -144,6 +167,8 @@ const images = [
       transform: translateY(-50%);
       background-color: $greyColor;
       border-radius: 30px;
+      color: $blackColor;
+      padding: 10px;
 
       &::after {
         font-size: 18px;

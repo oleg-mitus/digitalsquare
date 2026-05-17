@@ -13,15 +13,13 @@
         </div>
       </div>
 
-      <div class="product">
-        <transition name="fade" mode="out-in">
-          <div :key="modelValue" class="product-tabs__pane">
-            <slot :name="modelValue">
-              {{ items.find((t) => t.id === modelValue)?.content }}
-            </slot>
-          </div>
-        </transition>
-      </div>
+      <transition name="fade" mode="out-in">
+        <div :key="modelValue" class="product-tabs__pane">
+          <slot :name="modelValue">
+            {{ items.find((t) => t.id === modelValue)?.content }}
+          </slot>
+        </div>
+      </transition>
     </div>
   </div>
 </template>
@@ -48,13 +46,36 @@ const selectTab = (id: string, index: number) => {
 <style lang="scss" scoped>
 .product-tabs {
   margin-top: 50px;
+  margin-bottom: 50px;
+  overflow: hidden;
+  @media screen and (max-width: 1024px) {
+    margin: 25px -10px;
+    padding: 10px 0;
+    background: #fff;
+    border-radius: 6px;
+  }
   &__container {
     width: 100%;
   }
   &__nav {
-    display: inline-flex;
+    display: flex;
     position: relative;
     margin-bottom: 30px;
+    @media (max-width: 1024px) {
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scroll-padding-left: 10px;
+      gap: 4px;
+      padding: 0 10px;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+      margin-bottom: 20px;
+    }
+
     &-item {
       padding: 4px 12px;
       height: 100%;
@@ -66,6 +87,8 @@ const selectTab = (id: string, index: number) => {
       display: flex;
       align-items: center;
       z-index: 1;
+      text-wrap: nowrap;
+      background-color: $greyColor;
       &.active {
         background-color: $secondaryColor;
       }
