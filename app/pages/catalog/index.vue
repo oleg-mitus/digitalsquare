@@ -463,31 +463,45 @@ const applyFilters = () => {};
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 20px;
-  margin-top: 40px;
+  gap: 2px;
+  margin-top: 20px;
+  @include respond-to("lg") {
+    margin-top: 40px;
+  }
+  &__filter {
+    display: flex;
+    gap: 2px;
+    @include respond-to("lg") {
+      gap: 2px;
+    }
+    &-button {
+      outline: none;
+      background-color: #fff;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 28px;
+      height: 28px;
+      &:hover {
+        opacity: 0.8;
+      }
+      @include respond-to("lg") {
+        width: 35px;
+        height: 35px;
+      }
+    }
+  }
+  &__sort {
+    display: none;
+    @include respond-to("lg") {
+      display: block;
+    }
+  }
 }
 
 .catalog-pagination {
   margin-top: 20px;
-}
-
-.catalog-actions__filter {
-  display: flex;
-  gap: 10px;
-}
-
-.catalog-actions__filter-button {
-  outline: none;
-  background-color: #fff;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 35px;
-  height: 35px;
-  &:hover {
-    opacity: 0.8;
-  }
 }
 
 .grid-header {

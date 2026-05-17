@@ -7,7 +7,6 @@ const customerType = ref<CustomerType>("individual");
 const promoCode = ref("");
 const selectedPayment = ref<PaymentMethod>("card");
 const selectedDelivery = ref<DeliveryMethod>("pickup-point");
-const showModal = ref<boolean>(false);
 
 const tabs = [
   { id: "individual", label: "Физ. лицо" },
@@ -90,17 +89,7 @@ const applyPromocode = () => {
 
               <!-- detail delivery and reciever info  -->
               <div class="checkout__data">
-                <div class="checkout__data-item" @click="showModal = true">
-                  <div class="checkout__data-info">
-                    <div class="checkout__data-title">Пункт выдачи</div>
-                    <div class="checkout__data-desc">
-                      г. Санкт-Петербург, ул. Кантемировская, 39
-                    </div>
-                  </div>
-                  <div class="checkout__data-arrow">
-                    <Icon name="ds:icon-caret" size="8px" />
-                  </div>
-                </div>
+                <CheckoutAddress />
                 <div class="checkout__data-item">
                   <div class="checkout__data-info">
                     <div class="checkout__data-title">Получатель</div>
@@ -401,30 +390,9 @@ const applyPromocode = () => {
       </div>
     </div>
   </div>
-
-  <UiModal :isOpen="showModal" @close="showModal = false">
-    <template #header>
-      <h3>Адрес доставки</h3>
-    </template>
-
-    <div class="checkout__address">
-      <div class="checkout__address-item">
-        <div class="address-item">
-          <div class="address-item__check"></div>
-          <div class="address-item__content">
-            <div class="address-item__title"></div>
-            <div class="address-item__address"></div>
-            <div class="address-item__info"></div>
-            <div class="address-item__accessibility"></div>
-          </div>
-          <div class="address-item__actions"></div>
-        </div>
-      </div>
-    </div>
-  </UiModal>
 </template>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .checkout {
   margin-bottom: 40px;
   &__container {

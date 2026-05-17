@@ -97,6 +97,7 @@
     display: flex;
     flex-direction: column;
     gap: 12px;
+    margin-top: 10px;
     @include respond-to("lg") {
       gap: 10px;
     }

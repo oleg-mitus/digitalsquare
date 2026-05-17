@@ -7,6 +7,7 @@
     :class="[
       `ui-button--${variant}`,
       { 'ui-button--block': block },
+      { 'ui-button--with-desc': $slots.desc },
       { 'ui-button--icon': iconOnly },
       `ui-button--${size}`,
       `ui-button--radius-${radius}`,
@@ -17,6 +18,9 @@
       <Icon :name="icon" size="24px" />
     </template>
     <slot v-if="!iconOnly" />
+    <template v-if="$slots.desc">
+      <span class="ui-button-desc"><slot name="desc" /></span>
+    </template>
   </component>
 </template>
 
@@ -145,11 +149,39 @@ const tag = computed(() => (props.href ? "a" : "button"));
     height: 44px;
     padding: 10px;
   }
+  &--xs {
+    &.icon-only {
+      width: 20px;
+      height: 20px;
+      padding: 0;
+      .iconify {
+        width: 20px;
+        height: 20px;
+      }
+    }
+  }
   &--block {
     width: 100%;
   }
   &--radius-lg {
     border-radius: 10px;
+  }
+  &--with-desc {
+    gap: 4px;
+    display: flex;
+    flex-direction: column;
+    padding: 0 20px;
+    line-height: 1;
+    justify-content: center;
+    align-items: center;
+  }
+  &-desc {
+    display: flex;
+    justify-content: center;
+    font-size: 12px;
+    @include respond-to("lg") {
+      font-size: 14px;
+    }
   }
 }
 </style>
