@@ -81,12 +81,13 @@
 .home {
   &__hero {
     width: 100%;
-    height: calc(100vh - 100px + 16px);
+    height: calc(100vh - 166px + 32px);
     position: relative;
+    margin-top: -16px;
     @include respond-to("lg") {
       height: calc(100dvh - $headerTopHeight - 80px + 16px);
       min-height: 400px;
-      margin-top: -16px;
+      
     }
     @include respond-to("2xl") {
       height: calc(100dvh - $headerTopHeight - 90px + 16px);

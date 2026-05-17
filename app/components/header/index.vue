@@ -19,9 +19,7 @@
           </ul>
         </div>
         <div class="header__top-contacts">
-          <div class="header__top-address">
-            Санкт-Петербург
-          </div>
+          <div class="header__top-address">Санкт-Петербург</div>
           <div class="header__top-phone">
             <a href="tel:+78124907406">+7 (812) 490 74 06</a>
           </div>
@@ -79,6 +77,15 @@
           <input class="h-search" type="search" placeholder="Найти товары" />
           <div class="h-search__close"></div>
         </div>
+      </div>
+    </div>
+    <div class="header__m-search">
+      <div class="h-search__field">
+        <div class="h-search__icon">
+          <Icon name="ds:icon-search" size="15" />
+        </div>
+        <input class="h-search" type="search" placeholder="Найти товары" />
+        <div class="h-search__close"></div>
       </div>
     </div>
   </header>
@@ -156,6 +163,36 @@
     }
     @media (max-width: 1280px) {
       gap: 20px;
+    }
+  }
+
+  &__m-search {
+    height: 54px;
+    border-radius: 0 0 15px 15px;
+    background-color: $secondaryColor;
+    padding: 0 10px 10px 10px;
+    @include respond-to("lg") {
+      display: none;
+    }
+
+    input[type="search"]::-webkit-search-decoration,
+    input[type="search"]::-webkit-search-cancel-button,
+    input[type="search"]::-webkit-search-results-button,
+    input[type="search"]::-webkit-search-results-decoration {
+      -webkit-appearance: none;
+    }
+
+    input {
+      width: 100%;
+      height: 44px;
+      padding: 10px;
+      padding-left: 32px;
+      background-color: #fff4d8;
+      border-radius: 10px;
+      border: none;
+      &:focus {
+        outline: none;
+      }
     }
   }
 
