@@ -22,6 +22,12 @@ body {
   letter-spacing: -2%;
 }
 
+body {
+  &.hidden {
+    overflow: hidden;
+  }
+}
+
 img,
 picture,
 video,
@@ -90,6 +96,20 @@ button {
   .iconify {
     width: 26px;
     height: 26px;
+  }
+}
+
+.city-select {
+  padding: 10px 0 20px;
+  &__text {
+    font-size: 16px;
+    margin-top: 16px;
+    a {
+      color: #272727;
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 2px;
+    }
   }
 }
 
@@ -179,6 +199,53 @@ button {
       display: flex;
       flex-direction: column;
       gap: 25px;
+    }
+    &-grid {
+      display: flex;
+      justify-content: space-between;
+      flex-direction: column;
+      gap: 0;
+      @include respond-to("lg") {
+        flex-direction: row;
+        gap: 20px;
+      }
+    }
+    &-aside {
+      position: relative;
+      display: none;
+      @include respond-to("lg") {
+        width: 365px;
+        display: block;
+      }
+    }
+    &-block {
+      background: #fff;
+      border-radius: 16px;
+      padding: 10px;
+      position: sticky;
+      top: 100px;
+    }
+    &-nav {
+      display: flex;
+      flex-direction: column;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      li {
+        a {
+          padding: 6px 12px;
+          border-radius: 6px;
+          height: 44px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          text-decoration: none;
+          color: #272727;
+          &:hover, &.active {
+            background: #f5f7fa;
+          }
+        }
+      }
     }
   }
 }

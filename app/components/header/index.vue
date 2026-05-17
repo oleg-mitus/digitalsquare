@@ -1,5 +1,9 @@
 <template>
-  <header class="header">
+  <header
+    class="header"
+    :class="{ 'is-home-page': $route.path === '/', 'show-search': showSearch }"
+    id="header"
+  >
     <div class="header__top">
       <div class="container header__top-content">
         <div class="header__top-nav">
@@ -19,7 +23,9 @@
           </ul>
         </div>
         <div class="header__top-contacts">
-          <div class="header__top-address">Санкт-Петербург</div>
+          <div class="header__top-address" @click="showCityModal = true">
+            Санкт-Петербург
+          </div>
           <div class="header__top-phone">
             <a href="tel:+78124907406">+7 (812) 490 74 06</a>
           </div>
@@ -64,39 +70,47 @@
           <div class="header__bottom-profile" v-if="false">
             <HeaderProfile />
           </div>
-          <div class="header__bottom-city">
+          <div class="header__bottom-city" @click="showCityModal = true">
             г. Санкт-Петербург<Icon name="ds:icon-caret" size="6px" />
           </div>
         </div>
       </div>
-      <div class="header__search" v-if="false">
-        <div class="h-search__field">
-          <div class="h-search__icon">
-            <Icon name="ds:icon-search" size="15" />
-          </div>
-          <input class="h-search" type="search" placeholder="Найти товары" />
-          <div class="h-search__close"></div>
-        </div>
-      </div>
     </div>
-    <div class="header__m-search">
-      <div class="h-search__field">
-        <div class="h-search__icon">
-          <Icon name="ds:icon-search" size="15" />
-        </div>
-        <input class="h-search" type="search" placeholder="Найти товары" />
-        <div class="h-search__close"></div>
-      </div>
-    </div>
+    <HeaderMobileSearch />
   </header>
+
+  <UiModal :isOpen="showCityModal" @close="showCityModal = false">
+    <template #header>
+      <h3>Выберите Ваш город</h3>
+    </template>
+
+    <div class="city-select">
+      <form>
+        <div class="form-group">
+          <input id="phone" type="text" placeholder="Введите название города" />
+        </div>
+        <div class="city-select__text">
+          Не нашли свой город? У нас есть <a href="">доставка Почтой России</a>
+        </div>
+      </form>
+    </div>
+  </UiModal>
 </template>
 
-<style lang="scss" scoped>
+<script lang="ts" setup>
+import { useUIState } from "~/stores/ui";
+
+const { showSearch } = useUIState();
+const showCityModal = ref<boolean>(false);
+</script>
+
+<style lang="scss">
 .header {
   position: sticky;
   top: calc(-1 * var(--top-bar-height, 30px));
   width: 100%;
   z-index: 10;
+  transition: transform 0.3s ease-in;
   @media (max-width: 1024px) {
     top: 0;
   }
@@ -171,9 +185,7 @@
     border-radius: 0 0 15px 15px;
     background-color: $secondaryColor;
     padding: 0 10px 10px 10px;
-    @include respond-to("lg") {
-      display: none;
-    }
+    display: none;
 
     input[type="search"]::-webkit-search-decoration,
     input[type="search"]::-webkit-search-cancel-button,
@@ -192,6 +204,23 @@
       border: none;
       &:focus {
         outline: none;
+      }
+    }
+  }
+  &.show-search {
+    transform: translateY(-46px);
+    .header__m-search {
+      display: block;
+      @include respond-to("lg") {
+        display: none;
+      }
+    }
+  }
+  &.is-home-page {
+    .header__m-search {
+      display: block;
+      @include respond-to("lg") {
+        display: none;
       }
     }
   }
@@ -226,7 +255,7 @@
       .ui-button {
         display: none;
         @include respond-to("lg") {
-          display: block;
+          display: flex;
         }
       }
     }

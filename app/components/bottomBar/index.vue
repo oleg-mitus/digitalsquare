@@ -2,10 +2,7 @@
   <nav class="bottom-bar" v-if="isMobile">
     <ul class="bottom-bar__list">
       <li class="bottom-bar__item">
-        <button class="bottom-bar__link" aria-label="Поиск">
-          <Icon name="ds:icon-search" size="20px" />
-          <span class="bottom-bar__text">Поиск</span>
-        </button>
+        <BottomBarSearch />
       </li>
 
       <li class="bottom-bar__item">
