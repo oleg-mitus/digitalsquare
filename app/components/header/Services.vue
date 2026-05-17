@@ -14,7 +14,7 @@
           <ul class="h-drop__results">
             <li class="h-drop__results-item">
               <NuxtLink
-                to="/payments"
+                to="/about"
                 class="h-drop__results-link"
                 @click="closeDropdown"
                 >Оплата</NuxtLink
@@ -22,7 +22,7 @@
             </li>
             <li class="h-drop__results-item">
               <NuxtLink
-                to="/delivery"
+                to="/about"
                 class="h-drop__results-link"
                 @click="closeDropdown"
                 >Доставка</NuxtLink
@@ -30,7 +30,7 @@
             </li>
             <li class="h-drop__results-item">
               <NuxtLink
-                to="/refund"
+                to="/about"
                 class="h-drop__results-link"
                 @click="closeDropdown"
                 >Легкий возврат</NuxtLink
@@ -46,7 +46,7 @@
             </li>
             <li class="h-drop__results-item">
               <NuxtLink
-                to="/articles"
+                to="/about"
                 class="h-drop__results-link"
                 @click="closeDropdown"
                 >Статьи</NuxtLink

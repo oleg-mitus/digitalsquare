@@ -15,10 +15,10 @@
               <NuxtLink to="/about">Оплата и доставка</NuxtLink>
             </li>
             <li class="header__nav-item">
-              <NuxtLink to="/news">Новости</NuxtLink>
+              <NuxtLink to="/about">Новости</NuxtLink>
             </li>
             <li class="header__nav-item">
-              <NuxtLink to="/contacts">Контакты</NuxtLink>
+              <NuxtLink to="/about">Контакты</NuxtLink>
             </li>
           </ul>
         </div>
