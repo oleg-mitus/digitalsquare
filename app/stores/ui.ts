@@ -1,16 +1,19 @@
 import { createGlobalState } from "@vueuse/core";
-import { shallowRef } from "vue";
+import { shallowRef, ref } from "vue";
 
 export const useUIState = createGlobalState(() => {
   const showSearch = shallowRef<boolean>(false);
+  const cartIds = ref<number[]>([]);
 
-  const openSearch = (): void => {
-    showSearch.value = true;
+  const isInCart = (id: number): boolean => {
+    return cartIds.value.find((item) => item === id) ? true : false;
   };
 
-  const closeSearch = (): void => {
-    showSearch.value = false;
+  const addToCart = (id: number): void => {
+    if (!cartIds.value.find((item) => item === id)) {
+      cartIds.value.push(id);
+    }
   };
-  
-  return { showSearch, openSearch, closeSearch };
+
+  return { showSearch, isInCart, addToCart };
 });

@@ -40,7 +40,6 @@ const images = [
           pagination: {
             el: '.swiper-pagination',
             enabled: true,
-            dynamicBullets: true,
           },
         },
         1024: {
@@ -82,19 +81,38 @@ const images = [
     </div>
 
     <!-- Иконки на моб -->
+    <div class="product-slider__icons">
+      <div class="product-slider__back">
+        <UiButton iconOnly icon="ds:icon-back" class="ui-button--back" />
+      </div>
+      <div class="product-slider__actions">
+        <UiButton iconOnly icon="ds:icon-search1" />
+        <UiButton iconOnly icon="ds:icon-rotate" />
+        <UiButton iconOnly icon="ds:icon-favorite" />
+      </div>
+    </div>
   </div>
 </template>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .swiper-slide {
   height: auto;
 }
 .slider-container {
   width: 100%;
-  max-width: 560px;
+  
   margin: 0 auto;
   height: 100%;
   position: relative;
+  @include respond-to("lg") {
+    max-width: 400px;
+  }
+  @include respond-to("xl") {
+    max-width: 460px;
+  }
+  @include respond-to("2xl") {
+    max-width: 560px;
+  }
 
   .main-swiper {
     width: 100%;
@@ -127,8 +145,7 @@ const images = [
       width: 100%;
 
       .thumb-slide {
-        width: 100px;
-        height: 100px;
+        aspect-ratio: 1;
         padding: 10px;
         background-color: #fff8e6;
         cursor: pointer;
@@ -186,6 +203,42 @@ const images = [
     .thumb-next {
       right: 10px;
     }
+  }
+}
+.product-slider {
+  &__icons {
+    position: absolute;
+    left: 10px;
+    right: 10px;
+    top: 10px;
+    display: flex;
+    justify-content: space-between;
+    z-index: 1;
+    @include respond-to("lg") {
+      display: none;
+    }
+    .ui-button {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background-color: #fff4db;
+      padding: 0;
+      .iconify {
+        width: 20px;
+        height: 20px;
+      }
+      &--back {
+        font-size: 10px;
+        .iconify {
+          width: 8px !important;
+          height: 8px !important;
+        }
+      }
+    }
+  }
+  &__actions {
+    display: flex;
+    gap: 6px;
   }
 }
 </style>

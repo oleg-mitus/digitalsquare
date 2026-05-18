@@ -1,21 +1,15 @@
 <script setup lang="ts">
-import type { Swiper as SwiperType } from "swiper";
+import { useUIState } from "~/stores/ui";
 import { Navigation, Thumbs, FreeMode } from "swiper/modules";
 
-const containerRef = ref(null);
-
-const swiper = useSwiper(containerRef);
-
-const thumbsSwiper = ref<SwiperType | null>(null);
-const setThumbsSwiper = (swiper: SwiperType) => {
-  thumbsSwiper.value = swiper;
-};
+const { isInCart, addToCart } = useUIState();
 
 const selectedVariant = ref(0);
 const selectedPack = ref(0);
 const selectedVolume = ref(0);
 const quantity = ref(1);
 const isGalleryOpen = ref(false);
+const cartLoading = ref<boolean>(false);
 
 const activeMainTab = ref<"description" | "specs" | "delivery">("description");
 const mainTabs = [
@@ -52,8 +46,8 @@ const { data: product } = await useAsyncData("product", () => {
       { length: 6 },
       (_, i) => `/images/product-variant.jpg`,
     ),
-    packs: ["1", "2", "4", "8", "16", "32"],
-    volumes: ["1600", "2000", "4000", "4000", "4000", "4000", "4000"],
+    packs: ["1", "3", "5", "7"],
+    volumes: ["1600", "2000", "4000", "4000"],
     specs: [
       { label: "Вид", value: "IPS матрица" },
       { label: "Цвет", value: "Черный матовый" },
@@ -66,6 +60,14 @@ const { data: product } = await useAsyncData("product", () => {
     ),
   });
 });
+
+const handleAddToCart = (id: number): void => {
+  cartLoading.value = true;
+  setTimeout(() => {
+    cartLoading.value = false;
+    addToCart(id);
+  }, 1000);
+};
 </script>
 
 <template>
@@ -296,25 +298,152 @@ const { data: product } = await useAsyncData("product", () => {
             </div>
             <div class="product-buttons">
               <div class="product-cart">
-                <div class="product-button"></div>
-                <div class="product-quantity"></div>
-                <div class="product-favorite"></div>
+                <div class="product-button">
+                  <UiButton
+                    block
+                    variant="green"
+                    radius="lg"
+                    size="lg"
+                    @click="navigateTo('/catalog')"
+                    v-if="isInCart(1)"
+                  >
+                    В корзине
+                    <template #desc>Перейти</template>
+                  </UiButton>
+                  <UiButton
+                    block
+                    variant="green"
+                    radius="lg"
+                    size="lg"
+                    @click="handleAddToCart(1)"
+                    :loading="cartLoading"
+                    v-else
+                  >
+                    В корзину
+                    <template #desc>Доставим завтра</template>
+                  </UiButton>
+                </div>
+                <div class="product-quantity">
+                  <UiCounter
+                    v-model="quantity"
+                    :min="1"
+                    :max="10"
+                    :step="1"
+                    variant="product-desktop"
+                  />
+                </div>
+                <div class="product-favorite">
+                  <UiButton
+                    block
+                    variant="transparent"
+                    radius="lg"
+                    size="lg"
+                    iconOnly
+                    icon="ds:icon-favorite"
+                  />
+                </div>
               </div>
             </div>
           </div>
           <div class="product-click">
             <UiButton variant="yellow" block>Купить в 1 клик</UiButton>
           </div>
-          <div class="product-delivery"></div>
+          <div class="product-return">
+            <div class="product-return__title">Доставка и возврат</div>
+            <div class="product-return__row">
+              <div class="product-return__icon">
+                <Icon name="ds:icon-pin" size="30px" />
+              </div>
+              <div class="product-return__content">
+                <div class="product-return__info">
+                  <div class="product-return__info-title">
+                    пр-кт Карла Маркса, 20/3
+                  </div>
+                  <div class="product-return__info-desc">С нашего склада</div>
+                </div>
+                <div class="product-return__more">
+                  <Icon name="ds:icon-arrow" size="16px" />
+                </div>
+              </div>
+            </div>
+            <div class="product-return__row">
+              <div class="product-return__icon"></div>
+              <div class="product-return__content">
+                <div class="product-return__info">
+                  <div class="product-return__info-title">Курьером</div>
+                  <div class="product-return__info-desc">
+                    Послезавтра, 16 декабря
+                  </div>
+                </div>
+                <div class="product-return__more">+149 ₽</div>
+              </div>
+            </div>
+            <div class="product-return__row">
+              <div class="product-return__icon"></div>
+              <div class="product-return__content">
+                <div class="product-return__info">
+                  <div class="product-return__info-title">
+                    Пункты выдачи и постаматы
+                  </div>
+                  <div class="product-return__info-desc">
+                    Послезавтра, 16 декабря
+                  </div>
+                </div>
+                <div class="product-return__more">Без доплаты</div>
+              </div>
+            </div>
+            <div class="product-return__row">
+              <div class="product-return__icon">
+                <div class="product-return__icon-circle">
+                  <Icon name="ds:icon-rotate" size="20px" />
+                </div>
+              </div>
+              <div class="product-return__content">
+                <div class="product-return__info">
+                  <div class="product-return__info-title">
+                    Пункты выдачи и постаматы
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </aside>
 
         <div class="product-m-actions">
           <div class="product-m-actions__row">
             <div class="product-m-actions__button">
-              <UiButton block>
+              <UiButton
+                block
+                variant="secondary"
+                radius="lg"
+                size="lg"
+                @click="navigateTo('/catalog')"
+                v-if="isInCart(1)"
+              >
+                В корзине
+                <template #desc>Перейти</template>
+              </UiButton>
+              <UiButton
+                block
+                variant="white"
+                radius="lg"
+                size="lg"
+                @click="handleAddToCart(1)"
+                :loading="cartLoading"
+                v-else
+              >
                 В корзину
                 <template #desc>Доставим завтра</template>
               </UiButton>
+            </div>
+            <div class="product-m-actions__quantity" v-if="isInCart(1)">
+              <UiCounter
+                v-model="quantity"
+                :min="1"
+                :max="10"
+                :step="1"
+                variant="product-mobile"
+              />
             </div>
           </div>
         </div>
@@ -360,12 +489,11 @@ const { data: product } = await useAsyncData("product", () => {
   </div>
 </template>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .product-page {
   .only-desktop {
-    display: none;
-    @include respond-to("lg") {
-      display: flex;
+    @media (max-width: 1024px) {
+      display: none;
     }
   }
 }
@@ -386,10 +514,91 @@ const { data: product } = await useAsyncData("product", () => {
     display: flex;
     gap: 10px;
     padding: 10px;
+    margin: 0 auto;
+    max-width: 460px;
   }
   &__button {
     flex: 1;
   }
+}
+
+.product-button {
+  flex: 1;
+}
+
+.product-favorite {
+  .ui-button {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    padding: 0;
+    .iconify {
+      width: 36px;
+      height: 36px;
+    }
+  }
+}
+
+.product-click {
+  margin-top: 10px;
+}
+
+.product-return {
+  width: 100%;
+  border-radius: 6px;
+  border: 1px dashed rgba($primaryColor, 0.5);
+  padding: 10px;
+  margin-top: 20px;
+  &__title {
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 1.3;
+  }
+  &__row {
+    display: flex;
+    gap: 10px;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba($primaryColor, 0.1);
+    &:last-child {
+      border-bottom: 0;
+    }
+  }
+  &__content {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    justify-content: space-between;
+    flex: 1;
+  }
+  &__more {
+    font-size: 12px;
+    font-weight: 500;
+  }
+  &__info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    &-desc {
+      color: rgba($primaryColor, 0.5);
+    }
+  }
+  &__icon {
+    flex: 0 0 30px;
+    &-circle {
+      width: 30px;
+      height: 30px;
+      background-color: $whiteColor;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+}
+
+.product-cart {
+  display: flex;
+  gap: 10px;
 }
 
 .product-layout {
@@ -724,6 +933,9 @@ const { data: product } = await useAsyncData("product", () => {
     border-radius: 15px;
     border: 2px solid #fff;
     overflow: hidden;
+    &:last-child {
+      border: none;
+    }
     img {
       width: 100%;
       height: 100%;
@@ -740,44 +952,6 @@ const { data: product } = await useAsyncData("product", () => {
     align-items: center;
     justify-content: center;
     font-size: 24px;
-  }
-}
-
-.gallery-section {
-  display: flex;
-  gap: 20px;
-  height: 540px;
-  margin-bottom: 40px;
-
-  .thumbs-container {
-    width: 100px;
-    height: 100%;
-  }
-
-  .main-slider-container {
-    flex: 1;
-    background: #fff;
-    border-radius: 16px;
-    overflow: hidden;
-  }
-}
-
-.thumbs-slider {
-  height: 100%;
-  .thumb-card {
-    height: 100px;
-    border: 2px solid #eee;
-    border-radius: 10px;
-    overflow: hidden;
-    cursor: pointer;
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-  }
-  .swiper-slide-thumb-active .thumb-card {
-    border-color: #000;
   }
 }
 
@@ -802,8 +976,6 @@ const { data: product } = await useAsyncData("product", () => {
       flex: 0 0 360px;
     }
   }
-  &__value {
-  }
 }
 
 .product-description,
@@ -813,11 +985,6 @@ const { data: product } = await useAsyncData("product", () => {
   @include respond-to("lg") {
     padding: 0;
   }
-}
-.main-img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
 }
 
 .grid-boxes {
@@ -865,82 +1032,6 @@ const { data: product } = await useAsyncData("product", () => {
   }
 }
 
-.counter-box {
-  display: flex;
-  align-items: center;
-  border: 1px solid #eee;
-  border-radius: 12px;
-  width: fit-content;
-  margin-bottom: 20px;
-  button {
-    width: 45px;
-    height: 45px;
-    border: none;
-    background: none;
-    cursor: pointer;
-    font-size: 20px;
-    &:hover {
-      color: #007bff;
-    }
-  }
-  input {
-    width: 60px;
-    border: none;
-    text-align: center;
-    font-size: 16px;
-    font-weight: 600;
-    -moz-appearance: textfield;
-    &::-webkit-outer-spin-button,
-    &::-webkit-inner-spin-button {
-      -webkit-appearance: none;
-    }
-  }
-}
-
-.buy-btn {
-  width: 100%;
-  background: #007bff;
-  color: #fff;
-  border: none;
-  padding: 18px;
-  border-radius: 14px;
-  font-size: 18px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: transform 0.2s;
-  &:active {
-    transform: scale(0.98);
-  }
-}
-
-// Табы
-.tabs-section {
-  margin-top: 60px;
-  .tab-header {
-    display: flex;
-    gap: 40px;
-    border-bottom: 1px solid #eee;
-    button {
-      padding: 15px 5px;
-      background: none;
-      border: none;
-      cursor: pointer;
-      font-size: 18px;
-      color: #888;
-      border-bottom: 3px solid transparent;
-      &.active {
-        color: #000;
-        border-color: #007bff;
-        font-weight: 600;
-      }
-    }
-  }
-  .tab-body {
-    padding: 30px 0;
-    min-height: 100px;
-  }
-}
-
 // Модалка
 .gallery-modal {
   position: fixed;
@@ -969,14 +1060,15 @@ const { data: product } = await useAsyncData("product", () => {
 
 .product-sidebar {
   width: 365px;
+  flex: 0 0 365px;
   position: sticky;
-  top: 150px;
+  top: 100px;
   bottom: 0;
-  display: none;
+  display: flex;
   gap: 10px;
   flex-direction: column;
-  @include respond-to("lg") {
-    display: flex;
+  @media (max-width: 1024px) {
+    display: none;
   }
 }
 

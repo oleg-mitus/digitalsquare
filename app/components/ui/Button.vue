@@ -12,6 +12,7 @@
       `ui-button--${size}`,
       `ui-button--radius-${radius}`,
     ]"
+    :disabled="loading || disabled"
     @click="$emit('click', $event)"
   >
     <template v-if="icon">
@@ -21,43 +22,36 @@
     <template v-if="$slots.desc">
       <span class="ui-button-desc"><slot name="desc" /></span>
     </template>
+    <div class="ui-button__loading" v-if="loading">
+      <Icon name="ds:icon-loading" size="16px" />
+    </div>
   </component>
 </template>
 
-<script setup>
-const props = defineProps({
-  variant: {
-    type: String,
-    default: "primary",
-  },
-  size: {
-    type: String,
-    default: "md",
-  },
-  icon: {
-    type: String,
-    default: null,
-  },
-  type: {
-    type: String,
-    default: "button",
-  },
-  href: {
-    type: String,
-    default: null,
-  },
-  iconOnly: {
-    type: Boolean,
-    default: false,
-  },
-  block: {
-    type: Boolean,
-    default: false,
-  },
-  radius: {
-    type: String,
-    default: "md",
-  },
+<script setup lang="ts">
+interface Props {
+  variant?: "primary" | "secondary" | "white" | "yellow" | "green" | "transparent";
+  size?: "xs" | "md" | "lg";
+  color?: "gray" | "orange";
+  icon?: string;
+  type?: "button" | "submit" | "reset";
+  href?: string;
+  iconOnly?: boolean;
+  block?: boolean;
+  radius?: "md" | "lg";
+  loading?: boolean;
+  disabled?: boolean;
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  variant: "primary",
+  size: "md",
+  type: "button",
+  iconOnly: false,
+  block: false,
+  radius: "md",
+  loading: false,
+  disabled: false,
 });
 
 defineEmits(["click"]);
@@ -65,7 +59,7 @@ defineEmits(["click"]);
 const tag = computed(() => (props.href ? "a" : "button"));
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 .ui-button {
   padding: 10px 20px;
   border-radius: 6px;
@@ -80,30 +74,80 @@ const tag = computed(() => (props.href ? "a" : "button"));
   justify-content: center;
   outline: none;
   transition: all 0.3s ease-in-out;
-  @media (max-width: 1023px) {
-    font-size: 14px;
-    height: 44px;
+  position: relative;
+  font-size: 14px;
+  height: 44px;
+  overflow: hidden;
+
+  @include respond-to("lg") {
+    font-size: 16px;
+    height: 50px;
   }
+
+  &:disabled {
+    opacity: 0.8;
+  }
+
+  &__loading {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: currentColor;
+    .iconify {
+      width: 16px;
+      height: 16px;
+    }
+  }
+
   .iconify {
-    width: 24px;
-    height: 24px;
-    @media (max-width: 1023px) {
-      width: 20px;
-      height: 20px;
+    width: 20px;
+    height: 20px;
+    @include respond-to("lg") {
+      width: 24px;
+      height: 24px;
     }
   }
   &--primary {
     background: $secondaryColor;
     color: $primaryColor;
-    &:hover {
+    &:hover:not(:disabled) {
       background-color: #ffd461;
+    }
+    .ui-button__loading {
+      background-color: $secondaryColor;
     }
   }
   &--secondary {
     background: $primaryColor;
     color: $whiteColor;
-    &:hover {
+    &:hover:not(:disabled) {
       background-color: #1c1c1c;
+    }
+    .ui-button__loading {
+      background-color: $primaryColor;
+    }
+  }
+  &--white {
+    background: $whiteColor;
+    color: $primaryColor;
+    &:hover:not(:disabled) {
+      background-color: #1c1c1c;
+      color: $whiteColor;
+    }
+    .ui-button__loading {
+      background-color: $whiteColor;
+    }
+  }
+  &--green {
+    background: $greenColor;
+    color: $whiteColor;
+    &:hover:not(:disabled) {
+      background-color: $greenText;
+    }
+    .ui-button__loading {
+      background-color: $greenColor;
     }
   }
   &--vk {
@@ -114,29 +158,35 @@ const tag = computed(() => (props.href ? "a" : "button"));
   &--transparent {
     background: transparent;
     color: $primaryColor;
-    &:hover {
+    &:hover:not(disabled) {
       background-color: #f5f7fa;
     }
   }
   &--yellow {
     background: rgba($secondaryColor, 0.1);
     color: $secondaryColor;
-    &:hover {
+    &:hover:not(disabled) {
       background-color: $secondaryColor;
       color: #fff;
+    }
+    .ui-button__loading {
+      background-color: rgba($secondaryColor, 0.1);
     }
   }
   &--grey {
     background: $greyColor;
     color: $greyText;
-    &:hover {
+    &:hover:not(disabled) {
       opacity: 0.8;
+    }
+    .ui-button__loading {
+      background-color: $greyColor;
     }
   }
   &--red {
     background: #fff4f6;
     color: #f1117e;
-    &:hover {
+    &:hover:not(disabled) {
       opacity: 0.8;
     }
   }
@@ -160,6 +210,14 @@ const tag = computed(() => (props.href ? "a" : "button"));
       }
     }
   }
+  &--lg {
+    font-weight: 500;
+    height: 50px;
+    @media (max-width: 1023px) {
+      font-size: 16px;
+      height: 50px;
+    }
+  }
   &--block {
     width: 100%;
   }
@@ -179,6 +237,7 @@ const tag = computed(() => (props.href ? "a" : "button"));
     display: flex;
     justify-content: center;
     font-size: 12px;
+    font-weight: 400;
     @include respond-to("lg") {
       font-size: 14px;
     }

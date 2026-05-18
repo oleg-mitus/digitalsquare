@@ -1,5 +1,11 @@
 <template>
-  <div :class="['ui-counter', { 'is-disabled': disabled }]">
+  <div
+    :class="[
+      'ui-counter',
+      { 'is-disabled': disabled },
+      `ui-counter--${props.variant}`,
+    ]"
+  >
     <button
       type="button"
       class="ui-counter__btn"
@@ -39,6 +45,7 @@ interface Props {
   max?: number;
   step?: number;
   disabled?: boolean;
+  variant?: "primary" | "product-mobile" | "product-desktop";
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -47,6 +54,7 @@ const props = withDefaults(defineProps<Props>(), {
   max: 100,
   step: 1,
   disabled: false,
+  variant: "primary",
 });
 
 const emit = defineEmits(["update:modelValue"]);
@@ -134,6 +142,57 @@ $white: #ffffff;
   &.is-disabled {
     opacity: 0.6;
     pointer-events: none;
+  }
+
+  &--product-mobile {
+    border-radius: 10px;
+    background-color: $yellowContentColor;
+    border-color: $yellowContentColor;
+    height: 100%;
+    padding: 0 10px;
+    .ui-counter__btn {
+      width: 24px;
+      height: 100%;
+      &:hover:not(:disabled) {
+        background: $yellowContentColor;
+      }
+      &:disabled {
+        color: rgba($blackColor, 0.2);
+      }
+      .iconify {
+        font-size: 20px;
+        width: 20px;
+        height: 20px;
+      }
+    }
+    &:focus-within {
+      border-color: $yellowContentColor;
+    }
+    .ui-counter__input {
+      width: 28px;
+      height: 100%;
+      background-color: $yellowContentColor;
+      font-weight: 400;
+    }
+  }
+  &--product-desktop {
+    border-radius: 10px;
+    height: 100%;
+    padding: 0 10px;
+    .ui-counter__btn {
+      width: 24px;
+      height: 100%;
+      .iconify {
+        font-size: 20px;
+        width: 20px;
+        height: 20px;
+      }
+    }
+    .ui-counter__input {
+      width: 28px;
+      height: 100%;
+      font-weight: 400;
+    }
   }
 }
 </style>

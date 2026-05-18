@@ -54,7 +54,7 @@ const isMobile = ref(false);
 const cartCount = ref<number>(3);
 
 const checkWidth = () => {
-  isMobile.value = window.innerWidth <= 768;
+  isMobile.value = window.innerWidth <= 1024;
 };
 
 onMounted(() => {
