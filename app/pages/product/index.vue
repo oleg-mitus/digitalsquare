@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { useUIState } from "~/stores/ui";
-import { Navigation, Thumbs, FreeMode } from "swiper/modules";
+import { useUIState } from '~/stores/ui';
 
 const { isInCart, addToCart } = useUIState();
 
@@ -10,49 +9,113 @@ const selectedVolume = ref(0);
 const quantity = ref(1);
 const isGalleryOpen = ref(false);
 const cartLoading = ref<boolean>(false);
+const showModalAnswers = ref<boolean>(false);
 
-const activeMainTab = ref<"description" | "specs" | "delivery">("description");
+const activeMainTab = ref<'description' | 'specs' | 'delivery'>('description');
 const mainTabs = [
-  { id: "description", label: "Описание" },
-  { id: "specs", label: "Характеристики" },
-  { id: "delivery", label: "Доставка и оплата" },
+  { id: 'description', label: 'Описание' },
+  { id: 'specs', label: 'Характеристики' },
+  { id: 'delivery', label: 'Доставка и оплата' },
 ];
 
 const specs = [
-  { title: "Вид", value: "Новый, совместный" },
-  { title: "Цвет", value: "Черный" },
-  { title: "Емкость", value: "Стандартная" },
-  { title: "Совместимость", value: "HP LJ Pro M304, LJ Pro M404" },
-  { title: "Габариты (ВШГ), мм", value: "196х145х360" },
-  { title: "Вес, гр", value: "1500" },
-  { title: "Ресурс", value: "8000 страниц при 5% заполнении листа А4" },
-  { title: "Чип", value: "С чипом" },
-  { title: "Назначение", value: "Для лазерного принтера" },
-  { title: "Тип", value: "Картридж" },
-  { title: "Производство", value: "Китай" },
-  { title: "Гарантия", value: "1 год" },
+  { title: 'Вид', value: 'Новый, совместный' },
+  { title: 'Цвет', value: 'Черный' },
+  { title: 'Емкость', value: 'Стандартная' },
+  { title: 'Совместимость', value: 'HP LJ Pro M304, LJ Pro M404' },
+  { title: 'Габариты (ВШГ), мм', value: '196х145х360' },
+  { title: 'Вес, гр', value: '1500' },
+  { title: 'Ресурс', value: '8000 страниц при 5% заполнении листа А4' },
+  { title: 'Чип', value: 'С чипом' },
+  { title: 'Назначение', value: 'Для лазерного принтера' },
+  { title: 'Тип', value: 'Картридж' },
+  { title: 'Производство', value: 'Китай' },
+  { title: 'Гарантия', value: '1 год' },
 ];
 
-const activeReviewTab = ref<"reviews" | "faq">("reviews");
+const answers = reactive([
+  {
+    id: 1,
+    author: 'Карина',
+    date: '22.01.2016',
+    question: 'Как узнать, подойдёт ли картридж к моему принтеру?',
+    answer: `
+        Чтобы узнать, подойдет ли картридж, используйте 
+        модель принтера (самый надежный способ!) для поиска на сайте производителя или в магазинах, 
+        посмотрите наклейки в отсеке карт или на старых картриджах. Чтобы узнать, подойдет ли картридж, используйте 
+        модель принтера (самый надежный способ!) для поиска на сайте производителя или в магазинах, 
+        посмотрите наклейки в отсеке карт или на старых картриджах. Чтобы узнать, подойдет ли картридж, используйте 
+        модель принтера (самый надежный способ!) для поиска на сайте производителя или в магазинах, 
+        посмотрите наклейки в отсеке карт или на старых картриджах
+    `,
+  },
+  {
+    id: 2,
+    author: 'Vasya',
+    date: '22.01.2022',
+    question: 'Как узнать, подойдёт ли картридж к моему принтеру?',
+    answer: `
+        Чтобы узнать, подойдет ли картридж, используйте 
+        модель принтера (самый надежный способ!) для поиска на сайте производителя или в магазинах, 
+        посмотрите наклейки в отсеке карт или на старых картриджах. Чтобы узнать, подойдет ли картридж, используйте 
+        модель принтера (самый надежный способ!) для поиска на сайте производителя или в магазинах, 
+        посмотрите наклейки в отсеке карт или на старых картриджах. Чтобы узнать, подойдет ли картридж, используйте 
+        модель принтера (самый надежный способ!) для поиска на сайте производителя или в магазинах, 
+        посмотрите наклейки в отсеке карт или на старых картриджах
+    `,
+  },
+  {
+    id: 2,
+    author: 'Vasya',
+    date: '22.01.2022',
+    question: 'Как узнать, подойдёт ли картридж к моему принтеру?',
+    answer: `
+        Чтобы узнать, подойдет ли картридж, используйте 
+        модель принтера (самый надежный способ!) для поиска на сайте производителя или в магазинах, 
+        посмотрите наклейки в отсеке карт или на старых картриджах. Чтобы узнать, подойдет ли картридж, используйте 
+        модель принтера (самый надежный способ!) для поиска на сайте производителя или в магазинах, 
+        посмотрите наклейки в отсеке карт или на старых картриджах. Чтобы узнать, подойдет ли картридж, используйте 
+        модель принтера (самый надежный способ!) для поиска на сайте производителя или в магазинах, 
+        посмотрите наклейки в отсеке карт или на старых картриджах
+    `,
+  },
+  {
+    id: 2,
+    author: 'Vasya',
+    date: '22.01.2022',
+    question: 'Как узнать, подойдёт ли картридж к моему принтеру?',
+    answer: `
+        Чтобы узнать, подойдет ли картридж, используйте 
+        модель принтера (самый надежный способ!) для поиска на сайте производителя или в магазинах, 
+        посмотрите наклейки в отсеке карт или на старых картриджах. Чтобы узнать, подойдет ли картридж, используйте 
+        модель принтера (самый надежный способ!) для поиска на сайте производителя или в магазинах, 
+        посмотрите наклейки в отсеке карт или на старых картриджах. Чтобы узнать, подойдет ли картридж, используйте 
+        модель принтера (самый надежный способ!) для поиска на сайте производителя или в магазинах, 
+        посмотрите наклейки в отсеке карт или на старых картриджах
+    `,
+  },
+]);
 
-const { data: product } = await useAsyncData("product", () => {
+const activeReviewTab = ref<'reviews' | 'faq'>('reviews');
+
+const { data: product } = await useAsyncData('product', () => {
   return Promise.resolve({
-    name: "Картридж СF259XL для HP LJ Pro M304, LJ Pro M404",
+    name: 'Картридж СF259XL для HP LJ Pro M304, LJ Pro M404',
     price: 2100,
     oldPrice: 3000,
-    discount: "3%",
+    discount: '3%',
     images: Array.from({ length: 5 }, (_, i) => `/images/product-variant.jpg`),
     variants: Array.from(
       { length: 6 },
       (_, i) => `/images/product-variant.jpg`,
     ),
-    packs: ["1", "3", "5", "7"],
-    volumes: ["1600", "2000", "6000", "8000"],
+    packs: ['1', '3', '5', '7'],
+    volumes: ['1600', '2000', '6000', '8000'],
     specs: [
-      { label: "Вид", value: "IPS матрица" },
-      { label: "Цвет", value: "Черный матовый" },
-      { label: "Емкость", value: "10 бит" },
-      { label: "Совместимость", value: "macOS, Windows, Linux" },
+      { label: 'Вид', value: 'IPS матрица' },
+      { label: 'Цвет', value: 'Черный матовый' },
+      { label: 'Емкость', value: '10 бит' },
+      { label: 'Совместимость', value: 'macOS, Windows, Linux' },
     ],
     reviewsPhotos: Array.from(
       { length: 8 },
@@ -161,6 +224,7 @@ const handleAddToCart = (id: number): void => {
                     </div>
                     <div
                       class="product-nums__item product-nums__item--questions"
+                      @click="showModalAnswers = true"
                     >
                       <div class="product-nums__item-icon">
                         <Icon name="ds:icon-comment" />
@@ -553,28 +617,27 @@ const handleAddToCart = (id: number): void => {
         </div>
       </div>
     </div>
-    <Teleport to="body">
-      <div
-        v-if="isGalleryOpen"
-        class="gallery-modal"
-        @click.self="isGalleryOpen = false"
-      >
-        <div class="modal-inner">
-          <ClientOnly>
-            <Swiper
-              :navigation="true"
-              :modules="[Navigation]"
-              class="full-viewer"
-            >
-              <SwiperSlide v-for="(img, i) in product.reviewsPhotos" :key="i">
-                <NuxtImg src="/images/product.jpg" />
-              </SwiperSlide>
-            </Swiper>
-          </ClientOnly>
-          <button class="close-modal" @click="isGalleryOpen = false">✕</button>
+  </div>
+
+  <div class="answers-modal" :class="{ 'is-open': showModalAnswers }">
+    <div class="answers-modal__head">
+      <div class="answers-modal__top">
+        <div class="answers-modal__back" @click="showModalAnswers = false">
+          <Icon name="ds:icon-arrow-left" size="18px"/>
+        </div>
+        <div class="answers-modal__title">Вопросы о товаре</div>
+      </div>
+      <div class="answers-modal__info">
+        <div class="answers-modal__count">26 вопросов</div>
+        <div class="answers-modal__add">
+          <UiButton>Задать вопрос</UiButton>
         </div>
       </div>
-    </Teleport>
+    </div>
+
+    <div class="answers-modal__content">
+      <AnswersItem v-for="answer in answers" v-bind="answer" :key="answer.id" />
+    </div>
   </div>
 </template>
 
@@ -587,8 +650,79 @@ const handleAddToCart = (id: number): void => {
   }
 }
 
+.answers-modal {
+  position: fixed;
+  height: 100vh;
+  padding-bottom: calc(80px + env(safe-area-inset-bottom));
+  overflow-y: scroll;
+  z-index: 11;
+  background: #fff;
+  top: 0;
+  left: 0;
+  width: 100%;
+  transform: translateX(-100%);
+  transition: transform 0.2s ease-in;
+  background-color: #f5f5f5;
+  &.is-open {
+    transform: translateX(0);
+  }
+  &__head {
+    position: sticky;
+    top: 0;
+    background: #fff;
+    border-radius: 0 0 15px 15px;
+    padding: 10px;
+    z-index: 2;
+  }
+  &__back {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 44px;
+    height: 44px;
+    color: $secondaryColor;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    span {
+      transform: rotate(180deg);
+    }
+  }
+  &__top {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 44px;
+  }
+  &__title {
+    font-size: 18px;
+    font-weight: 600;
+  }
+  &__count {
+    font-size: 18px;
+    font-weight: 600;
+  }
+  &__info {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    align-items: center;
+    margin-top: 20px;
+  }
+  &__content {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
 .product-images {
   margin-top: 50px;
+  @media (max-width: 768px) {
+    margin-bottom: 50px;
+  }
 }
 
 .product-m-actions {
@@ -600,7 +734,7 @@ const handleAddToCart = (id: number): void => {
   width: 100%;
   background-color: $secondaryColor;
   border-radius: 20px 20px 0 0;
-  @include respond-to("lg") {
+  @include respond-to('lg') {
     display: none;
   }
   &__row {
@@ -699,7 +833,7 @@ const handleAddToCart = (id: number): void => {
   gap: 16px;
   align-items: stretch;
   flex-direction: column;
-  @include respond-to("lg") {
+  @include respond-to('lg') {
     flex-direction: row;
   }
 }
@@ -710,7 +844,7 @@ const handleAddToCart = (id: number): void => {
   flex-direction: column;
   width: 100%;
   padding-top: 10px;
-  @include respond-to("lg") {
+  @include respond-to('lg') {
     padding-top: 0;
   }
 }
@@ -718,7 +852,7 @@ const handleAddToCart = (id: number): void => {
 .product-breadcrumbs {
   margin: 30px 0;
   display: none;
-  @include respond-to("lg") {
+  @include respond-to('lg') {
     display: block;
   }
 }
@@ -736,7 +870,7 @@ const handleAddToCart = (id: number): void => {
   margin: 0;
   line-height: 130%;
   max-width: 260px;
-  @include respond-to("md") {
+  @include respond-to('md') {
     font-size: 24px;
     max-width: none;
   }
@@ -751,14 +885,14 @@ const handleAddToCart = (id: number): void => {
 .product-slider {
   border-radius: 6px;
   background-color: #fff;
-  @include respond-to("lg") {
+  @include respond-to('lg') {
     border-radius: 0;
     background-color: transparent;
   }
   &__price {
     display: flex;
     padding: 10px;
-    @include respond-to("lg") {
+    @include respond-to('lg') {
       display: none;
     }
   }
@@ -769,7 +903,7 @@ const handleAddToCart = (id: number): void => {
   padding: 10px;
   background: #fff;
   border-radius: 6px;
-  @include respond-to("md") {
+  @include respond-to('md') {
     display: none;
   }
 
@@ -795,7 +929,7 @@ const handleAddToCart = (id: number): void => {
   display: none;
   margin-top: 50px;
   margin-bottom: 50px;
-  @include respond-to("md") {
+  @include respond-to('md') {
     display: block;
   }
   &__tabs {
@@ -829,7 +963,7 @@ const handleAddToCart = (id: number): void => {
   gap: 20px;
   margin-bottom: 30px;
 
-  @include respond-to("md") {
+  @include respond-to('md') {
     display: none;
   }
 }
@@ -903,7 +1037,7 @@ const handleAddToCart = (id: number): void => {
       -ms-overflow-style: none;
       scrollbar-width: none;
     }
-    @include respond-to("lg") {
+    @include respond-to('lg') {
       margin-top: 30px;
     }
   }
@@ -933,7 +1067,7 @@ const handleAddToCart = (id: number): void => {
     font-weight: 500;
     margin-top: 10px;
     padding: 0 10px;
-    @include respond-to("lg") {
+    @include respond-to('lg') {
       padding: 0;
     }
   }
@@ -954,7 +1088,7 @@ const handleAddToCart = (id: number): void => {
     font-size: 18px;
     font-weight: 500;
     padding: 0 10px;
-    @include respond-to("lg") {
+    @include respond-to('lg') {
       padding: 0;
       font-size: 20px;
     }
@@ -1021,7 +1155,7 @@ const handleAddToCart = (id: number): void => {
     font-size: 18px;
     font-weight: 500;
     padding: 0 10px;
-    @include respond-to("lg") {
+    @include respond-to('lg') {
       padding: 0;
       font-size: 20px;
     }
@@ -1160,14 +1294,14 @@ const handleAddToCart = (id: number): void => {
 
 .product-specs {
   padding: 0 10px;
-  @include respond-to("lg") {
+  @include respond-to('lg') {
     padding: 0;
   }
   &__row {
     display: flex;
     gap: 20px;
     padding: 6px 0;
-    @include respond-to("lg") {
+    @include respond-to('lg') {
       min-height: 40px;
       align-items: center;
     }
@@ -1175,7 +1309,7 @@ const handleAddToCart = (id: number): void => {
   &__title {
     flex: 0 0 50%;
     color: rgba($primaryColor, 0.6);
-    @include respond-to("lg") {
+    @include respond-to('lg') {
       flex: 0 0 360px;
     }
   }
@@ -1185,7 +1319,7 @@ const handleAddToCart = (id: number): void => {
 .product-delivery {
   padding: 0 10px;
   line-height: 1.5;
-  @include respond-to("lg") {
+  @include respond-to('lg') {
     padding: 0;
   }
 }
@@ -1254,7 +1388,7 @@ const handleAddToCart = (id: number): void => {
     font-size: 20px;
     font-weight: 600;
     line-height: 130%;
-    @include respond-to("lg") {
+    @include respond-to('lg') {
       font-size: 30px;
     }
   }
@@ -1263,7 +1397,7 @@ const handleAddToCart = (id: number): void => {
     text-decoration: line-through;
     font-weight: 500;
     line-height: 130%;
-    @include respond-to("lg") {
+    @include respond-to('lg') {
       font-size: 20px;
     }
   }
@@ -1273,7 +1407,7 @@ const handleAddToCart = (id: number): void => {
     font-size: 14px;
     font-weight: 500;
     line-height: 130%;
-    @include respond-to("lg") {
+    @include respond-to('lg') {
       font-size: 20px;
     }
   }

@@ -26,7 +26,7 @@ const images = [
       :modules="[Pagination]"
       :loop="true"
       slidesPerView: 1,
-      spaceBetween: 40,
+      spaceBetween: 0,
       :breakpoints="{
         320: {
           pagination: {
@@ -36,16 +36,18 @@ const images = [
         },
         480: {
             slidesPerView: 2,
+            spaceBetween: 10,
         },
         1024: {
           pagination: { enabled: false },
           slidesPerView: 4,
+          spaceBetween: 20,
         },
       }"
       class="b-swiper"
     >
       <SwiperSlide v-for="(img, idx) in images" :key="idx">
-        <img :src="img" alt="Slide image" />
+        <NuxtImg :src="img" />
       </SwiperSlide>
       <div class="swiper-pagination"></div>
     </Swiper>
@@ -55,7 +57,11 @@ const images = [
 <style lang="scss">
 .b-swiper {
   .swiper-slide {
-    height: 440px;
+    
+     @media (max-width: 1024px) {
+        width: 100%;
+        height: auto;
+     }
   }
 }
 
@@ -68,8 +74,10 @@ const images = [
 
   .b-swiper {
     width: 100%;
-    height: 440px;
     padding: 0;
+    @media (max-width: 768px) {
+      padding-bottom: 33px;
+    }
     img {
       width: 100%;
       height: 100%;
