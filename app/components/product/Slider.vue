@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { Swiper, SwiperSlide } from "swiper/vue";
-import { Navigation, Thumbs, Pagination } from "swiper/modules";
-import type { Swiper as SwiperType } from "swiper";
+import { Swiper, SwiperSlide } from 'swiper/vue';
+import { Navigation, Thumbs, Pagination } from 'swiper/modules';
+import type { Swiper as SwiperType } from 'swiper';
 
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
-import "swiper/css/thumbs";
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import 'swiper/css/thumbs';
 
 const thumbsSwiper = ref<SwiperType | null>(null);
 const setThumbsSwiper = (swiper: SwiperType) => {
@@ -14,16 +14,16 @@ const setThumbsSwiper = (swiper: SwiperType) => {
 };
 
 const images = [
-  "/images/printer-1.png",
-  "https://dsquare.storage.yandexcloud.net/4137/4137/4137_premium_43r_g3.webp?v1776337499",
-  "/images/printer-1.png",
-  "/images/printer-1.png",
-  "/images/printer-1.png",
-  "/images/printer-1.png",
-  "/images/printer-1.png",
-  "/images/printer-1.png",
-  "/images/printer-1.png",
-  "/images/printer-1.png",
+  '/images/printer-1.png',
+  'https://dsquare.storage.yandexcloud.net/4137/4137/4137_premium_43r_g3.webp?v1776337499',
+  '/images/printer-1.png',
+  '/images/printer-1.png',
+  '/images/printer-1.png',
+  '/images/printer-1.png',
+  '/images/printer-1.png',
+  '/images/printer-1.png',
+  '/images/printer-1.png',
+  '/images/printer-1.png',
 ];
 </script>
 
@@ -49,7 +49,7 @@ const images = [
       class="main-swiper"
     >
       <SwiperSlide v-for="(img, idx) in images" :key="idx">
-        <img :src="img" alt="Slide image" />
+        <NuxtImg :src="img" alt="Slide image" />
       </SwiperSlide>
       <div class="swiper-pagination"></div>
     </Swiper>
@@ -74,7 +74,7 @@ const images = [
           :key="idx"
           class="thumb-slide"
         >
-          <img :src="img" alt="Thumb" />
+          <NuxtImg :src="img" alt="Thumb" />
         </SwiperSlide>
       </Swiper>
       <div class="swiper-button-next thumb-next"></div>
@@ -100,17 +100,17 @@ const images = [
 }
 .slider-container {
   width: 100%;
-  
+
   margin: 0 auto;
   height: 100%;
   position: relative;
-  @include respond-to("lg") {
+  @include respond-to('lg') {
     max-width: 400px;
   }
-  @include respond-to("xl") {
+  @include respond-to('xl') {
     max-width: 460px;
   }
-  @include respond-to("2xl") {
+  @include respond-to('2xl') {
     max-width: 560px;
   }
 
@@ -121,7 +121,7 @@ const images = [
     border-radius: 6px;
     background-color: #fff0c7;
     padding: 0;
-    @include respond-to("lg") {
+    @include respond-to('lg') {
       border-radius: 16px;
     }
     img {
@@ -137,7 +137,7 @@ const images = [
     left: 10px;
     bottom: 10px;
     display: none;
-    @include respond-to("lg") {
+    @include respond-to('lg') {
       display: block;
     }
 
@@ -214,7 +214,7 @@ const images = [
     display: flex;
     justify-content: space-between;
     z-index: 1;
-    @include respond-to("lg") {
+    @include respond-to('lg') {
       display: none;
     }
     .ui-button {
