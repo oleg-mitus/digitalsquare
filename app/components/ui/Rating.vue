@@ -5,12 +5,14 @@ interface Props {
   modelValue?: number;
   maxStars?: number;
   readonly?: boolean;
+  variant?: "default" | "info";
 }
 
 const props = withDefaults(defineProps<Props>(), {
   modelValue: 0,
   maxStars: 5,
   readonly: false,
+  variant: "default",
 });
 
 const emit = defineEmits<{
@@ -38,7 +40,7 @@ const handleMouseLeave = (): void => {
 <template>
   <div
     class="star-rating"
-    :class="{ 'is-readonly': readonly }"
+    :class="[{ 'is-readonly': readonly }, `variant-${variant}`]"
     @mouseleave="handleMouseLeave"
   >
     <button
@@ -63,7 +65,15 @@ const handleMouseLeave = (): void => {
   padding: 10px;
   border-radius: 10px;
   height: 55px;
-  background-color: #F5F7FA;
+  background-color: $greyContentColor;
+  &.variant-info {
+    height: 20px;
+    padding: 0;
+    background-color: #fff;
+    @include respond-to("md") {
+      background-color: $greyContentColor;
+    }
+  }
   &__btn {
     background: none;
     border: none;
