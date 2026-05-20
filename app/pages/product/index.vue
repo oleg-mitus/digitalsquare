@@ -47,7 +47,7 @@ const { data: product } = await useAsyncData("product", () => {
       (_, i) => `/images/product-variant.jpg`,
     ),
     packs: ["1", "3", "5", "7"],
-    volumes: ["1600", "2000", "4000", "4000"],
+    volumes: ["1600", "2000", "6000", "8000"],
     specs: [
       { label: "Вид", value: "IPS матрица" },
       { label: "Цвет", value: "Черный матовый" },
@@ -143,6 +143,56 @@ const handleAddToCart = (id: number): void => {
                 </div>
               </div>
 
+              <!-- Блок на мобилке -->
+              <div class="product-m_block">
+                <div class="product-m_block__title">
+                  <h1 class="product-title">{{ product.name }}</h1>
+                  <div class="product-m_block__title-more">Еще</div>
+                </div>
+                <div class="product-m_block__row">
+                  <div class="product-nums">
+                    <div class="product-nums__item product-nums__item--rating">
+                      <div class="product-nums__item-icon">
+                        <Icon name="ds:icon-star" />
+                        <span>5</span>
+                      </div>
+                      <span class="product-nums__sep"></span>
+                      <div>205 отзывов</div>
+                    </div>
+                    <div
+                      class="product-nums__item product-nums__item--questions"
+                    >
+                      <div class="product-nums__item-icon">
+                        <Icon name="ds:icon-comment" />
+                        <span>4</span>
+                      </div>
+                      <div>вопроса</div>
+                    </div>
+                  </div>
+                  <div class="product-reviews">
+                    <div class="product-reviews__title">
+                      Фото и видео покупателей:
+                    </div>
+                    <div
+                      class="product-reviews__container"
+                      @click="isGalleryOpen = true"
+                    >
+                      <div
+                        v-for="(img, i) in product.reviewsPhotos.slice(0, 4)"
+                        :key="i"
+                        class="product-reviews__item"
+                        :style="{ transform: `translateX(${i * 35}px)` }"
+                      >
+                        <NuxtImg src="/images/product-variant.jpg" />
+                        <div v-if="i === 3" class="product-reviews__more">
+                          +{{ product.reviewsPhotos.length - 4 }}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
               <!-- Блок с выбором количества в упаковке -->
               <div class="product-package">
                 <div class="product-package__title">
@@ -210,7 +260,7 @@ const handleAddToCart = (id: number): void => {
               </div>
 
               <!-- Блок фото и видео от покупателей -->
-              <div class="product-reviews">
+              <div class="product-reviews only-desktop">
                 <div class="product-reviews__title">
                   Фото и видео покупателей:
                 </div>
@@ -417,7 +467,7 @@ const handleAddToCart = (id: number): void => {
                 variant="secondary"
                 radius="lg"
                 size="lg"
-                @click="navigateTo('/catalog')"
+                @click="navigateTo('/cart')"
                 v-if="isInCart(1)"
               >
                 В корзине
@@ -447,6 +497,45 @@ const handleAddToCart = (id: number): void => {
             </div>
           </div>
         </div>
+      </div>
+      <div class="product-images">
+        <ProductImages />
+      </div>
+      <div class="product-answers">
+        <div class="product-answers__tabs">
+          <div
+            class="product-answers__tab"
+            :class="{ active: activeReviewTab === 'reviews' }"
+            @click="activeReviewTab = 'reviews'"
+          >
+            Отзывы (250)
+          </div>
+          <div
+            class="product-answers__tab"
+            :class="{ active: activeReviewTab === 'faq' }"
+            @click="activeReviewTab = 'faq'"
+          >
+            Вопрос-ответ (6) <Icon name="ds:icon-comment" :size="20" />
+          </div>
+        </div>
+        <div class="product-answers__content">
+          <div
+            class="product-answers__panel"
+            :class="{ active: activeReviewTab === 'reviews' }"
+          >
+            <Reviews />
+          </div>
+          <div
+            class="product-answers__panel"
+            :class="{ active: activeReviewTab === 'faq' }"
+          >
+            <Answers />
+          </div>
+        </div>
+      </div>
+      <div class="product-m_answers">
+        <ReviewsMobile />
+        <AnswersMobile />
       </div>
     </div>
     <div class="catalog-products">
@@ -496,6 +585,10 @@ const handleAddToCart = (id: number): void => {
       display: none;
     }
   }
+}
+
+.product-images {
+  margin-top: 50px;
 }
 
 .product-m-actions {
@@ -638,9 +731,15 @@ const handleAddToCart = (id: number): void => {
 }
 
 .product-title {
-  font-size: 24px;
+  font-size: 14px;
+  font-weight: 500;
   margin: 0;
   line-height: 130%;
+  max-width: 260px;
+  @include respond-to("md") {
+    font-size: 24px;
+    max-width: none;
+  }
 }
 
 .product-slider,
@@ -665,17 +764,101 @@ const handleAddToCart = (id: number): void => {
   }
 }
 
+.product-m_block {
+  margin: 15px -10px;
+  padding: 10px;
+  background: #fff;
+  border-radius: 6px;
+  @include respond-to("md") {
+    display: none;
+  }
+
+  &__title {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 10px;
+    &-more {
+      font-size: 14px;
+      color: $secondaryColor;
+    }
+  }
+
+  &__row {
+    margin-top: 10px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.product-answers {
+  display: none;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  @include respond-to("md") {
+    display: block;
+  }
+  &__tabs {
+    display: flex;
+    gap: 30px;
+    margin-bottom: 30px;
+  }
+  &__tab {
+    display: flex;
+    gap: 10px;
+    color: rgba($blackColor, 0.5);
+    font-size: 24px;
+    font-weight: 600;
+    cursor: pointer;
+    &.active,
+    &:hover {
+      color: $blackColor;
+    }
+  }
+  &__panel {
+    display: none;
+    &.active {
+      display: block;
+    }
+  }
+}
+
+.product-m_answers {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-bottom: 30px;
+
+  @include respond-to("md") {
+    display: none;
+  }
+}
+
 // Блок с количеством отзывов и вопросов
 .product-nums {
   display: flex;
   gap: 18px;
   margin-top: 20px;
+  @media (max-width: 768px) {
+    gap: 6px;
+    align-items: center;
+    margin-top: 0;
+  }
   &__item {
     display: flex;
     gap: 10px;
     align-items: center;
+    @media (max-width: 768px) {
+      flex-direction: column;
+      gap: 6px;
+      font-size: 12px;
+      padding: 0 10px;
+    }
     &--questions {
       gap: 12px;
+      @media (max-width: 768px) {
+        gap: 6px;
+      }
     }
     &-icon {
       display: flex;
@@ -690,6 +873,9 @@ const handleAddToCart = (id: number): void => {
     height: 4px;
     background-color: $primaryColor;
     border-radius: 50%;
+    @media (max-width: 768px) {
+      display: none;
+    }
   }
 }
 
@@ -908,23 +1094,31 @@ const handleAddToCart = (id: number): void => {
       color: rgba($primaryColor, 0.6);
       flex: 0 0 200px;
     }
-    &-value {
-    }
   }
 }
 
 // Блок фото и видео от покупателей
 .product-reviews {
   margin-top: 30px;
+  @media (max-width: 768px) {
+    margin-top: 0;
+  }
   &__title {
     font-size: 20px;
     font-weight: 600;
+    @media (max-width: 768px) {
+      display: none;
+    }
   }
   &__container {
     position: relative;
     height: 100px;
     margin-top: 12px;
     cursor: pointer;
+    @media (max-width: 768px) {
+      margin-top: 0;
+      height: 72px;
+    }
   }
   &__item {
     position: absolute;
@@ -933,6 +1127,12 @@ const handleAddToCart = (id: number): void => {
     border-radius: 15px;
     border: 2px solid #fff;
     overflow: hidden;
+    @media (max-width: 768px) {
+      width: 70px;
+      height: 70px;
+      border: 1px solid #fff;
+      border-radius: 10px;
+    }
     &:last-child {
       border: none;
     }
@@ -952,6 +1152,9 @@ const handleAddToCart = (id: number): void => {
     align-items: center;
     justify-content: center;
     font-size: 24px;
+    @media (max-width: 768px) {
+      font-size: 14px;
+    }
   }
 }
 
@@ -984,51 +1187,6 @@ const handleAddToCart = (id: number): void => {
   line-height: 1.5;
   @include respond-to("lg") {
     padding: 0;
-  }
-}
-
-.grid-boxes {
-  display: flex;
-  gap: 15px;
-  .pack-box {
-    width: 90px;
-    height: 80px;
-    border: 2px solid #eee;
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    background: #fff;
-    font-weight: 500;
-    transition: all 0.2s;
-    &:hover {
-      border-color: #ccc;
-    }
-    &.active {
-      border-color: #007bff;
-      color: #007bff;
-      background: #f0f7ff;
-    }
-  }
-}
-
-.price-wrapper {
-  margin-bottom: 25px;
-  .price-now {
-    font-size: 36px;
-    font-weight: 800;
-    display: block;
-  }
-  .price-old {
-    color: #999;
-    text-decoration: line-through;
-    font-size: 18px;
-  }
-  .discount-tag {
-    margin-top: 8px;
-    color: #ff4757;
-    font-weight: 600;
   }
 }
 
@@ -1081,6 +1239,8 @@ const handleAddToCart = (id: number): void => {
   flex-direction: column;
   gap: 20px;
 }
+
+// Цена
 .product-price {
   display: flex;
   flex-direction: column;

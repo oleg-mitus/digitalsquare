@@ -30,7 +30,7 @@
 
 <script setup lang="ts">
 interface Props {
-  variant?: "primary" | "secondary" | "white" | "yellow" | "green" | "transparent";
+  variant?: "primary" | "secondary" | "white" | "yellow" | "green" | "ghost" | "transparent";
   size?: "xs" | "md" | "lg";
   color?: "gray" | "orange";
   icon?: string;
@@ -148,6 +148,16 @@ const tag = computed(() => (props.href ? "a" : "button"));
     }
     .ui-button__loading {
       background-color: $greenColor;
+    }
+  }
+  &--ghost {
+    background: #fff9eb;
+    color: $primaryColor;
+    &:hover:not(:disabled) {
+      background-color: $secondaryColor;
+    }
+    .ui-button__loading {
+      background-color: #fff9eb;
     }
   }
   &--vk {
